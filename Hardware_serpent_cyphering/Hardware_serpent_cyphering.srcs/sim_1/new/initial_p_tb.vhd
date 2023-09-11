@@ -19,8 +19,8 @@ component Initial_P
         clk : in std_logic;
         go :  in std_logic;
         ready_busy : out std_logic;
-        plaintext_in : in std_logic_vector(127 downto 0);
-        permutedtext_out : out std_logic_vector(127 downto 0)
+        plaintext_in : in std_logic_vector(0 to 127);
+        permutedtext_out : out std_logic_vector(0 to 127)
     ); 
 end component;
 -- clock signals
@@ -30,8 +30,8 @@ constant clk_period : time := 20 ns;
 -- componenet signals
 signal s_go : std_logic;
 signal s_ready_busy : std_logic;
-signal s_plaintext_in : std_logic_vector(127 downto 0);
-signal s_permutedtext_out : std_logic_vector(127 downto 0);
+signal s_plaintext_in : std_logic_vector(0 to 127);
+signal s_permutedtext_out : std_logic_vector(0 to 127);
 
 begin
 u1 : Initial_P port map (
@@ -51,14 +51,22 @@ begin
     s_go <= '0';
     s_plaintext_in <= (others => '0');
     
-    wait for 20 ns;
+    wait for 30 ns;
+    --general test
+    s_plaintext_in <= "01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101";
+    
+    wait for 30 ns;
     
     s_go <= '1';
-    s_plaintext_in <= "01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101";
-
-    wait for 1000 ns;
     
-    s_go <= '0';
+    wait for 30 ns;
+    
+    s_plaintext_in <= "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010";
+
+    wait for 30 ns;
+
+    s_plaintext_in <= "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100";
+
     wait;
 
 end process;

@@ -14,8 +14,8 @@ entity Initial_P is
     clk : in std_logic;
     go :  in std_logic;
     ready_busy : out std_logic;
-    plaintext_in : in std_logic_vector(127 downto 0);
-    permutedtext_out : out std_logic_vector(127 downto 0)
+    plaintext_in : in std_logic_vector(0 to 127);
+    permutedtext_out : out std_logic_vector(0 to 127)
     ); 
 end Initial_P;
 
@@ -32,33 +32,36 @@ signal ip_table  : t_array := (
     24, 56, 88, 120, 25, 57, 89, 121, 26, 58, 90, 122, 27, 59, 91, 123,
     28, 60, 92, 124, 29, 61, 93, 125, 30, 62, 94, 126, 31, 63, 95, 127
     );
-signal s_plaintext_in : std_logic_vector(127 downto 0);
-signal s_permutedtext_out : std_logic_vector(127 downto 0);
-signal temp : integer;
+signal s_plaintext_in : std_logic_vector(0 to 127);
+signal s_permutedtext_out : std_logic_vector(0 to 127);
+--signal temp : integer;
 
 begin
     
     
     PERMUTATION : process(clk,go)
-        variable compt : integer := 127;
+        variable compt : integer := 0;
+        variable temp : integer;
     begin
     
         if rising_edge(clk) then
             if(go = '1') then
-                s_plaintext_in <= plaintext_in;
-                for compt in 127 to 0 loop
-                    --s_permutedtext_out(compt) <= s_plaintext_in(ip_table(compt));
-                    s_permutedtext_out(compt) <= s_plaintext_in(compt);
-                end loop;
                 ready_busy <= '1';
-                permutedtext_out <= s_permutedtext_out;
+                for compt in 0 to 127 loop
+                    --s_permutedtext_out(compt) <= s_plaintext_in(ip_table(compt));
+                    temp := ip_table(compt);
+                    s_permutedtext_out(compt) <= s_plaintext_in(temp);
+                    --s_permutedtext_out <= compt;
+                end loop;
+                --permutedtext_out <= s_permutedtext_out;
             elsif (go = '0') then
                 ready_busy <= '0';
-                permutedtext_out <= (others => '0');
+                s_permutedtext_out <= (others => '0');
             end if;
         end if;
         
     end process PERMUTATION;
-    --permutedtext_out <= s_permutedtext_out;
+    permutedtext_out <= s_permutedtext_out;
+    s_plaintext_in <= plaintext_in;
 
 end Behavioral;
