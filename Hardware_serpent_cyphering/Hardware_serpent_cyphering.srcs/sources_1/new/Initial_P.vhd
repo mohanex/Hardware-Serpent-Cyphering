@@ -34,10 +34,9 @@ signal ip_table  : t_array := (
     );
 signal s_plaintext_in : std_logic_vector(0 to 127);
 signal s_permutedtext_out : std_logic_vector(0 to 127);
---signal temp : integer;
+signal temp2 : integer;
 
 begin
-    
     
     PERMUTATION : process(clk,go)
         variable compt : integer := 0;
@@ -50,6 +49,7 @@ begin
                 for compt in 0 to 127 loop
                     --s_permutedtext_out(compt) <= s_plaintext_in(ip_table(compt));
                     temp := ip_table(compt);
+                    temp2 <= temp;
                     s_permutedtext_out(compt) <= s_plaintext_in(temp);
                     --s_permutedtext_out <= compt;
                 end loop;
