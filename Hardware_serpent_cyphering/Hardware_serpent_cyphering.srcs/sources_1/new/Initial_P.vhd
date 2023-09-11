@@ -50,13 +50,13 @@ begin
                     --s_permutedtext_out(compt) <= s_plaintext_in(ip_table(compt));
                     temp := ip_table(compt);
                     temp2 <= temp;
-                    s_permutedtext_out(compt) <= s_plaintext_in(temp);
+                    s_permutedtext_out(temp) <= s_plaintext_in(compt);
                     --s_permutedtext_out <= compt;
                 end loop;
                 --permutedtext_out <= s_permutedtext_out;
             elsif (go = '0') then
                 ready_busy <= '0';
-                s_permutedtext_out <= (others => '0');
+                s_permutedtext_out <= (others => '1');
             end if;
         end if;
         
