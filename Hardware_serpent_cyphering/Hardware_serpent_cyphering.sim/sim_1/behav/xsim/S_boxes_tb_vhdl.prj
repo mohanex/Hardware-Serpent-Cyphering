@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd" \
+"../../../../Hardware_serpent_cyphering.srcs/sim_1/new/S_boxes_tb.vhd" \
+
+# Do not sort compile order
+nosort

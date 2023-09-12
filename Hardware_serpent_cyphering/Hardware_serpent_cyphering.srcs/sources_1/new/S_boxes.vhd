@@ -78,6 +78,8 @@ begin
                         read_value_out := S7(read_value_in);
                         converted_read_value_out := std_logic_vector(to_unsigned(read_value_out, converted_read_value_out'length));
                         sboxes_compt := 0;
+                    when others =>
+                        ready_busy <= '0';
                 end case;
                 signal_s_box_out <= converted_read_value_out;
             elsif (go = '0') then
