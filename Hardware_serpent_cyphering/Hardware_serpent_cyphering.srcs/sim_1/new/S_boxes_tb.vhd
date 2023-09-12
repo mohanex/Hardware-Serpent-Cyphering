@@ -51,14 +51,42 @@ begin
     s_s_box_in <= (others => '0');
     
     wait for 30 ns;
-    --general test
-    s_s_box_in <= "0110";
+
+    s_s_box_in <= "0110"; -- should give us 5
+    s_go <= '1';
     
     wait for 30 ns;
     
-    s_go <= '1';
+    s_go <= '0';
     
-    wait for 80 ns;
+    wait for 30 ns;
+
+    s_s_box_in <= "0000"; -- should give us 15
+    s_go <= '1';
+
+    wait for 30 ns;
+    
+    s_go <= '0';
+
+    wait for 30 ns;
+
+    s_s_box_in <= "0001"; -- should give us 6
+    s_go <= '1';
+
+    wait for 30 ns;
+    
+    s_go <= '0';
+
+    wait for 30 ns;
+
+    s_s_box_in <= "1111"; -- should give us 14
+    s_go <= '1';
+
+    wait for 30 ns;
+    
+    s_go <= '0';
+
+    wait for 30 ns;
 end process;
 
 end Behavioral;
