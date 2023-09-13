@@ -21,8 +21,30 @@ end Linear_transformation;
 
 architecture Behavioral of Linear_transformation is
 
-    signal Bi_input : std_logic_vector(0 to 127);
-    signal Bi_output : std_logic_vector(0 to 127);
+    signal sig_Bi_input : std_logic_vector(0 to 127);
+    signal sig_Bi_output : std_logic_vector(0 to 127);
+    signal X0 : std_logic_vector(0 to 31);
+    signal X1 : std_logic_vector(0 to 31);
+    signal X2 : std_logic_vector(0 to 31);
+    signal X3 : std_logic_vector(0 to 31);
+
+    function Xoring(
+        L1 : std_logic_vector(0 to 31),
+        L2 : std_logic_vector(0 to 31),
+        L3 : std_logic_vector(0 to 31)
+    )
+    return std_logic_vector is
+        variable tmp1 : std_logic_vector(0 to 31);
+        variable tmp2 : std_logic_vector(0 to 31);
+    begin
+        for i in 0 to 32 loop
+            tmp1(i) := L1(i) xor L2(i);
+        end loop;
+        for i in 0 to 32 loop
+            tmp2(i) := tmp1(i) xor L3(i);    --does these two run in the same time?
+        end loop;
+        return tmp2;
+    end function Xoring;
 
 begin
 
