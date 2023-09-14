@@ -62,12 +62,13 @@ architecture Behavioral of Linear_transformation is
     )
     return std_logic_vector is
         variable tmp1 : std_logic_vector(0 to div4_bits-1);
+        constant ZERO : std_logic_vector(0 to shift_amount-1) := (others => '0');
     begin
         if shift_amount >= 0 and shift_amount <= 31 then
             tmp1(0 to ((div4_bits-shift_amount)-1) ) := L1(shift_amount to div4_bits-1);
-            tmp1(shift_amount to div4_bits-1) := (others => '0');
+            tmp1((div4_bits-shift_amount) to div4_bits-1) := ZERO;
         else  
-            tmp1 := (others => '0');
+            tmp1 := (others => '1');
         end if;
         return tmp1;
     end function Shifting;
@@ -136,10 +137,17 @@ begin
                 ready_busy <= '1';
                 -------Splitting to 4 quartets--------------
                 Splitting(L1=>Bi_input,quartet1=>X0,quartet2=>X1,quartet3=>X2,quartet4=>X3);
-                
+                ------X0 := X0 <<< 13-----------
+                --X0 <= Rotating(L1=>X0,rotating_amount=>13);
+                ------X2 := X2 <<< 3 --------------
+                --X2 <= Rotating(L1=>X2,rotating_amount=>3);
+                ------X1 := X1 ? X0 ? X2--------
+                --X1 <= Xoring(L1=>X1,L2=>X0,L3=>X2);
+                ------X0 << 3---------------
+                X0 <= Shifting(L1=>X0,shift_amount=>3);
                 ------Assemble all 4 quartets-----------
-                sig_Bi_output(0 to div4_bits-1) <= X0;
-                sig_Bi_output(32 to 127) <= (others => '0');
+    
+                sig_Bi_output <= Merging(quartet1=>X3,quartet2=>X2,quartet3=>X1,quartet4=>X0);
             elsif (go = '0') then
                 ready_busy <= '0';
                 sig_Bi_output <= (others => '1');
