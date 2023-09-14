@@ -30,7 +30,7 @@ end component;
 
 -- constants
 constant const_full_bits : integer :=128;
-constant const_div4_bits : integer :=32
+constant const_div4_bits : integer :=32;
 
 -- clock signals
 signal clk : std_logic := '0' ;
@@ -43,7 +43,7 @@ signal s_go :  std_logic;
 signal s_ready_busy : std_logic;
 
 begin
-    u1 : linear_trans 
+    u1 : Linear_transformation 
     generic map(
         full_bits => const_full_bits,
         div4_bits => const_div4_bits
@@ -51,7 +51,7 @@ begin
     port map(
         Bi_input => s_Bi_input,
         Bi_output => s_Bi_output,
-        clk = > clk,
+        clk => clk,
         go => s_go,
         ready_busy => s_ready_busy
     );
@@ -64,10 +64,10 @@ begin
         
         wait for 30 ns;
 
-        s_Bi_input <= "0110"; -- should give us 5
+        s_Bi_input <= "01100110011001100110011001100110011001100110011001100110011001100110011001100110011001100110011001100110011001100110011001100110"; -- should give us 5
         s_go <= '1';
         
-        wait for 30 ns;
+        wait for 3000 ns;
     end process;
     
 end Behavioral;

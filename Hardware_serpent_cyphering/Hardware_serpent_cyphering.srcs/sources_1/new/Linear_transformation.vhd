@@ -136,34 +136,10 @@ begin
                 ready_busy <= '1';
                 -------Splitting to 4 quartets--------------
                 Splitting(L1=>Bi_input,quartet1=>X0,quartet2=>X1,quartet3=>X2,quartet4=>X3);
-
-                ------X0 := X0 <<< 13-----------
-                X0 <= Rotating(L1=>X0,rotating_amount=>13);
-                ------X2 := X2 <<< 3 --------------
-                X2 <= Rotating(L1=>X2,rotating_amount=>3);
-                ------X1 := X1 ⊕ X0 ⊕ X2--------
-                X1 <= Xoring(L1=>X1,L2=>X0,L3=>X2);
-                ------X0 << 3---------------
-                tmp_xoring <= Shifting(L1=>X0,shift_amount=>3);
-                ------X3 := X3 ⊕ X2 ⊕ (X0 << 3)-------
-                X3 <= Xoring(L1=>X3,L2=>X2,L3=>tmp_xoring);
-                ------X1 := X1 <<< 1--------------------
-                X1 <= Rotating(L1=>X1,rotating_amount=>1);
-                ------X3 := X3 <<< 7--------------------
-                X3 <= Rotating(L1=>X3,rotating_amount=>7);
-                ------X0 := X0 ⊕ X1 ⊕ X3--------------
-                X0 <= Xoring(L1=>X0,L2=>X1,L3=>X3);
-                ------X1 << 7-------------------------
-                tmp_xoring <= Shifting(L1=>X1,shift_amount=>7);
-                ------X2 := X2 ⊕ X3 ⊕ (X1 << 7)------
-                X2 <= Xoring(L1=>X2,L2=>X3,L3=>tmp_xoring);
-                ------X0 := X0 <<< 5------------------
-                X0 <= Rotating(L1=>X0,rotating_amount=>5);
-                ------X2 := X2 <<< 22-----------------
-                X2 <= Rotating(L1=>X2,rotating_amount=>22);
                 
                 ------Assemble all 4 quartets-----------
-                sig_Bi_output <= Merging(quartet1=>X0,quartet2=>X1,quartet3=>X2,quartet4=>X3);
+                sig_Bi_output(0 to div4_bits-1) <= X0;
+                sig_Bi_output(32 to 127) <= (others => '0');
             elsif (go = '0') then
                 ready_busy <= '0';
                 sig_Bi_output <= (others => '1');
