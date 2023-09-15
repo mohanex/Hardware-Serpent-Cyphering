@@ -32,26 +32,29 @@ architecture Behavioral of Linear_transformation is
     signal X2 : std_logic_vector(0 to div4_bits-1);
     signal X3 : std_logic_vector(0 to div4_bits-1);
     signal tmp_xoring : std_logic_vector(0 to div4_bits-1);
+    signal tmp_function : std_logic_vector(0 to div4_bits-1);
 
 
     ----XORING FUNCTION--------------------------------------
-    function Xoring(
-        L1 : in std_logic_vector(0 to div4_bits-1);
-        L2 : in std_logic_vector(0 to div4_bits-1);
-        L3 : in std_logic_vector(0 to div4_bits-1)
+    procedure Xoring(
+        signal L1 : in std_logic_vector(0 to div4_bits-1);
+        signal L2 : in std_logic_vector(0 to div4_bits-1);
+        signal L3 : in std_logic_vector(0 to div4_bits-1);
+        signal tmp_func : out std_logic_vector(0 to div4_bits-1)
     )
-    return std_logic_vector is
-        variable tmp1 : std_logic_vector(0 to div4_bits-1);
-        variable tmp2 : std_logic_vector(0 to div4_bits-1);
+    is
+        --variable tmp1 : std_logic_vector(0 to div4_bits-1);
+        --variable tmp2 : std_logic_vector(0 to div4_bits-1);
+        variable i : integer := 0;
+        constant d : integer := div4_bits-1;
     begin
-        for i in 0 to 31 loop
-            tmp1(i) := L1(i) xor L2(i); 
+        for i in 0 to d loop
+            tmp_func(i) <= L1(i) xor L2(i) xor L3(i); 
         end loop;
-        for i in 0 to 31 loop
-            tmp2(i) := tmp1(i) xor L3(i);    --does these two run in the same time?
-        end loop;
-        return tmp2;
-    end function Xoring;
+        --for i in 0 to div4_bits-1 loop
+        --    tmp2(i) := tmp1(i) xor L3(i);    --does these two run in the same time?
+        --end loop;
+    end procedure Xoring;
 
 
 
@@ -62,7 +65,7 @@ architecture Behavioral of Linear_transformation is
     )
     return std_logic_vector is
         variable tmp1 : std_logic_vector(0 to div4_bits-1);
-        constant ZERO : std_logic_vector(0 to shift_amount-1) := (others => '0');
+        constant ZERO : std_logic_vector(0 to shift_amount-1) := (others => '1');
     begin
         if shift_amount >= 0 and shift_amount <= 31 then
             tmp1(0 to ((div4_bits-shift_amount)-1) ) := L1(shift_amount to div4_bits-1);
@@ -89,7 +92,7 @@ architecture Behavioral of Linear_transformation is
             tmp1(0 to ((div4_bits-rotating_amount)-1) ) := L1(rotating_amount to div4_bits-1);
             tmp1((div4_bits-rotating_amount) to div4_bits-1) := tmp2;
         else 
-            tmp1 := (others => '0');
+            tmp1 := (others => '1');
         end if;
         return tmp1;
     end function Rotating;
@@ -142,9 +145,10 @@ begin
                 ------X2 := X2 <<< 3 --------------
                 --X2 <= Rotating(L1=>X2,rotating_amount=>3);
                 ------X1 := X1 ? X0 ? X2--------
-                --X1 <= Xoring(L1=>X1,L2=>X0,L3=>X2);
+                Xoring(L1=>X1,L2=>X0,L3=>X2,tmp_func=>tmp_function);
+                X1 <= tmp_function;
                 ------X0 << 3---------------
-                X0 <= Shifting(L1=>X0,shift_amount=>3);
+                --X0 <= Shifting(L1=>X0,shift_amount=>3);
                 ------Assemble all 4 quartets-----------
     
                 sig_Bi_output <= Merging(quartet1=>X3,quartet2=>X2,quartet3=>X1,quartet4=>X0);
