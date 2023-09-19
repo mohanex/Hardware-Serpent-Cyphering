@@ -11,14 +11,14 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity key_scheduling is
     generic(
-        constant full_bits : integer :=256;
+        constant full_bits : integer :=128;
         constant div4_bits : integer :=32;
         constant theta : std_logic_vector := X"9e3779b9"
     );
     Port ( 
         clk : in std_logic;
         go : in std_logic;
-        Ki_number : in std_logic;
+        Ki_number : in std_logic; --key number 
         user_key : in std_logic_vector(0 to full_bits-1);
         ready_busy : out std_logic;
         Ki : out std_logic_vector(0 to div4_bits-1)
@@ -26,6 +26,12 @@ entity key_scheduling is
 end key_scheduling;
 
 architecture Behavioral of key_scheduling is
+
+    ----SIGNALS--------------------------------------------------
+    type w_array is array (-8 to 131) of STD_LOGIC_VECTOR(31 downto 0);
+    signal w : w_array;
+    
+    
     ----SPLITTING PROCEDURE--------------------------------------
     procedure  Splitting(
         L1 : in std_logic_vector(0 to full_bits-1);
@@ -74,11 +80,38 @@ architecture Behavioral of key_scheduling is
         tmp1((7*div4_bits) to (8*div4_bits)-1) := quartet_8;
         return tmp1;
     end function  Merging;
+    
+        ----ROTATING FUNCTION--------------------------------------
+    function Rotating(
+        L1 : in std_logic_vector(0 to div4_bits-1);
+        rotating_amount : in integer
+    )
+    return std_logic_vector is
+        variable tmp1 : std_logic_vector(0 to div4_bits-1);
+        variable tmp2 : std_logic_vector(0 to rotating_amount-1);
+    begin
+        if rotating_amount >= 0 and rotating_amount <= 31 then
+            tmp2 := L1(0 to rotating_amount-1);
+            tmp1(0 to ((div4_bits-rotating_amount)-1) ) := L1(rotating_amount to div4_bits-1);
+            tmp1((div4_bits-rotating_amount) to div4_bits-1) := tmp2;
+        else 
+            tmp1 := (others => '0');
+        end if;
+        return tmp1;
+    end function Rotating;
 begin
 
     Scheduling : process(go)
+    variable i : integer := -8;
         begin
-            
+            if(go='1') then
+                ready_busy <= '1';
+                for i := 0 to 131 loop
+                
+                end loop;
+            elsif (go = '0') then
+                ready_busy <= '0';
+            end if;
     end process Scheduling;
 
 end Behavioral;

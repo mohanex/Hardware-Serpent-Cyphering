@@ -52,7 +52,7 @@ begin
     
     wait for 30 ns;
 
-    s_s_box_in <= "0110"; -- should give us 5
+    s_s_box_in <= "0010"; -- should give us 5
     s_go <= '1';
     
     wait for 30 ns;
@@ -61,7 +61,7 @@ begin
     
     wait for 30 ns;
 
-    s_s_box_in <= "0000"; -- should give us 15
+    s_s_box_in <= "1111"; -- should give us 15
     s_go <= '1';
 
     wait for 30 ns;
@@ -70,16 +70,7 @@ begin
 
     wait for 30 ns;
 
-    s_s_box_in <= "0001"; -- should give us 6
-    s_go <= '1';
-
-    wait for 30 ns;
-    
-    s_go <= '0';
-
-    wait for 30 ns;
-
-    s_s_box_in <= "1111"; -- should give us 14
+    s_s_box_in <= "0110"; -- should give us 6
     s_go <= '1';
 
     wait for 30 ns;

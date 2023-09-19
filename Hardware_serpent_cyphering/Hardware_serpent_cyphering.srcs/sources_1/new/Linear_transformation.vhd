@@ -30,7 +30,6 @@ architecture Behavioral of Linear_transformation is
     signal sig_Bi_input : std_logic_vector(0 to full_bits-1);
     signal sig_Bi_output : std_logic_vector(0 to full_bits-1);
     
-    
     ----XORING FUNCTION--------------------------------------
     function Xoring(
          L1 : in std_logic_vector(0 to div4_bits-1);
