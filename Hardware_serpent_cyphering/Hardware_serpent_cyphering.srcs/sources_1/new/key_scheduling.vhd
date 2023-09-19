@@ -56,7 +56,7 @@ architecture Behavioral of key_scheduling is
         quartet_8 := L1((7*div4_bits) to (8*div4_bits)-1);  -- 224 -> 255
     end procedure  Splitting;
     
-    ----MERGING FUCNTION-----------------------------------------
+    ----MERGING FUNCTION-----------------------------------------
     function  Merging(
         quartet_1 : in std_logic_vector(0 to div4_bits-1);
         quartet_2 : in std_logic_vector(0 to div4_bits-1);
@@ -81,7 +81,7 @@ architecture Behavioral of key_scheduling is
         return tmp1;
     end function  Merging;
     
-        ----ROTATING FUNCTION--------------------------------------
+    ----ROTATING FUNCTION--------------------------------------
     function Rotating(
         L1 : in std_logic_vector(0 to div4_bits-1);
         rotating_amount : in integer
@@ -107,7 +107,7 @@ begin
             if(go='1') then
                 ready_busy <= '1';
                 for i := 0 to 131 loop
-                
+                    
                 end loop;
             elsif (go = '0') then
                 ready_busy <= '0';
