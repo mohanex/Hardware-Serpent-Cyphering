@@ -101,6 +101,7 @@ architecture Behavioral of key_scheduling is
         end if;
         return tmp1;
     end function Rotating;
+
 begin
 
     Scheduling : process(clk,go)
@@ -117,15 +118,15 @@ begin
     variable padding_number : integer := 0;
     variable padding_zeros : std_logic_vector(0 to 125);
     variable w : w_array;
-    variable temp_calc : std_logic_vector (0 to div4_bits-1)
+    variable temp_calc : std_logic_vector (0 to div4_bits-1);
         begin
             if rising_edge(clk) then
                 if(go='1') then
                     ready_busy <= '1';
                     -----------Key padding to 256 for one time-----------
                     if(padding_number = 0) then
-                        padding_zeros := (other => 0);
-                        key_to_256(full_key_size-1) := 1;
+                        padding_zeros := (others => '0');
+                        key_to_256(full_key_size-1) := '1';
                         key_to_256(126 to 254) := sig_user_key;
                         key_to_256(0 to 125) := padding_zeros;
                         padding_number := 1;
@@ -136,10 +137,10 @@ begin
                     var_quartet_4=>quartet_4,var_quartet_5=>quartet_5,var_quartet_6=>quartet_6,var_quartet_7=>quartet_7,
                     var_quartet_8=>quartet_8);
                     for i in -8 to 131 loop
-                        temp_calc = w(i-8) xor w(i-5) xor w(i-3) xor w(i-1) xor theta xor i;
-                        w(i) = Rotating(L1=>temp_calc,rotating_amount=>11);
+                        temp_calc := (w(i-8) xor w(i-5)) xor (w(i-3) xor w(i-1)) xor (theta xor i);
+                        w(i) := Rotating(L1=>temp_calc,rotating_amount=>11);
                     end loop;
-                    
+
                 elsif (go = '0') then
                     ready_busy <= '0';
                     padding_number := 0;
