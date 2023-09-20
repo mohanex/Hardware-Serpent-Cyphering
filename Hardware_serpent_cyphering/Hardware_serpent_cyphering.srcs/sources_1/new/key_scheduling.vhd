@@ -29,8 +29,7 @@ end key_scheduling;
 architecture Behavioral of key_scheduling is
 
     ----SIGNALS--------------------------------------------------
-    type w_array is array (-8 to 131) of STD_LOGIC_VECTOR(31 downto 0);
-    signal w : w_array;
+    type w_array is array (-8 to 131) of STD_LOGIC_VECTOR(0 to div4_bits-1);
     signal sig_Ki : std_logic_vector(0 to div4_bits-1);
     signal sig_Ki_number : std_logic; --key number 
     signal sig_user_key : std_logic_vector(0 to full_bits-1);
@@ -116,7 +115,9 @@ begin
     variable quartet_8 : std_logic_vector(0 to div4_bits-1);
     variable key_to_256 : std_logic_vector(0 to full_key_size-1);
     variable padding_number : integer := 0;
-    variable padding_zeros : std_logic_vector(0 to 125)
+    variable padding_zeros : std_logic_vector(0 to 125);
+    variable w : w_array;
+    variable temp_calc : std_logic_vector (0 to div4_bits-1)
         begin
             if rising_edge(clk) then
                 if(go='1') then
@@ -134,13 +135,11 @@ begin
                     Splitting(L1=>key_to_256,var_quartet_1=>quartet_1,var_quartet_2=>quartet_2,var_quartet_3=>quartet_3,
                     var_quartet_4=>quartet_4,var_quartet_5=>quartet_5,var_quartet_6=>quartet_6,var_quartet_7=>quartet_7,
                     var_quartet_8=>quartet_8);
-
-
-
-
                     for i in -8 to 131 loop
-                        
+                        temp_calc = w(i-8) xor w(i-5) xor w(i-3) xor w(i-1) xor theta xor i;
+                        w(i) = Rotating(L1=>temp_calc,rotating_amount=>11);
                     end loop;
+                    
                 elsif (go = '0') then
                     ready_busy <= '0';
                     padding_number := 0;
