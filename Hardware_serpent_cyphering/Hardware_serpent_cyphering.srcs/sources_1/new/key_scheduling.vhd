@@ -105,15 +105,14 @@ architecture Behavioral of key_scheduling is
 begin
 
     Scheduling : process(clk,go)
-    variable i : integer := -8;
-    variable quartet_1 : std_logic_vector(0 to div4_bits-1);
-    variable quartet_2 : std_logic_vector(0 to div4_bits-1);
-    variable quartet_3 : std_logic_vector(0 to div4_bits-1);
-    variable quartet_4 : std_logic_vector(0 to div4_bits-1);
-    variable quartet_5 : std_logic_vector(0 to div4_bits-1);
-    variable quartet_6 : std_logic_vector(0 to div4_bits-1);
-    variable quartet_7 : std_logic_vector(0 to div4_bits-1);
-    variable quartet_8 : std_logic_vector(0 to div4_bits-1);
+    --variable quartet_1 : std_logic_vector(0 to div4_bits-1);
+    --variable quartet_2 : std_logic_vector(0 to div4_bits-1);
+    --variable quartet_3 : std_logic_vector(0 to div4_bits-1);
+    --variable quartet_4 : std_logic_vector(0 to div4_bits-1);
+    --variable quartet_5 : std_logic_vector(0 to div4_bits-1);
+    --variable quartet_6 : std_logic_vector(0 to div4_bits-1);
+    --variable quartet_7 : std_logic_vector(0 to div4_bits-1);
+    --variable quartet_8 : std_logic_vector(0 to div4_bits-1);
     variable key_to_256 : std_logic_vector(0 to full_key_size-1);
     variable padding_number : integer := 0;
     variable padding_zeros : std_logic_vector(0 to 125);
@@ -133,11 +132,11 @@ begin
                     end if;
                     -----------Finish Padding----------------------------
 
-                    Splitting(L1=>key_to_256,var_quartet_1=>quartet_1,var_quartet_2=>quartet_2,var_quartet_3=>quartet_3,
-                    var_quartet_4=>quartet_4,var_quartet_5=>quartet_5,var_quartet_6=>quartet_6,var_quartet_7=>quartet_7,
-                    var_quartet_8=>quartet_8);
-                    for i in -8 to 131 loop
-                        temp_calc := (w(i-8) xor w(i-5)) xor (w(i-3) xor w(i-1)) xor (theta xor i);
+                    Splitting(L1=>key_to_256,var_quartet_1=>w(-1),var_quartet_2=>w(-2),var_quartet_3=>w(-3),
+                    var_quartet_4=>w(-4),var_quartet_5=>w(-5),var_quartet_6=>w(-6),var_quartet_7=>w(-7),
+                    var_quartet_8=>w(-8));
+                    for i in 0 to 131 loop
+                        temp_calc := (w(i) xor w(i)) xor (w(i) xor w(i)) xor (theta xor i);
                         w(i) := Rotating(L1=>temp_calc,rotating_amount=>11);
                     end loop;
 
