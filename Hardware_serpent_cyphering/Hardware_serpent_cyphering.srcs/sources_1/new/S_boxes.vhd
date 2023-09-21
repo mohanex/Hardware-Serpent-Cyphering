@@ -14,6 +14,8 @@ entity S_boxes is
         s_box_out : out std_logic_vector(0 to 3);
         go :  in std_logic;
         ready_busy : out std_logic
+        --mode : in std_logic;   -----if 1 then will take sboxe_num as sbox number else itll start on 0 finish at 7 and reiterate
+        --sboxe_num : in integer 
     );
 end S_boxes;
 
@@ -31,6 +33,8 @@ architecture Behavioral of S_boxes is
 
     signal signal_s_box_in : std_logic_vector(0 to 3);
     signal signal_s_box_out : std_logic_vector(0 to 3);
+    --signal signal_mode : in std_logic;
+    --signal signal_sboxe_num : in integer;
 
 begin
 

@@ -14,7 +14,8 @@ entity key_scheduling is
         constant full_bits : integer :=128;
         constant div4_bits : integer :=32;
         constant full_key_size : integer :=256;
-        constant theta : std_logic_vector := X"9e3779b9"
+        constant theta : std_logic_vector := X"9e3779b9";
+        constant four_bits : integer := 4
     );
     Port ( 
         clk : in std_logic;
@@ -33,6 +34,57 @@ architecture Behavioral of key_scheduling is
     signal sig_Ki : std_logic_vector(0 to div4_bits-1);
     signal sig_Ki_number : std_logic; --key number 
     signal sig_user_key : std_logic_vector(0 to full_bits-1);
+    
+    
+    ----S-boxes--------------------------------------------------
+    type t_sboxes is array (0 to 15) of integer;
+    signal S0 : t_sboxes :=(3,8,15,1,10,6,5,11,14,13,4,2,7,0,9,12);
+    signal S1 : t_sboxes :=(15,12,2,7,9,0,5,10,1,11,14,8,6,13,3,4);
+    signal S2 : t_sboxes :=(8,6,7,9,3,12,10,15,13,1,14,4,0,11,5,2);
+    signal S3 : t_sboxes :=(0,15,11,8,12,9,6,3,13,1,2,4,10,7,5,14);
+    signal S4 : t_sboxes :=(1,15,8,3,12,0,11,6,2,5,4,10,9,14,7,13);
+    signal S5 : t_sboxes :=(15,5,2,11,4,10,9,12,0,3,14,8,13,6,7,1);
+    signal S6 : t_sboxes :=(7,2,12,5,8,4,6,11,14,9,1,15,13,3,10,0);
+    signal S7 : t_sboxes :=(1,13,15,0,14,8,2,11,7,4,12,10,9,3,5,6);
+    
+    function  app_s_box(
+        input_bits : in std_logic_vector(0 to four_bits-1);
+        s_box_number : in integer 
+    )
+    return std_logic_vector is
+        variable tmp1 : std_logic_vector(0 to four_bits-1);
+    begin
+        read_value_in := to_integer(unsigned(input_bits));
+        case s_box_number is
+            when 0 =>
+                read_value_out := S0(read_value_in);
+                tmp1 := std_logic_vector(to_unsigned(read_value_out, tmp1'length));
+            when 1 =>
+                read_value_out := S1(read_value_in);
+                tmp1 := std_logic_vector(to_unsigned(read_value_out, tmp1'length));
+            when 2 =>
+                read_value_out := S2(read_value_in);
+                tmp1 := std_logic_vector(to_unsigned(read_value_out, tmp1'length));
+            when 3 =>
+                read_value_out := S3(read_value_in);
+                tmp1 := std_logic_vector(to_unsigned(read_value_out, tmp1'length));
+            when 4 =>
+                read_value_out := S4(read_value_in);
+                tmp1 := std_logic_vector(to_unsigned(read_value_out, tmp1'length));
+            when 5 =>
+                read_value_out := S5(read_value_in);
+                tmp1 := std_logic_vector(to_unsigned(read_value_out, tmp1'length));
+            when 6 =>
+                read_value_out := S6(read_value_in);
+                tmp1 := std_logic_vector(to_unsigned(read_value_out, tmp1'length));
+            when 7 =>
+                read_value_out := S7(read_value_in);
+                tmp1 := std_logic_vector(to_unsigned(read_value_out, tmp1'length));
+            when others =>
+                ready_busy <= '0';
+        end case;
+        return tmp1;
+    end function  app_s_box;
     
     ----SPLITTING PROCEDURE--------------------------------------
     procedure  Splitting(
@@ -115,8 +167,10 @@ begin
     --variable quartet_8 : std_logic_vector(0 to div4_bits-1);
     variable key_to_256 : std_logic_vector(0 to full_key_size-1);
     variable padding_number : integer := 0;
+    variable i : integer := 0;
     variable padding_zeros : std_logic_vector(0 to 125);
     variable w : w_array;
+    variable k : w_array;
     variable temp_calc : std_logic_vector (0 to div4_bits-1);
         begin
             if rising_edge(clk) then
@@ -130,16 +184,18 @@ begin
                         key_to_256(0 to 125) := padding_zeros;
                         padding_number := 1;
                     end if;
+                    
                     -----------Finish Padding----------------------------
-
                     Splitting(L1=>key_to_256,var_quartet_1=>w(-1),var_quartet_2=>w(-2),var_quartet_3=>w(-3),
                     var_quartet_4=>w(-4),var_quartet_5=>w(-5),var_quartet_6=>w(-6),var_quartet_7=>w(-7),
                     var_quartet_8=>w(-8));
                     for i in 0 to 131 loop
-                        temp_calc := (w(i) xor w(i)) xor (w(i) xor w(i)) xor (theta xor i);
+                        temp_calc := w(i-8) xor w(i-5) xor w(i-3) xor w(i-1) xor theta xor std_logic_vector(to_unsigned(i,32));
                         w(i) := Rotating(L1=>temp_calc,rotating_amount=>11);
                     end loop;
-
+                    
+                    
+                    
                 elsif (go = '0') then
                     ready_busy <= '0';
                     padding_number := 0;
