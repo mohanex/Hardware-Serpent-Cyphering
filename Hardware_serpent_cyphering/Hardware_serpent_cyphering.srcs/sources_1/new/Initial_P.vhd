@@ -32,7 +32,7 @@ type t_array is array (0 to 127) of integer;
         );
     signal s_plaintext_in : std_logic_vector(0 to 127);
     signal s_permutedtext_out : std_logic_vector(0 to 127);
-    signal temp2 : integer;
+
 
 begin
     
@@ -47,7 +47,6 @@ begin
                 for compt in 0 to 127 loop
                     --s_permutedtext_out(compt) <= s_plaintext_in(ip_table(compt));
                     temp := ip_table(compt);
-                    temp2 <= temp;
                     s_permutedtext_out(temp) <= s_plaintext_in(compt);
                     --s_permutedtext_out <= compt;
                 end loop;

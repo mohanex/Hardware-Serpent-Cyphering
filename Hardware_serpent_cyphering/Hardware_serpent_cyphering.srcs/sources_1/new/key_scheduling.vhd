@@ -1,8 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Key scheduling process
 ----------------------------------------------------------------------------------
-
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -32,7 +30,8 @@ architecture Behavioral of key_scheduling is
     ----TYPES--------------------------------------------------
     type w_array is array (-8 to 131) of STD_LOGIC_VECTOR(0 to div4_bits-1);
     type Ki_array is array (0 to 32) of STD_LOGIC_VECTOR(0 to div4_bits-1);
-    type t_sboxes is array (0 to 15) of integer;
+    type t_sboxes is array (0 to 15) of integer; --S_BOX
+    type t_array is array (0 to 127) of integer; --IP
 
     ----SIGNALS--------------------------------------------------
     signal sig_Ki : std_logic_vector(0 to div4_bits-1);
@@ -102,10 +101,37 @@ architecture Behavioral of key_scheduling is
         end case;
         return tmp1;
     end function  app_s_box;
+
+
+    ----IP-------------------------------------------------------
+    function  app_IP(
+        input_bits : in std_logic_vector(0 to full_bits-1)
+    )
+    return std_logic_vector is
+        variable ip_table  : t_array := (
+            0, 32, 64, 96, 1, 33, 65, 97, 2, 34, 66, 98, 3, 35, 67, 99,
+            4, 36, 68, 100, 5, 37, 69, 101, 6, 38, 70, 102, 7, 39, 71, 103,
+            8, 40, 72, 104, 9, 41, 73, 105, 10, 42, 74, 106, 11, 43, 75, 107,
+            12, 44, 76, 108, 13, 45, 77, 109, 14, 46, 78, 110, 15, 47, 79, 111,
+            16, 48, 80, 112, 17, 49, 81, 113, 18, 50, 82, 114, 19, 51, 83, 115,
+            20, 52, 84, 116, 21, 53, 85, 117, 22, 54, 86, 118, 23, 55, 87, 119,
+            24, 56, 88, 120, 25, 57, 89, 121, 26, 58, 90, 122, 27, 59, 91, 123,
+            28, 60, 92, 124, 29, 61, 93, 125, 30, 62, 94, 126, 31, 63, 95, 127
+            );
+        variable tmp1 : std_logic_vector(0 to full_bits-1);
+        variable compt : integer := 0;
+        variable temp : integer;
+    begin
+        for compt in 0 to full_bits-1 loop
+            temp := ip_table(compt);
+            tmp1(temp) := input_bits(compt);
+        end loop;
+        return tmp1;
+    end function  app_IP;
     
     ----SPLITTING PROCEDURE--------------------------------------
     procedure  Splitting(
-        L1 : in std_logic_vector(0 to full_bits-1);
+        L1 : in std_logic_vector(0 to full_key_size-1);
         variable var_quartet_1 : out std_logic_vector(0 to div4_bits-1);
         variable var_quartet_2 : out std_logic_vector(0 to div4_bits-1);
         variable var_quartet_3 : out std_logic_vector(0 to div4_bits-1);
@@ -131,8 +157,8 @@ architecture Behavioral of key_scheduling is
     function  Merging(
         quartet_1 : in std_logic_vector(0 to div4_bits-1);
         quartet_2 : in std_logic_vector(0 to div4_bits-1);
-        quartet_4 : in std_logic_vector(0 to div4_bits-1)
-        quartet_3 : in std_logic_vector(0 to div4_bits-1);
+        quartet_4 : in std_logic_vector(0 to div4_bits-1);
+        quartet_3 : in std_logic_vector(0 to div4_bits-1)
     )
     return std_logic_vector is
         variable tmp1 : std_logic_vector(0 to full_bits-1);
@@ -164,23 +190,9 @@ architecture Behavioral of key_scheduling is
     end function Rotating;
 
 begin
-    IP: Initial_P port map(
-        clk=>clk,
-
-    );
-
-
     Scheduling : process(clk,go)
-    --variable quartet_1 : std_logic_vector(0 to div4_bits-1);
-    --variable quartet_2 : std_logic_vector(0 to div4_bits-1);
-    --variable quartet_3 : std_logic_vector(0 to div4_bits-1);
-    --variable quartet_4 : std_logic_vector(0 to div4_bits-1);
-    --variable quartet_5 : std_logic_vector(0 to div4_bits-1);
-    --variable quartet_6 : std_logic_vector(0 to div4_bits-1);
-    --variable quartet_7 : std_logic_vector(0 to div4_bits-1);
-    --variable quartet_8 : std_logic_vector(0 to div4_bits-1);
     variable key_to_256 : std_logic_vector(0 to full_key_size-1);
-    variable padding_zeros : std_logic_vector(0 to 125);
+    variable padding_zeros : std_logic_vector(0 to 126);
     variable temp_calc : std_logic_vector (0 to div4_bits-1);
     variable input_s : std_logic_vector (0 to four_bits-1);
     variable output_s : std_logic_vector (0 to four_bits-1);
@@ -200,8 +212,8 @@ begin
                     if(padding_number = 0) then
                         padding_zeros := (others => '0');
                         key_to_256(full_key_size-1) := '1';
-                        key_to_256(126 to 254) := sig_user_key;
-                        key_to_256(0 to 125) := padding_zeros;
+                        key_to_256(127 to 254) := sig_user_key;
+                        key_to_256(0 to 126) := padding_zeros;
                         padding_number := 1;
                     end if;
                     
@@ -234,7 +246,7 @@ begin
                     end loop;
 
                     applying_ip : for i in 0 to 32 loop
-                        
+                        pre_keys(i) := app_IP(input_bits=>pre_keys(i));
                     end loop;
 
                 elsif (go = '0') then
