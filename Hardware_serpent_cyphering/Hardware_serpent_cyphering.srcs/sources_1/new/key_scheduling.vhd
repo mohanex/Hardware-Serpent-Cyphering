@@ -18,9 +18,9 @@ entity key_scheduling is
     Port ( 
         clk : in std_logic;
         go : in std_logic;
-        Ki_number : in std_logic; --key number 
+        Ki_number : in integer; --key number 
         user_key : in std_logic_vector(0 to full_bits-1);
-        ready_busy : out std_logic;
+        ready_busy : inout std_logic_vector(0 to 1);
         Ki : out std_logic_vector(0 to div4_bits-1)
     );
 end key_scheduling;
@@ -35,22 +35,10 @@ architecture Behavioral of key_scheduling is
 
     ----SIGNALS--------------------------------------------------
     signal sig_Ki : std_logic_vector(0 to div4_bits-1);
-    signal sig_Ki_number : std_logic; --key number 
+    signal sig_Ki_number : integer; --key number 
     signal sig_user_key : std_logic_vector(0 to full_bits-1);
-
-
-    ---- Initial permutation ------------------------------------
-    component Initial_P is
-        port(
-        clk : in std_logic;
-        go :  in std_logic;
-        ready_busy : out std_logic;
-        plaintext_in : in std_logic_vector(0 to 127);
-        permutedtext_out : out std_logic_vector(0 to 127)
-        ); 
-    end component;
-    
-    
+    signal sig_pre_keys : Ki_array;
+    signal sig_ready_busy : std_logic_vector(0 to 1);
     ----S-boxes--------------------------------------------------
     function  app_s_box(
         input_bits : in std_logic_vector(0 to four_bits-1);
@@ -207,7 +195,7 @@ begin
         begin
             if rising_edge(clk) then
                 if(go='1') then
-                    ready_busy <= '1';
+                    ready_busy <= "01";
                     -----------Key padding to 256 for one time-----------
                     if(padding_number = 0) then
                         padding_zeros := (others => '0');
@@ -247,14 +235,24 @@ begin
 
                     applying_ip : for i in 0 to 32 loop
                         pre_keys(i) := app_IP(input_bits=>pre_keys(i));
+                        sig_pre_keys(i) <= pre_keys(i);
                     end loop;
+                    
+                    ready_busy <= "11";
 
                 elsif (go = '0') then
-                    ready_busy <= '0';
+                    ready_busy <= "10";
                     padding_number := 0;
                 end if;
             end if;
     end process Scheduling;
+
+    Giving_keys : process(clk,sig_Ki_number,ready_busy)
+        begin
+        if rising_edge(clk) and ready_busy = "11" then
+            sig_Ki <= sig_pre_keys(sig_Ki_number);
+        end if;
+    end process;
 
     sig_user_key <= user_key;
     sig_Ki_number <= Ki_number;
