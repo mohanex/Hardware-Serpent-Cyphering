@@ -29,30 +29,47 @@ end key_scheduling;
 
 architecture Behavioral of key_scheduling is
 
-    ----SIGNALS--------------------------------------------------
+    ----TYPES--------------------------------------------------
     type w_array is array (-8 to 131) of STD_LOGIC_VECTOR(0 to div4_bits-1);
+    type Ki_array is array (0 to 32) of STD_LOGIC_VECTOR(0 to div4_bits-1);
+    type t_sboxes is array (0 to 15) of integer;
+
+    ----SIGNALS--------------------------------------------------
     signal sig_Ki : std_logic_vector(0 to div4_bits-1);
     signal sig_Ki_number : std_logic; --key number 
     signal sig_user_key : std_logic_vector(0 to full_bits-1);
+
+
+    ---- Initial permutation ------------------------------------
+    component Initial_P is
+        port(
+        clk : in std_logic;
+        go :  in std_logic;
+        ready_busy : out std_logic;
+        plaintext_in : in std_logic_vector(0 to 127);
+        permutedtext_out : out std_logic_vector(0 to 127)
+        ); 
+    end component;
     
     
     ----S-boxes--------------------------------------------------
-    type t_sboxes is array (0 to 15) of integer;
-    signal S0 : t_sboxes :=(3,8,15,1,10,6,5,11,14,13,4,2,7,0,9,12);
-    signal S1 : t_sboxes :=(15,12,2,7,9,0,5,10,1,11,14,8,6,13,3,4);
-    signal S2 : t_sboxes :=(8,6,7,9,3,12,10,15,13,1,14,4,0,11,5,2);
-    signal S3 : t_sboxes :=(0,15,11,8,12,9,6,3,13,1,2,4,10,7,5,14);
-    signal S4 : t_sboxes :=(1,15,8,3,12,0,11,6,2,5,4,10,9,14,7,13);
-    signal S5 : t_sboxes :=(15,5,2,11,4,10,9,12,0,3,14,8,13,6,7,1);
-    signal S6 : t_sboxes :=(7,2,12,5,8,4,6,11,14,9,1,15,13,3,10,0);
-    signal S7 : t_sboxes :=(1,13,15,0,14,8,2,11,7,4,12,10,9,3,5,6);
-    
     function  app_s_box(
         input_bits : in std_logic_vector(0 to four_bits-1);
         s_box_number : in integer 
     )
     return std_logic_vector is
+        variable S0 : t_sboxes :=(3,8,15,1,10,6,5,11,14,13,4,2,7,0,9,12);
+        variable S1 : t_sboxes :=(15,12,2,7,9,0,5,10,1,11,14,8,6,13,3,4);
+        variable S2 : t_sboxes :=(8,6,7,9,3,12,10,15,13,1,14,4,0,11,5,2);
+        variable S3 : t_sboxes :=(0,15,11,8,12,9,6,3,13,1,2,4,10,7,5,14);
+        variable S4 : t_sboxes :=(1,15,8,3,12,0,11,6,2,5,4,10,9,14,7,13);
+        variable S5 : t_sboxes :=(15,5,2,11,4,10,9,12,0,3,14,8,13,6,7,1);
+        variable S6 : t_sboxes :=(7,2,12,5,8,4,6,11,14,9,1,15,13,3,10,0);
+        variable S7 : t_sboxes :=(1,13,15,0,14,8,2,11,7,4,12,10,9,3,5,6);
+
         variable tmp1 : std_logic_vector(0 to four_bits-1);
+        variable read_value_in : integer;
+        variable read_value_out : integer;
     begin
         read_value_in := to_integer(unsigned(input_bits));
         case s_box_number is
@@ -81,7 +98,7 @@ architecture Behavioral of key_scheduling is
                 read_value_out := S7(read_value_in);
                 tmp1 := std_logic_vector(to_unsigned(read_value_out, tmp1'length));
             when others =>
-                ready_busy <= '0';
+                tmp1 := (others => '0');
         end case;
         return tmp1;
     end function  app_s_box;
@@ -112,26 +129,18 @@ architecture Behavioral of key_scheduling is
     
     ----MERGING FUNCTION-----------------------------------------
     function  Merging(
-        var_quartet_1 : in std_logic_vector(0 to div4_bits-1);
-        var_quartet_2 : in std_logic_vector(0 to div4_bits-1);
-        var_quartet_3 : in std_logic_vector(0 to div4_bits-1);
-        var_quartet_4 : in std_logic_vector(0 to div4_bits-1);
-        var_quartet_5 : in std_logic_vector(0 to div4_bits-1);
-        var_quartet_6 : in std_logic_vector(0 to div4_bits-1);
-        var_quartet_7 : in std_logic_vector(0 to div4_bits-1);
-        var_quartet_8 : in std_logic_vector(0 to div4_bits-1)
+        quartet_1 : in std_logic_vector(0 to div4_bits-1);
+        quartet_2 : in std_logic_vector(0 to div4_bits-1);
+        quartet_4 : in std_logic_vector(0 to div4_bits-1)
+        quartet_3 : in std_logic_vector(0 to div4_bits-1);
     )
     return std_logic_vector is
         variable tmp1 : std_logic_vector(0 to full_bits-1);
     begin
-        tmp1(0 to div4_bits-1) := var_quartet_1;
-        tmp1(div4_bits to (2*div4_bits)-1) := var_quartet_2;
-        tmp1((2*div4_bits) to (3*div4_bits)-1) := var_quartet_3;
-        tmp1((3*div4_bits) to (4*div4_bits)-1) := var_quartet_4;
-        tmp1((4*div4_bits) to (5*div4_bits)-1) := var_quartet_5;
-        tmp1((5*div4_bits) to (6*div4_bits)-1) := var_quartet_6;
-        tmp1((6*div4_bits) to (7*div4_bits)-1) := var_quartet_7;
-        tmp1((7*div4_bits) to (8*div4_bits)-1) := var_quartet_8;
+        tmp1(0 to div4_bits-1) := quartet_1;
+        tmp1(div4_bits to (2*div4_bits)-1) := quartet_2;
+        tmp1((2*div4_bits) to (3*div4_bits)-1) := quartet_3;
+        tmp1((3*div4_bits) to (4*div4_bits)-1) := quartet_4;
         return tmp1;
     end function  Merging;
     
@@ -155,6 +164,11 @@ architecture Behavioral of key_scheduling is
     end function Rotating;
 
 begin
+    IP: Initial_P port map(
+        clk=>clk,
+
+    );
+
 
     Scheduling : process(clk,go)
     --variable quartet_1 : std_logic_vector(0 to div4_bits-1);
@@ -166,12 +180,18 @@ begin
     --variable quartet_7 : std_logic_vector(0 to div4_bits-1);
     --variable quartet_8 : std_logic_vector(0 to div4_bits-1);
     variable key_to_256 : std_logic_vector(0 to full_key_size-1);
-    variable padding_number : integer := 0;
-    variable i : integer := 0;
     variable padding_zeros : std_logic_vector(0 to 125);
+    variable temp_calc : std_logic_vector (0 to div4_bits-1);
+    variable input_s : std_logic_vector (0 to four_bits-1);
+    variable output_s : std_logic_vector (0 to four_bits-1);
+
     variable w : w_array;
     variable k : w_array;
-    variable temp_calc : std_logic_vector (0 to div4_bits-1);
+    variable pre_keys : Ki_array;
+
+    variable whichS : integer;
+    variable i : integer := 0;
+    variable padding_number : integer := 0;
         begin
             if rising_edge(clk) then
                 if(go='1') then
@@ -186,16 +206,37 @@ begin
                     end if;
                     
                     -----------Finish Padding----------------------------
+
                     Splitting(L1=>key_to_256,var_quartet_1=>w(-1),var_quartet_2=>w(-2),var_quartet_3=>w(-3),
                     var_quartet_4=>w(-4),var_quartet_5=>w(-5),var_quartet_6=>w(-6),var_quartet_7=>w(-7),
                     var_quartet_8=>w(-8));
-                    for i in 0 to 131 loop
-                        temp_calc := w(i-8) xor w(i-5) xor w(i-3) xor w(i-1) xor theta xor std_logic_vector(to_unsigned(i,32));
+                    prekey : for i in 0 to 131 loop
+                        temp_calc := w(i-8) xor w(i-5) xor w(i-3) xor w(i-1) xor theta xor 
+                        std_logic_vector(to_unsigned(i,32));
                         w(i) := Rotating(L1=>temp_calc,rotating_amount=>11);
                     end loop;
                     
+                    applying_key_sbox : for i in 0 to 32 loop
+                        whichS := (32 + 3 - i) mod 32;
+                        for j in 0 to 31 loop
+                            -- Extract individual bits from w
+                            input_s := w(0 + 4 * i)(j) & w(1 + 4 * i)(j) & w(2 + 4 * i)(j) & w(3 + 4 * i)(j);
+                            -- Call the S function here (you need to define it separately)
+                            output_s := app_s_box(input_bits=>input_s,s_box_number=>whichS);
+                            for l in 0 to 3 loop
+                                k(4 * i + l) := k(4 * i + l) & output_s(l);
+                            end loop;
+                        end loop;
+                    end loop;
                     
-                    
+                    assembling_key : for i in 0 to 32 loop
+                        pre_keys(i) := Merging(quartet_1=>k(4*i),quartet_2=>k(4*i+1),quartet_3=>k(4*i+2),quartet_4=>k(4*i+3));
+                    end loop;
+
+                    applying_ip : for i in 0 to 32 loop
+                        
+                    end loop;
+
                 elsif (go = '0') then
                     ready_busy <= '0';
                     padding_number := 0;
