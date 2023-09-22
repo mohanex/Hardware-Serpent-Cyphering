@@ -37,10 +37,10 @@ constant full_bits : integer :=128;
 constant div4_bits : integer :=32;
 constant full_key_size : integer :=256;
 constant theta : std_logic_vector := X"9e3779b9";
-constant four_bits : integer := 4
+constant four_bits : integer := 4;
 
 -- clock signals
-signal clk : std_logic := '0' ;
+signal clk : std_logic := '0';
 constant clk_period : time := 20 ns; 
 
 -- componenet signals
@@ -48,11 +48,11 @@ signal sig_go : std_logic;
 signal sig_Ki_number : integer; --key number 
 signal sig_user_key : std_logic_vector(0 to full_bits-1);
 signal sig_ready_busy : std_logic_vector(0 to 1);
-signal sig_Ki : std_logic_vector(0 to div4_bits-1)
+signal sig_Ki : std_logic_vector(0 to div4_bits-1);
 
 begin
 
-key_scheduler : port map(
+key_scheduler : key_scheduling port map(
     clk => clk,
     go => sig_go,
     Ki_number => sig_Ki_number,
@@ -66,14 +66,14 @@ clk <= not clk after clk_period/2;
 
 stimuli : process
 begin
-    s_go <= '0';
+    sig_go <= '0';
     wait for 30 ns;
 
     sig_user_key <= "01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101";
-    s_go <= '1';
+    sig_go <= '1';
     wait for 100 ns;
 
-    sig_Ki_number <='4';
+    sig_Ki_number <=4;
     wait for 30 ns;
 
 end process;
