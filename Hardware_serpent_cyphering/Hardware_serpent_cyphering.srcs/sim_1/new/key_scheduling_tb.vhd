@@ -1,8 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Key scheduling Testbench
 ----------------------------------------------------------------------------------
-
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -28,7 +26,7 @@ component key_scheduling
         Ki_number : in integer; --key number 
         user_key : in std_logic_vector(0 to full_bits-1);
         ready_busy : inout std_logic_vector(0 to 1);
-        Ki : out std_logic_vector(0 to div4_bits-1)
+        Ki : out std_logic_vector(0 to full_bits-1)
     );
 end component;
 
@@ -48,7 +46,7 @@ signal sig_go : std_logic;
 signal sig_Ki_number : integer; --key number 
 signal sig_user_key : std_logic_vector(0 to full_bits-1);
 signal sig_ready_busy : std_logic_vector(0 to 1);
-signal sig_Ki : std_logic_vector(0 to div4_bits-1);
+signal sig_Ki : std_logic_vector(0 to full_bits-1);
 
 begin
 
@@ -67,6 +65,7 @@ clk <= not clk after clk_period/2;
 stimuli : process
 begin
     sig_go <= '0';
+    sig_Ki_number <=0;
     wait for 30 ns;
 
     sig_user_key <= "01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101";
@@ -74,6 +73,12 @@ begin
     wait for 100 ns;
 
     sig_Ki_number <=4;
+    wait for 30 ns;
+    
+    sig_Ki_number <=31;
+    wait for 30 ns;
+    
+    sig_Ki_number <=20;
     wait for 30 ns;
 
 end process;

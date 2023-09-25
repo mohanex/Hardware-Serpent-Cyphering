@@ -21,7 +21,7 @@ entity key_scheduling is
         Ki_number : in integer; --key number 
         user_key : in std_logic_vector(0 to full_bits-1);
         ready_busy : inout std_logic_vector(0 to 1);
-        Ki : out std_logic_vector(0 to div4_bits-1)
+        Ki : out std_logic_vector(0 to full_bits-1)
     );
 end key_scheduling;
 
@@ -29,13 +29,13 @@ architecture Behavioral of key_scheduling is
 
     ----TYPES--------------------------------------------------
     type w_array is array (-8 to 131) of STD_LOGIC_VECTOR(0 to div4_bits-1);
-    type Ki_array is array (0 to 32) of STD_LOGIC_VECTOR(0 to div4_bits-1);
+    type Ki_array is array (0 to 32) of STD_LOGIC_VECTOR(0 to full_bits-1);
     type t_sboxes is array (0 to 15) of integer; --S_BOX
     type t_array is array (0 to 127) of integer; --IP
 
     ----SIGNALS--------------------------------------------------
-    signal sig_Ki : std_logic_vector(0 to div4_bits-1);
-    signal sig_Ki_number : integer; --key number 
+    signal sig_Ki : std_logic_vector(0 to full_bits-1);
+    signal sig_Ki_number : integer := 0; --key number 
     signal sig_user_key : std_logic_vector(0 to full_bits-1);
     signal sig_pre_keys : Ki_array;
     signal sig_ready_busy : std_logic_vector(0 to 1);
@@ -177,6 +177,24 @@ architecture Behavioral of key_scheduling is
         return tmp1;
     end function Rotating;
 
+    ----SHIFTING FUNCTION ---------------------------------
+    function Shifting(
+        L1 : in std_logic_vector(0 to div4_bits-1);
+        shift_amount : in integer
+    )
+    return std_logic_vector is
+        variable tmp1 : std_logic_vector(0 to div4_bits-1);
+        constant ZERO : std_logic_vector(0 to shift_amount-1) := (others => '0');
+    begin
+        if shift_amount >= 0 and shift_amount <= 31 then
+            tmp1(0 to ((div4_bits-shift_amount)-1) ) := L1(shift_amount to div4_bits-1);
+            tmp1((div4_bits-shift_amount) to div4_bits-1) := ZERO;
+        else  
+            tmp1 := (others => '1');
+        end if;
+        return tmp1;
+    end function Shifting;
+
 begin
     Scheduling : process(clk,go)
     variable key_to_256 : std_logic_vector(0 to full_key_size-1);
@@ -221,10 +239,11 @@ begin
                         for j in 0 to 31 loop
                             -- Extract individual bits from w
                             input_s := w(0 + 4 * i)(j) & w(1 + 4 * i)(j) & w(2 + 4 * i)(j) & w(3 + 4 * i)(j);
-                            -- Call the S function here (you need to define it separately)
+                            -- Call S box function
                             output_s := app_s_box(input_bits=>input_s,s_box_number=>whichS);
                             for l in 0 to 3 loop
-                                k(4 * i + l) := k(4 * i + l) & output_s(l);
+                                k(4 * i + l) := Shifting(L1=>k(4 * i + l),shift_amount=>1);
+                                k(4 * i + l)(div4_bits-1) := output_s(l);
                             end loop;
                         end loop;
                     end loop;
