@@ -39,6 +39,8 @@ architecture Behavioral of key_scheduling is
     signal sig_user_key : std_logic_vector(0 to full_bits-1);
     signal sig_pre_keys : Ki_array;
     signal sig_ready_busy : std_logic_vector(0 to 1);
+
+
     ----S-boxes--------------------------------------------------
     function  app_s_box(
         input_bits : in std_logic_vector(0 to four_bits-1);
@@ -216,29 +218,31 @@ begin
                     ready_busy <= "01";
                     -----------Key padding to 256 for one time-----------
                     if(padding_number = 0) then
-                        padding_zeros := (others => '0');
+                        padding_zeros := (others => '1');
                         key_to_256(full_key_size-1) := '1';
                         key_to_256(127 to 254) := sig_user_key;
                         key_to_256(0 to 126) := padding_zeros;
                         padding_number := 1;
                     end if;
-                    
-                    -----------Finish Padding----------------------------
 
+                    ----------- Split K to w−8, . . . , w−1 avec W a 32-bit words ----------------------------
                     Splitting(L1=>key_to_256,var_quartet_1=>w(-1),var_quartet_2=>w(-2),var_quartet_3=>w(-3),
                     var_quartet_4=>w(-4),var_quartet_5=>w(-5),var_quartet_6=>w(-6),var_quartet_7=>w(-7),
                     var_quartet_8=>w(-8));
+
+                    ----------  wi := (wi−8 ⊕ wi−5 ⊕ wi−3 ⊕ wi−1 ⊕ ϕ ⊕ i) <<< 11 ; generate prekey ------------
                     prekey : for i in 0 to 131 loop
                         temp_calc := w(i-8) xor w(i-5) xor w(i-3) xor w(i-1) xor theta xor 
                         std_logic_vector(to_unsigned(i,32));
                         w(i) := Rotating(L1=>temp_calc,rotating_amount=>11);
                     end loop;
-                    
+                    -----------  S-box application of the quartets  -----------------------------------------------
                     applying_key_sbox : for i in 0 to 32 loop
                         whichS := (32 + 3 - i) mod 32;
                         for j in 0 to 31 loop
                             -- Extract individual bits from w
                             input_s := w(0 + 4 * i)(j) & w(1 + 4 * i)(j) & w(2 + 4 * i)(j) & w(3 + 4 * i)(j);
+                            report "The value of 'input_s' is " & integer'image(to_integer(unsigned(input_s)));
                             -- Call S box function
                             output_s := app_s_box(input_bits=>input_s,s_box_number=>whichS);
                             for l in 0 to 3 loop
