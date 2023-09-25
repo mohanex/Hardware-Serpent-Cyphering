@@ -65,20 +65,20 @@ clk <= not clk after clk_period/2;
 stimuli : process
 begin
     sig_go <= '0';
-    sig_Ki_number <=0;
+
     wait for 30 ns;
 
-    sig_user_key <= "01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101";
+    sig_user_key <= "11110011110011101000101101010010110111000110010011011111110111011000010010101010100100100110101111010110101010010110111110011111";
     sig_go <= '1';
     wait for 100 ns;
 
-    sig_Ki_number <=4;
+    sig_Ki_number <=3;
     wait for 30 ns;
     
     sig_Ki_number <=31;
     wait for 30 ns;
     
-    sig_Ki_number <=20;
+    sig_Ki_number <=29;
     wait for 30 ns;
 
 end process;

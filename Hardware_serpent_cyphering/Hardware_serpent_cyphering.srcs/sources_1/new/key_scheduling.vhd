@@ -226,23 +226,31 @@ begin
                     end if;
 
                     ----------- Split K to w−8, . . . , w−1 avec W a 32-bit words ----------------------------
-                    Splitting(L1=>key_to_256,var_quartet_1=>w(-1),var_quartet_2=>w(-2),var_quartet_3=>w(-3),
-                    var_quartet_4=>w(-4),var_quartet_5=>w(-5),var_quartet_6=>w(-6),var_quartet_7=>w(-7),
-                    var_quartet_8=>w(-8));
+                    --Splitting(L1=>key_to_256,var_quartet_1=>w(-1),var_quartet_2=>w(-2),var_quartet_3=>w(-3),
+                    --var_quartet_4=>w(-4),var_quartet_5=>w(-5),var_quartet_6=>w(-6),var_quartet_7=>w(-7),
+                    --var_quartet_8=>w(-8));
+
+                    Splitting(L1=>key_to_256,var_quartet_1=>w(-8),var_quartet_2=>w(-7),var_quartet_3=>w(-6),
+                    var_quartet_4=>w(-5),var_quartet_5=>w(-4),var_quartet_6=>w(-3),var_quartet_7=>w(-2),
+                    var_quartet_8=>w(-1));
 
                     ----------  wi := (wi−8 ⊕ wi−5 ⊕ wi−3 ⊕ wi−1 ⊕ ϕ ⊕ i) <<< 11 ; generate prekey ------------
                     prekey : for i in 0 to 131 loop
                         temp_calc := w(i-8) xor w(i-5) xor w(i-3) xor w(i-1) xor theta xor 
                         std_logic_vector(to_unsigned(i,32));
+                        report "Prekey calculation, iteration number :" & integer'image(i);
+                        report "The value of 'w(i)' before rotation :" & integer'image(to_integer(unsigned(temp_calc)));
                         w(i) := Rotating(L1=>temp_calc,rotating_amount=>11);
+                        report "The value of 'w(i)' after rotation :" & integer'image(to_integer(unsigned(w(i))));
                     end loop;
+                    
                     -----------  S-box application of the quartets  -----------------------------------------------
                     applying_key_sbox : for i in 0 to 32 loop
                         whichS := (32 + 3 - i) mod 32;
                         for j in 0 to 31 loop
                             -- Extract individual bits from w
                             input_s := w(0 + 4 * i)(j) & w(1 + 4 * i)(j) & w(2 + 4 * i)(j) & w(3 + 4 * i)(j);
-                            report "The value of 'input_s' is " & integer'image(to_integer(unsigned(input_s)));
+                            --report "The value of 'input_s' is " & integer'image(to_integer(unsigned(input_s)));
                             -- Call S box function
                             output_s := app_s_box(input_bits=>input_s,s_box_number=>whichS);
                             for l in 0 to 3 loop
@@ -273,7 +281,11 @@ begin
     Giving_keys : process(clk,sig_Ki_number,ready_busy)
         begin
         if rising_edge(clk) and ready_busy = "11" then
-            sig_Ki <= sig_pre_keys(sig_Ki_number);
+            if sig_Ki_number<0 or sig_Ki_number>32 then
+                sig_Ki <= "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+            else
+                sig_Ki <= sig_pre_keys(sig_Ki_number);
+            end if;
         end if;
     end process;
 
