@@ -96,7 +96,8 @@ signal sig_Bi_output : std_logic_vector(0 to full_bits-1);
 ------- Machine state variable -------------------------
 type t_State is (IDLE, state_SB, state_KS, state_LT, finished, speciaal);
 signal State : t_State := IDLE;
-signal Next_State : t_State;
+
+signal key_lance : integer :=0;
 
 begin
 
@@ -123,7 +124,7 @@ begin
       Bi_output => sig_Bi_output
    );
 
-   process(Clk) is
+   SM : process(Clk) is
       variable iteration : integer := 0;
       variable text_holder : std_logic_vector(0 to full_bits-1);
       variable Bi : std_logic_vector(0 to full_bits-1);
@@ -136,6 +137,8 @@ begin
          if rising_edge(Clk) then
             case state is 
                when IDLE =>
+                report " IDLE State";
+                key_lance <= 1;
                   if(go = '1') then
                      text_holder := text_to_compute;
                      i := 0;
@@ -145,34 +148,41 @@ begin
                   end if;
 
                when state_KS =>
+                  key_lance <= 0;
+                  report " KS State";
                   sig_Ki_number <= i;
                   Ki_holder := sig_Ki;
                   temp1 := text_holder xor Ki_holder;
                   state <= state_SB;
 
                when state_SB =>
+               report " SB State";
                report "Value of xoring before Sboxe :" & integer'image(to_integer(unsigned(temp1)));
                   for j in 0 to 31 loop
                      input_s := temp1(0 + 4 * j) & temp1(1 + 4 * j) & temp1(2 + 4 * j) & temp1(3 + 4 * j);
                      sig_box_in <= input_s;
                      sig_go_key <= '1';
-                     while sig_ready_busy_sboxes = '0' loop
-                     end loop;
-                     sig_go_key <= '0';
+                     --while sig_ready_busy_sboxes = '0' loop
+                     --end loop;
                      temp2((0+4*j) to (3+4*j)) := sig_box_out;
+                     sig_go_key <= '0';
                   end loop; 
                report "Value of xoring after Sboxe :" & integer'image(to_integer(unsigned(temp2)));
                state <= state_LT;
 
                when state_LT =>
+                  report " LT State";
                   sig_Bi_input <= temp2;
                   sig_go_linear <= '1';
-                  while sig_ready_busy_linear = '0' loop
-                  end loop;
-                  sig_go_linear <= '0';
+                  --while sig_ready_busy_linear = '0' loop
+                  --end loop;
                   temp3 := sig_Bi_output;
+                  state <= finished;
 
                when finished =>
+                  report " FINISHED State";
+                  report "Value of i :" & integer'image(i);
+                  sig_go_linear <= '0';
                   bi := temp3;
                   if i<31 then
                      i := i+1;
@@ -183,6 +193,7 @@ begin
                   end if;
 
                when speciaal =>
+                  report " SPECIAAL State";
                   sig_Ki_number <= i;
                   Ki_holder := sig_Ki;
                   temp1 := bi xor Ki_holder;
@@ -190,10 +201,10 @@ begin
                      input_s := temp1(0 + 4 * j) & temp1(1 + 4 * j) & temp1(2 + 4 * j) & temp1(3 + 4 * j);
                      sig_box_in <= input_s;
                      sig_go_key <= '1';
-                     while sig_ready_busy_sboxes = '0' loop
-                     end loop;
-                     sig_go_key <= '0';
+                     --while sig_ready_busy_sboxes = '0' loop
+                     --end loop;
                      temp2((0+4*j) to (3+4*j)) := sig_box_out;
+                     sig_go_key <= '0';
                   end loop; 
                   sig_Ki_number <= 32;
                   Ki_holder := sig_Ki;
@@ -206,5 +217,15 @@ begin
          end if;
    end process;
 
+    Key_sc : process(clk,key_lance)is
+        begin
+            if rising_edge(Clk) then
+                if key_lance = 1 then
+                
+                elsif key_lance = 0 then    
+                
+                end if;
+            end if;
+    end process;
 
 end Behavioral;
