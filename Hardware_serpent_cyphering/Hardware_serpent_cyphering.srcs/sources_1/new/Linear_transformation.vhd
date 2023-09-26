@@ -131,7 +131,7 @@ begin
         variable tmp2 : std_logic_vector(0 to div4_bits-1);
     begin
             if(go = '1') then
-                ready_busy <= '1';
+                
                 -------Splitting to 4 quartets--------------
                 Splitting(L1=>Bi_input,quartet1=>X0,quartet2=>X1,quartet3=>X2,quartet4=>X3);
 
@@ -162,6 +162,7 @@ begin
                 
                 ------Assemble all 4 quartets-----------
                 sig_Bi_output <= Merging(quartet1=>X0,quartet2=>X1,quartet3=>X2,quartet4=>X3);
+                ready_busy <= '1';
             elsif (go = '0') then
                 ready_busy <= '0';
                 sig_Bi_output <= (others => '1');

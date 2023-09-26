@@ -47,7 +47,6 @@ begin
 
         if rising_edge(clk) then
             if(go = '1') then
-                ready_busy <= '1';
                 read_value_in := to_integer(unsigned(signal_s_box_in));
                 case sboxes_compt is
                     when 0 =>
@@ -86,6 +85,7 @@ begin
                         ready_busy <= '0';
                 end case;
                 signal_s_box_out <= converted_read_value_out;
+                ready_busy <= '1';
             elsif (go = '0') then
                 ready_busy <= '0';
             end if;
