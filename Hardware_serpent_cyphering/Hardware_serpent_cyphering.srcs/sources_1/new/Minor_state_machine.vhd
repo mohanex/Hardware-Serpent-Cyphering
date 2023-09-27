@@ -19,7 +19,8 @@ entity Minor_state_machine is
       go :  in std_logic;
       ready_busy : out std_logic;
       text_to_compute : in std_logic_vector(0 to full_bits-1);
-      computed_text : out std_logic_vector(0 to full_bits-1)
+      computed_text : out std_logic_vector(0 to full_bits-1);
+      user_key_to_calculate : in std_logic_vector(0 to full_bits-1)
    );
 end Minor_state_machine;
 
@@ -217,15 +218,16 @@ begin
          end if;
    end process;
 
-    Key_sc : process(clk,key_lance)is
-        begin
-            if rising_edge(Clk) then
-                if key_lance = 1 then
-                
-                elsif key_lance = 0 then    
-                
-                end if;
+   Key_sc : process(clk,key_lance) 
+      begin
+         if rising_edge(Clk) then
+            if key_lance = 1 then
+               sig_user_key <= user_key_to_calculate;
+               sig_go_key <= '1';
+            elsif key_lance = 0 then    
+               sig_go_key <= '0';
             end if;
-    end process;
+         end if;
+   end process;
 
 end Behavioral;

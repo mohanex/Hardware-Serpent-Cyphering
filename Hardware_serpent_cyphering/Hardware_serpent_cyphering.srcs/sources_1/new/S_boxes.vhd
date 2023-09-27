@@ -44,7 +44,7 @@ begin
         variable read_value_out : integer;
         variable converted_read_value_out : std_logic_vector(0 to 3);
     begin
-
+    
         if rising_edge(clk) then
             if(go = '1') then
                 read_value_in := to_integer(unsigned(signal_s_box_in));

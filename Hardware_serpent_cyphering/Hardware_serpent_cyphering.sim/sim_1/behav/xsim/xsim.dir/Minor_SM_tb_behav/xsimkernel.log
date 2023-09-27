@@ -1,7 +1,4 @@
-Running: xsim.dir/Minor_SM_tb_behav/xsimk.exe -simmode gui -wdb Minor_SM_tb_behav.wdb -simrunnum 0 -socket 54970
+Running: xsim.dir/Minor_SM_tb_behav/xsimk.exe -simmode gui -wdb Minor_SM_tb_behav.wdb -simrunnum 0 -socket 52687
 Design successfully loaded
-Design Loading Memory Usage: 6788 KB (Peak: 6788 KB)
+Design Loading Memory Usage: 6832 KB (Peak: 6832 KB)
 Design Loading CPU Usage: 0 ms
-Simulation completed
-Simulation Memory Usage: 7552 KB (Peak: 7552 KB)
-Simulation CPU Usage: 0 ms
