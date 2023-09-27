@@ -12,7 +12,7 @@ entity key_scheduling_tb is
 end key_scheduling_tb;
 
 architecture Behavioral of key_scheduling_tb is
-component key_scheduling 
+component key_scheduling_SM 
     generic(
         constant full_bits : integer :=128;
         constant div4_bits : integer :=32;
@@ -50,7 +50,7 @@ signal sig_Ki : std_logic_vector(0 to full_bits-1);
 
 begin
 
-key_scheduler : key_scheduling port map(
+key_scheduler : key_scheduling_SM port map(
     clk => clk,
     go => sig_go,
     Ki_number => sig_Ki_number,

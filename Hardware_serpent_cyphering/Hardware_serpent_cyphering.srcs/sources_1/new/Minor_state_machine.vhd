@@ -125,7 +125,7 @@ begin
       Bi_output => sig_Bi_output
    );
 
-   SM : process(Clk) is
+   SM : process(Clk,go) is
       variable iteration : integer := 0;
       variable text_holder : std_logic_vector(0 to full_bits-1);
       variable Bi : std_logic_vector(0 to full_bits-1);
