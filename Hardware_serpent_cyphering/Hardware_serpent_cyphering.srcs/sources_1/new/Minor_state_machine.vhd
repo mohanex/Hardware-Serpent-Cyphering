@@ -38,7 +38,7 @@ component S_boxes is
 end component S_boxes;
 
 --------- component KEY_SCHEDULING -----------
-component key_scheduling is
+component key_scheduling_SM is
    generic(
       constant full_bits : integer :=128;
       constant div4_bits : integer :=32;
@@ -52,9 +52,10 @@ component key_scheduling is
       Ki_number : in integer; --key number 
       user_key : in std_logic_vector(0 to full_bits-1);
       ready_busy : inout std_logic_vector(0 to 1);
-      Ki : out std_logic_vector(0 to full_bits-1)
+      Ki : out std_logic_vector(0 to full_bits-1);
+      ready_busy_key : out std_logic
   );
-end component key_scheduling;
+end component key_scheduling_SM;
 
 ---------- component LINEAR TRANSFORMATION ---------
 component Linear_transformation is
@@ -89,19 +90,19 @@ signal sig_box_out : std_logic_vector(0 to 3);
 signal sig_Ki : std_logic_vector(0 to full_bits-1);
 signal sig_Ki_number : integer; --key number;
 signal sig_user_key : std_logic_vector(0 to full_bits-1);
+signal sig_ready_busy_key_give : std_logic;
 
 ------- linear transformation remaining signals ---------
 signal sig_Bi_input : std_logic_vector(0 to full_bits-1);
 signal sig_Bi_output : std_logic_vector(0 to full_bits-1);
 
 ------- Machine state variable -------------------------
-type t_State is (IDLE, state_SB, state_KS, state_LT, finished, speciaal);
+type t_State is (IDLE, state_SB, state_KS, state_LT, finished, speciaal,generating_subkeys,state_xoring);
 signal State : t_State := IDLE;
 
 signal key_lance : integer :=0;
 
 begin
-
    SB : S_boxes port map(
       clk => clk,
       s_box_in => sig_box_in,
@@ -109,13 +110,14 @@ begin
       go => sig_go_sboxes,
       ready_busy => sig_ready_busy_sboxes
    );
-   KS : key_scheduling port map(
+   KS : key_scheduling_SM port map(
       clk => clk,
       go => sig_go_key,
       Ki_number => sig_Ki_number,
       user_key => sig_user_key,
       ready_busy => sig_ready_busy_key,
-      Ki => sig_Ki
+      Ki => sig_Ki,
+      ready_busy_key => sig_ready_busy_key_give
    );
    LT : Linear_transformation port map(
       clk => clk,
@@ -138,23 +140,40 @@ begin
          if rising_edge(Clk) then
             case state is 
                when IDLE =>
-                report " IDLE State";
-                key_lance <= 1;
+                report "IDLE State";
+                key_lance <= 1; --lance subkeys generating
                   if(go = '1') then
                      text_holder := text_to_compute;
                      i := 0;
-                     state <= state_KS;
+                     state <= generating_subkeys;
                   elsif (go = '0') then
                      ready_busy <= '0';
                   end if;
 
-               when state_KS =>
-                  key_lance <= 0;
+               when generating_subkeys => --waiting for flag then stopping subkey generation
+                  report "generating_subkeys State";
+                  if(sig_ready_busy_key = "11") then 
+                     key_lance <= 0;
+                     state <= state_KS;
+                  else 
+                     state <= generating_subkeys;
+                  end if;
+
+               when state_KS => --asking for the subkey 
                   report " KS State";
                   sig_Ki_number <= i;
                   Ki_holder := sig_Ki;
-                  temp1 := text_holder xor Ki_holder;
-                  state <= state_SB;
+                  state <= state_xoring;
+
+               when state_xoring =>
+                  report " xoring State";
+                  if(sig_ready_busy_key_give = '1') then
+                     temp1 := text_holder xor Ki_holder;
+                     state <= state_SB;
+                  else 
+                     state <= state_xoring;
+                  end if;
+      
 
                when state_SB =>
                report " SB State";
@@ -218,16 +237,15 @@ begin
          end if;
    end process;
 
-   Key_sc : process(clk,key_lance) 
+   Key_sc : process(key_lance) 
       begin
-         if rising_edge(Clk) then
-            if key_lance = 1 then
-               sig_user_key <= user_key_to_calculate;
-               sig_go_key <= '1';
-            elsif key_lance = 0 then    
-               sig_go_key <= '0';
-            end if;
+         if key_lance = 1 then
+            report "lunch key_scheduling";
+            sig_go_key <= '1';
+         elsif key_lance = 0 then  
+            sig_go_key <= '0';
          end if;
    end process;
 
+   sig_user_key <= user_key_to_calculate;
 end Behavioral;

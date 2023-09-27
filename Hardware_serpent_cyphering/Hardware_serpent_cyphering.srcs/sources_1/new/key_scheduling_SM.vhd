@@ -21,7 +21,8 @@ entity key_scheduling_SM is
         Ki_number : in integer; --key number 
         user_key : in std_logic_vector(0 to full_bits-1);
         ready_busy : inout std_logic_vector(0 to 1);
-        Ki : out std_logic_vector(0 to full_bits-1)
+        Ki : out std_logic_vector(0 to full_bits-1);
+        ready_busy_key : out std_logic
     );
 end key_scheduling_SM;
 
@@ -39,7 +40,7 @@ architecture Behavioral of key_scheduling_SM is
     signal sig_user_key : std_logic_vector(0 to full_bits-1);
     signal sig_pre_keys : Ki_array;
     signal sig_ready_busy : std_logic_vector(0 to 1);
-
+    signal sig_ready_busy_key : std_logic;
 
     ----S-boxes--------------------------------------------------
     function  app_s_box(
@@ -348,13 +349,15 @@ end process;
         begin
         if ready_busy = "11" then
             if sig_Ki_number<0 or sig_Ki_number>32 then
+                sig_ready_busy_key <='0';
                 sig_Ki <= "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
             else
                 sig_Ki <= sig_pre_keys(sig_Ki_number);
+                sig_ready_busy_key <='1';
             end if;
         end if;
     end process;
-
+    ready_busy_key <= sig_ready_busy_key;
     sig_user_key <= user_key;
     sig_Ki_number <= Ki_number;
     Ki <= sig_Ki;

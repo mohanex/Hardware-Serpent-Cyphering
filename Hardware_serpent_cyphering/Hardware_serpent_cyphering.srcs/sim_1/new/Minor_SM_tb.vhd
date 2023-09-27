@@ -30,7 +30,7 @@ architecture Behavioral of Minor_SM_tb is
 
     -- clock signals
     signal clk : std_logic := '0' ;
-    constant clk_period : time := 20 ns; 
+    constant clk_period : time := 2 ns; 
 
     signal sig_go : std_logic;
     signal sig_ready_busy : std_logic;
@@ -54,17 +54,16 @@ begin
     stimuli : process
     begin
         sig_go <= '0';
-        sig_text_to_compute <= (others => '0');
-        sig_user_key_to_calculate <="00001011110101111000100100011010011101110110000011100000101000110101101011111000101111011010111101000001001010111100101111010011";
-
-        wait for 50ns;
-
-        sig_text_to_compute <= "11101011001111001000110000011001011010111000100110110101000111010000101110010011101110010110110011010111101101100001001101111101";
 
         wait for 20ns;
+        sig_user_key_to_calculate <="00001011110101111000100100011010011101110110000011100000101000110101101011111000101111011010111101000001001010111100101111010011";
+        sig_text_to_compute <= "11101011001111001000110000011001011010111000100110110101000111010000101110010011101110010110110011010111101101100001001101111101";
+        sig_go <= '1';
         
+        wait for 50ns;
         sig_go <= '1';
 
+    
         wait for 30000ns;
     end process;
 end Behavioral;
