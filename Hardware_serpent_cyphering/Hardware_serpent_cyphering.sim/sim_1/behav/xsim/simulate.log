@@ -139,4 +139,30 @@ Time: 810 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/D
 Note:  KS State
 Time: 830 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
 Note:  SB State
-Time: 850 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/so
+Time: 850 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note: Value of xoring before Sboxe :0
+Time: 850 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note: Value of xoring after Sboxe :0
+Time: 850 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note:  LT State
+Time: 870 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note:  FINISHED State
+Time: 890 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note: Value of i :9
+Time: 890 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note:  KS State
+Time: 910 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note:  SB State
+Time: 930 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note: Value of xoring before Sboxe :0
+Time: 930 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note: Value of xoring after Sboxe :0
+Time: 930 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note:  LT State
+Time: 950 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note:  FINISHED State
+Time: 970 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note: Value of i :10
+Time: 970 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note:  KS State
+Time: 990 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
