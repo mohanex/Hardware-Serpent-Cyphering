@@ -198,7 +198,7 @@ architecture Behavioral of key_scheduling_SM is
         return tmp1;
     end function Shifting;
 -- Define states for the state machine
-type state_type is (IDLE, KEY_PADDING, SPLIT_KEY, PREKEY_CALCULATION, SBOX_APPLICATION, ASSEMBLING_KEY, FINAL_IP);
+type state_type is (IDLE, KEY_PADDING, SPLIT_KEY, PREKEY_CALCULATION, SBOX_APPLICATION, ASSEMBLING_KEY, FLAG_IP, FINAL_IP);
 signal state : state_type := IDLE;
 
 -- Define signals to control state transitions
@@ -209,17 +209,16 @@ signal prekey_calc_done : std_logic;
 signal sbox_app_done : std_logic;
 signal key_assembled : std_logic;
 signal final_ip_done : std_logic;
+signal flag_ip_done : std_logic;
 
 begin
 -- State machine process
 process(clk, go)
 begin
     if rising_edge(clk) then
-        if (go = '1') then
-            -- State transitions
             case state is
                 when IDLE =>
-                    if start_processing = '1' then
+                    if start_processing = '1' and go = '1' then
                         state <= KEY_PADDING;
                     end if;
                 when KEY_PADDING =>
@@ -244,22 +243,20 @@ begin
                     end if;
                 when FINAL_IP =>
                     if final_ip_done = '1' then
+                        state <= FLAG_IP;
+                    end if;
+                when FLAG_IP =>
+                    if flag_ip_done = '1' and go = '1' then
+                        state <= FLAG_IP;
+                    elsif go = '0' then
                         state <= IDLE;
                     end if;
+
                 when others =>
                     state <= IDLE;
             end case;
-        end if;
     end if;
 end process;
-
--- Output control signals for each state
---start_processing <= (state = IDLE) and (go = '1');
---padding_done <= (state && KEY_PADDING);
---prekey_calc_done <= (state = PREKEY_CALCULATION);
---sbox_app_done <= (state = SBOX_APPLICATION);
---key_assembled <= (state = ASSEMBLING_KEY);
---final_ip_done <= (state = FINAL_IP);
 
 -- State machine logic to set the next state
 process(state)
@@ -282,6 +279,7 @@ begin
             report "IDLE State";
             start_processing <= '1';
             sig_ready_busy <= "01";
+
         when KEY_PADDING =>
             report "KEY_PADDING State";
             if(padding_number = 0) then
@@ -343,10 +341,22 @@ begin
             pre_keys(i) := app_IP(input_bits=>pre_keys(i));
             sig_pre_keys(i) <= pre_keys(i);
         end loop;
+        final_ip_done <= '1';
+        flag_ip_done <= '0';
+
+        when FLAG_IP =>
         sig_ready_busy <= "11";
         padding_number := 0;
-        final_ip_done <= '1';
-
+        ------ reset control signals -----
+        start_processing <= '0';
+        padding_done <= '0';
+        split_key_done <= '0';
+        prekey_calc_done <= '0';
+        sbox_app_done <= '0';
+        key_assembled <= '0';
+        final_ip_done <= '0';
+        flag_ip_done <= '1';
+        
         when others =>
         report "others State";
         sig_ready_busy <= "00";
@@ -355,18 +365,18 @@ end process;
 
     Giving_keys : process(sig_Ki_number,ready_busy)
         begin
-        report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(ready_busy)));
-        if ready_busy = "11" then
+        report "sig_ready_busy=" & integer'image(to_integer(unsigned(ready_busy)));
+        if flag_ip_done = '1' then
             if sig_Ki_number<0 or sig_Ki_number>32 then
                 sig_ready_busy_key <='0';
-                sig_Ki <= "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+                sig_Ki <= "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
             else
                 sig_Ki <= sig_pre_keys(sig_Ki_number);
                 sig_ready_busy_key <='1';
             end if;
         end if;
     end process;
-    
+
     ready_busy <= sig_ready_busy;
     ready_busy_key <= sig_ready_busy_key;
     sig_user_key <= user_key;

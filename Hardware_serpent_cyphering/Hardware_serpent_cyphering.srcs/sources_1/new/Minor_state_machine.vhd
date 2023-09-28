@@ -141,8 +141,8 @@ begin
             case state is 
                when IDLE =>
                 report "IDLE State";
-                key_lance <= 1; --lance subkeys generating
                   if(go = '1') then
+                     key_lance <= 1; --lunch subkeys generating
                      text_holder := text_to_compute;
                      i := 0;
                      state <= generating_subkeys;
@@ -242,10 +242,12 @@ begin
          if key_lance = 1 then
             report "lunch key_scheduling";
             sig_go_key <= '1';
+            sig_user_key <= user_key_to_calculate;
          elsif key_lance = 0 then  
             sig_go_key <= '0';
+            sig_user_key <= user_key_to_calculate;
          end if;
    end process;
 
-   sig_user_key <= user_key_to_calculate;
+   
 end Behavioral;
