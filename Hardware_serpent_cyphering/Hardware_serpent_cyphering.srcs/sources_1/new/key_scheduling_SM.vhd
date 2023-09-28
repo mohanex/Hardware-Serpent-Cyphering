@@ -20,9 +20,9 @@ entity key_scheduling_SM is
         go : in std_logic;
         Ki_number : in integer; --key number 
         user_key : in std_logic_vector(0 to full_bits-1);
-        ready_busy : inout std_logic_vector(0 to 1);
+        ready_busy : out std_logic_vector(0 to 1);
         Ki : out std_logic_vector(0 to full_bits-1);
-        ready_busy_key : out std_logic
+        ready_busy_key : out std_logic_vector(0 to 1)
     );
 end key_scheduling_SM;
 
@@ -40,7 +40,7 @@ architecture Behavioral of key_scheduling_SM is
     signal sig_user_key : std_logic_vector(0 to full_bits-1);
     signal sig_pre_keys : Ki_array;
     signal sig_ready_busy : std_logic_vector(0 to 1);
-    signal sig_ready_busy_key : std_logic;
+    signal sig_ready_busy_key : std_logic_vector(0 to 1);
 
     ----S-boxes--------------------------------------------------
     function  app_s_box(
@@ -278,7 +278,7 @@ begin
         when IDLE =>
             report "IDLE State";
             start_processing <= '1';
-            sig_ready_busy <= "01";
+            --sig_ready_busy <= "10";
 
         when KEY_PADDING =>
             report "KEY_PADDING State";
@@ -345,7 +345,8 @@ begin
         flag_ip_done <= '0';
 
         when FLAG_IP =>
-        sig_ready_busy <= "11";
+        report "FLAG_IP State";
+        --sig_ready_busy <= "11";
         padding_number := 0;
         ------ reset control signals -----
         start_processing <= '0';
@@ -359,20 +360,25 @@ begin
         
         when others =>
         report "others State";
-        sig_ready_busy <= "00";
+        --sig_ready_busy <= "00";
     end case;
 end process;
 
-    Giving_keys : process(sig_Ki_number,ready_busy)
+    Giving_keys : process(clk,sig_Ki_number,state)
         begin
-        report "sig_ready_busy=" & integer'image(to_integer(unsigned(ready_busy)));
-        if flag_ip_done = '1' then
-            if sig_Ki_number<0 or sig_Ki_number>32 then
-                sig_ready_busy_key <='0';
-                sig_Ki <= "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+        report "sig_ready_busy=" & integer'image(to_integer(unsigned(sig_ready_busy)));
+        if rising_edge(clk) then
+            if flag_ip_done = '1' then
+                sig_ready_busy <= "11";
+                if sig_Ki_number<0 or sig_Ki_number>32 then
+                    sig_ready_busy_key <="00";
+                    sig_Ki <= "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
+                else
+                    sig_Ki <= sig_pre_keys(sig_Ki_number);
+                    sig_ready_busy_key <="01";
+                end if;
             else
-                sig_Ki <= sig_pre_keys(sig_Ki_number);
-                sig_ready_busy_key <='1';
+                sig_ready_busy <= "01";
             end if;
         end if;
     end process;

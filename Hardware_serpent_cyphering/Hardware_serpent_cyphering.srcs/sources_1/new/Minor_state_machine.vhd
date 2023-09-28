@@ -51,9 +51,9 @@ component key_scheduling_SM is
       go : in std_logic;
       Ki_number : in integer; --key number 
       user_key : in std_logic_vector(0 to full_bits-1);
-      ready_busy : inout std_logic_vector(0 to 1);
+      ready_busy : out std_logic_vector(0 to 1);
       Ki : out std_logic_vector(0 to full_bits-1);
-      ready_busy_key : out std_logic
+      ready_busy_key : out std_logic_vector(0 to 1)
   );
 end component key_scheduling_SM;
 
@@ -90,14 +90,14 @@ signal sig_box_out : std_logic_vector(0 to 3);
 signal sig_Ki : std_logic_vector(0 to full_bits-1);
 signal sig_Ki_number : integer; --key number;
 signal sig_user_key : std_logic_vector(0 to full_bits-1);
-signal sig_ready_busy_key_give : std_logic;
+signal sig_ready_busy_key_give : std_logic_vector(0 to 1);
 
 ------- linear transformation remaining signals ---------
 signal sig_Bi_input : std_logic_vector(0 to full_bits-1);
 signal sig_Bi_output : std_logic_vector(0 to full_bits-1);
 
 ------- Machine state variable -------------------------
-type t_State is (IDLE, state_SB, state_KS, state_LT, finished, speciaal,generating_subkeys,state_xoring);
+type t_State is (IDLE, state_SB, state_KS, state_LT, finished, speciaal,generating_subkeys,state_xoring,wait_for_ki);
 signal State : t_State := IDLE;
 
 signal key_lance : integer :=0;
@@ -141,8 +141,10 @@ begin
             case state is 
                when IDLE =>
                 report "IDLE State";
+                report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key)));
                   if(go = '1') then
-                     key_lance <= 1; --lunch subkeys generating
+                     --key_lance <= 1; --lunch subkeys generating
+                     sig_go_key <= '1';
                      text_holder := text_to_compute;
                      i := 0;
                      state <= generating_subkeys;
@@ -164,16 +166,23 @@ begin
                   report " KS State";
                   sig_Ki_number <= i;
                   Ki_holder := sig_Ki;
-                  state <= state_xoring;
+                  state <= wait_for_ki;
+
+
+               when wait_for_ki =>
+                  report " wait_for_ki State";
+                  report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key_give)));
+                  if(sig_ready_busy_key_give = "01") then 
+                     state <= state_xoring;
+                  else 
+                     state <= wait_for_ki;
+                  end if;
+                  
 
                when state_xoring =>
                   report " xoring State";
-                  if(sig_ready_busy_key_give = '1') then
-                     temp1 := text_holder xor Ki_holder;
-                     state <= state_SB;
-                  else 
-                     state <= state_xoring;
-                  end if;
+                  temp1 := text_holder xor Ki_holder;
+                  state <= state_SB;
 
                when state_SB =>
                report " SB State";
@@ -237,17 +246,18 @@ begin
          end if;
    end process;
 
-   Key_sc : process(key_lance) 
-      begin
-         if key_lance = 1 then
-            report "lunch key_scheduling";
-            sig_go_key <= '1';
-            sig_user_key <= user_key_to_calculate;
-         elsif key_lance = 0 then  
-            sig_go_key <= '0';
-            sig_user_key <= user_key_to_calculate;
-         end if;
-   end process;
-
+   --Key_sc : process(key_lance) 
+    --  begin
+   --      if key_lance = 1 then
+    --        report "lunch key_scheduling";
+    --        sig_go_key <= '1';
+     --       sig_user_key <= user_key_to_calculate;
+     --    elsif key_lance = 0 then  
+     --       report "stop key_scheduling";
+    --        sig_go_key <= '0';
+    --        sig_user_key <= user_key_to_calculate;
+   --      end if;
+   --end process;
+    sig_user_key <= user_key_to_calculate;
    
 end Behavioral;

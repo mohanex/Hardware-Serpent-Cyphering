@@ -11,14 +11,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="30000001fs"></ZoomEndTime>
-      <Cursor1Time time="30000000fs"></Cursor1Time>
+      <ZoomEndTime time="1000000001fs"></ZoomEndTime>
+      <Cursor1Time time="1000000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="274"></NameColumnWidth>
-      <ValueColumnWidth column_width="145"></ValueColumnWidth>
+      <ValueColumnWidth column_width="130"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="12" />
+   <WVObjectSize size="16" />
    <wvobject fp_name="/Minor_SM_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -43,28 +43,44 @@
       <obj_property name="ElementShortName">sig_user_key_to_calculate[0:127]</obj_property>
       <obj_property name="ObjectShortName">sig_user_key_to_calculate[0:127]</obj_property>
    </wvobject>
-   <wvobject fp_name="/Minor_SM_tb/full_bits" type="other">
-      <obj_property name="ElementShortName">full_bits</obj_property>
-      <obj_property name="ObjectShortName">full_bits</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Minor_SM_tb/div4_bits" type="other">
-      <obj_property name="ElementShortName">div4_bits</obj_property>
-      <obj_property name="ObjectShortName">div4_bits</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Minor_SM_tb/full_key_size" type="other">
-      <obj_property name="ElementShortName">full_key_size</obj_property>
-      <obj_property name="ObjectShortName">full_key_size</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Minor_SM_tb/four_bits" type="other">
-      <obj_property name="ElementShortName">four_bits</obj_property>
-      <obj_property name="ObjectShortName">four_bits</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Minor_SM_tb/clk_period" type="other">
-      <obj_property name="ElementShortName">clk_period</obj_property>
-      <obj_property name="ObjectShortName">clk_period</obj_property>
-   </wvobject>
    <wvobject fp_name="/Minor_SM_tb/MSM/KS/state" type="other">
       <obj_property name="ElementShortName">state</obj_property>
       <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/State" type="other">
+      <obj_property name="ElementShortName">State</obj_property>
+      <obj_property name="ObjectShortName">State</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/KS/Ki_number" type="other">
+      <obj_property name="ElementShortName">Ki_number</obj_property>
+      <obj_property name="ObjectShortName">Ki_number</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/KS/sig_Ki" type="array">
+      <obj_property name="ElementShortName">sig_Ki[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_Ki[0:127]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/KS/sig_ready_busy" type="array">
+      <obj_property name="ElementShortName">sig_ready_busy[0:1]</obj_property>
+      <obj_property name="ObjectShortName">sig_ready_busy[0:1]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/KS/sig_ready_busy_key" type="array">
+      <obj_property name="ElementShortName">sig_ready_busy_key[0:1]</obj_property>
+      <obj_property name="ObjectShortName">sig_ready_busy_key[0:1]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/SB/s_box_in" type="array">
+      <obj_property name="ElementShortName">s_box_in[0:3]</obj_property>
+      <obj_property name="ObjectShortName">s_box_in[0:3]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/SB/s_box_out" type="array">
+      <obj_property name="ElementShortName">s_box_out[0:3]</obj_property>
+      <obj_property name="ObjectShortName">s_box_out[0:3]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/LT/Bi_input" type="array">
+      <obj_property name="ElementShortName">Bi_input[0:127]</obj_property>
+      <obj_property name="ObjectShortName">Bi_input[0:127]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/LT/Bi_output" type="array">
+      <obj_property name="ElementShortName">Bi_output[0:127]</obj_property>
+      <obj_property name="ObjectShortName">Bi_output[0:127]</obj_property>
    </wvobject>
 </wave_config>
