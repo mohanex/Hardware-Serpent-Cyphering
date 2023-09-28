@@ -1,2 +1,2 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'Minor_state_machine'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'key_scheduling_SM'

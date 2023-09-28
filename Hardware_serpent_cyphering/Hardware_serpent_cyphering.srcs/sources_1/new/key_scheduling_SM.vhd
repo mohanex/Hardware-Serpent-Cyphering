@@ -279,9 +279,11 @@ variable padding_number : integer := 0;
 begin
     case state is
         when IDLE =>
+            report "IDLE State";
             start_processing <= '1';
-            ready_busy <= "01";
+            sig_ready_busy <= "01";
         when KEY_PADDING =>
+            report "KEY_PADDING State";
             if(padding_number = 0) then
                 padding_zeros := (others => '1');
                 key_to_256(full_key_size-1) := '1';
@@ -292,12 +294,14 @@ begin
             padding_done <= '1';
 
         when SPLIT_KEY =>
+        report "SPLIT_KEY State";
         Splitting(L1=>key_to_256,var_quartet_1=>w(-8),var_quartet_2=>w(-7),var_quartet_3=>w(-6),
         var_quartet_4=>w(-5),var_quartet_5=>w(-4),var_quartet_6=>w(-3),var_quartet_7=>w(-2),
         var_quartet_8=>w(-1));
         split_key_done <= '1';
 
         when PREKEY_CALCULATION =>
+        report "PREKEY_CALCULATION State";
         prekey : for i in 0 to 131 loop
             temp_calc := w(i-8) xor w(i-5) xor w(i-3) xor w(i-1) xor theta xor 
             std_logic_vector(to_unsigned(i,32));
@@ -309,6 +313,7 @@ begin
         prekey_calc_done <= '1';
 
         when SBOX_APPLICATION =>
+        report "SBOX_APPLICATION State";
         applying_key_sbox : for i in 0 to 32 loop
             whichS := (32 + 3 - i) mod 32;
             for j in 0 to 31 loop
@@ -326,27 +331,31 @@ begin
         sbox_app_done <= '1';
 
         when ASSEMBLING_KEY =>
+        report "ASSEMBLING_KEY State";
         assembling_key2 : for i in 0 to 32 loop
             pre_keys(i) := Merging(quartet_1=>k(4*i),quartet_2=>k(4*i+1),quartet_3=>k(4*i+2),quartet_4=>k(4*i+3));
         end loop;
         key_assembled <= '1';
 
         when FINAL_IP =>
+        report "FINAL_IP State";
         applying_ip : for i in 0 to 32 loop
             pre_keys(i) := app_IP(input_bits=>pre_keys(i));
             sig_pre_keys(i) <= pre_keys(i);
         end loop;
-        ready_busy <= "11";
+        sig_ready_busy <= "11";
         padding_number := 0;
         final_ip_done <= '1';
 
         when others =>
-            ready_busy <= "00";
+        report "others State";
+        sig_ready_busy <= "00";
     end case;
 end process;
 
     Giving_keys : process(sig_Ki_number,ready_busy)
         begin
+        report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(ready_busy)));
         if ready_busy = "11" then
             if sig_Ki_number<0 or sig_Ki_number>32 then
                 sig_ready_busy_key <='0';
@@ -357,6 +366,8 @@ end process;
             end if;
         end if;
     end process;
+    
+    ready_busy <= sig_ready_busy;
     ready_busy_key <= sig_ready_busy_key;
     sig_user_key <= user_key;
     sig_Ki_number <= Ki_number;

@@ -152,6 +152,7 @@ begin
 
                when generating_subkeys => --waiting for flag then stopping subkey generation
                   report "generating_subkeys State";
+                  report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key)));
                   if(sig_ready_busy_key = "11") then 
                      key_lance <= 0;
                      state <= state_KS;
@@ -173,7 +174,6 @@ begin
                   else 
                      state <= state_xoring;
                   end if;
-      
 
                when state_SB =>
                report " SB State";
