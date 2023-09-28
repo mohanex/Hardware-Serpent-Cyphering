@@ -1199,4 +1199,22 @@ Time: 950 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/KS/Giving_keys  File: C:/U
 Note:  FINISHED State
 Time: 950 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
 Note: Value of i :5
-Time: 950 ns  Iteration: 0  Process: /Minor
+Time: 950 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note: sig_ready_busy=3
+Time: 960 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/KS/Giving_keys  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd
+Note: sig_ready_busy=3
+Time: 970 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/KS/Giving_keys  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd
+Note:  KS State
+Time: 970 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note: sig_ready_busy=3
+Time: 970 ns  Iteration: 2  Process: /Minor_SM_tb/MSM/KS/Giving_keys  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd
+Note: sig_ready_busy=3
+Time: 980 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/KS/Giving_keys  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd
+Note: sig_ready_busy=3
+Time: 990 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/KS/Giving_keys  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd
+Note:  wait_for_ki State
+Time: 990 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note: sig_ready_busy_key =1
+Time: 990 ns  Iteration: 0  Process: /Minor_SM_tb/MSM/SM  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd
+Note: sig_ready_busy=3
+Time: 1 us  Iteration: 0  Process: /Minor_SM_tb/MSM/KS/Giving_keys  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd

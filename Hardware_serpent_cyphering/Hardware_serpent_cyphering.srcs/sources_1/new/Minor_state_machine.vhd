@@ -141,7 +141,7 @@ begin
             case state is 
                when IDLE =>
                 report "IDLE State";
-                report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key)));
+                --report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key)));
                   if(go = '1') then
                      --key_lance <= 1; --lunch subkeys generating
                      sig_go_key <= '1';
@@ -154,7 +154,7 @@ begin
 
                when generating_subkeys => --waiting for flag then stopping subkey generation
                   report "generating_subkeys State";
-                  report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key)));
+                  --report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key)));
                   if(sig_ready_busy_key = "11") then 
                      key_lance <= 0;
                      state <= state_KS;
@@ -171,7 +171,7 @@ begin
 
                when wait_for_ki =>
                   report " wait_for_ki State";
-                  report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key_give)));
+                  --report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key_give)));
                   if(sig_ready_busy_key_give = "01") then 
                      state <= state_xoring;
                   else 
@@ -191,8 +191,8 @@ begin
                      input_s := temp1(0 + 4 * j) & temp1(1 + 4 * j) & temp1(2 + 4 * j) & temp1(3 + 4 * j);
                      sig_box_in <= input_s;
                      sig_go_key <= '1';
-                     --while sig_ready_busy_sboxes = '0' loop
-                     --end loop;
+                     while sig_ready_busy_sboxes = '0' loop
+                     end loop;
                      temp2((0+4*j) to (3+4*j)) := sig_box_out;
                      sig_go_key <= '0';
                   end loop; 
@@ -245,19 +245,6 @@ begin
             end case;
          end if;
    end process;
-
-   --Key_sc : process(key_lance) 
-    --  begin
-   --      if key_lance = 1 then
-    --        report "lunch key_scheduling";
-    --        sig_go_key <= '1';
-     --       sig_user_key <= user_key_to_calculate;
-     --    elsif key_lance = 0 then  
-     --       report "stop key_scheduling";
-    --        sig_go_key <= '0';
-    --        sig_user_key <= user_key_to_calculate;
-   --      end if;
-   --end process;
     sig_user_key <= user_key_to_calculate;
    
 end Behavioral;

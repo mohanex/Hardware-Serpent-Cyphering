@@ -92,6 +92,8 @@ begin
         end if;
 
     end process subsitution;
+    
     s_box_out <= signal_s_box_out;
     signal_s_box_in <= s_box_in;
+    
 end Behavioral;
