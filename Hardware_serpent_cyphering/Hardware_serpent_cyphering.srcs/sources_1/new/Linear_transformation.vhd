@@ -19,7 +19,7 @@ entity Linear_transformation is
     Port ( 
         clk : in std_logic;
         go : in std_logic;
-        ready_busy : out std_logic;
+        ready_busy : out std_logic_vector(0 to 1);
         Bi_input : in std_logic_vector(0 to full_bits-1);
         Bi_output : out std_logic_vector(0 to full_bits-1)
     );
@@ -162,9 +162,9 @@ begin
                 
                 ------Assemble all 4 quartets-----------
                 sig_Bi_output <= Merging(quartet1=>X0,quartet2=>X1,quartet3=>X2,quartet4=>X3);
-                ready_busy <= '1';
+                ready_busy <= "11";
             elsif (go = '0') then
-                ready_busy <= '0';
+                ready_busy <= "00";
                 sig_Bi_output <= (others => '1');
             end if;
     end process Linear;

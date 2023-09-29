@@ -13,7 +13,7 @@ entity S_boxes is
         s_box_in : in std_logic_vector(0 to 3);
         s_box_out : out std_logic_vector(0 to 3);
         go :  in std_logic;
-        ready_busy : out std_logic
+        ready_busy : out std_logic_vector(0 to 1)
         --mode : in std_logic;   -----if 1 then will take sboxe_num as sbox number else itll start on 0 finish at 7 and reiterate
         --sboxe_num : in integer 
     );
@@ -33,21 +33,59 @@ architecture Behavioral of S_boxes is
 
     signal signal_s_box_in : std_logic_vector(0 to 3);
     signal signal_s_box_out : std_logic_vector(0 to 3);
-    --signal signal_mode : in std_logic;
-    --signal signal_sboxe_num : in integer;
+    type state_type is(IDLE,SUBS,FINISHED);
+    signal state : state_type := IDLE;
+
+    signal start_processing : std_logic;
+    signal subs_done : std_logic;
+    signal finished_done : std_logic;
+    signal compt_debug : integer;
 
 begin
 
-    subsitution : process(go,clk)
+    -- State machine process
+    machine_state_control : process(clk, go)
+    begin
+        if rising_edge(clk) then
+            case state is
+                when IDLE =>
+                    if start_processing = '1' and go = '1' then
+                        state <= SUBS;
+                    end if;
+                when SUBS =>
+                    if subs_done = '1' then
+                        state <= FINISHED;
+                    end if;
+                when FINISHED =>
+                    if finished_done = '1' and go = '1' then
+                        state <= FINISHED;
+                    elsif go = '0' then
+                        state <= IDLE;
+                    end if;
+                when others =>
+                    state <= IDLE;
+            end case;
+        end if;
+    end process;
+
+    subsitution : process(state)
         variable sboxes_compt : integer := 0;
         variable read_value_in : integer;
         variable read_value_out : integer;
         variable converted_read_value_out : std_logic_vector(0 to 3);
     begin
-    
-        if rising_edge(clk) then
-            if(go = '1') then
+        case state is 
+            when IDLE =>
+                --compt_debug <= sboxes_compt;
+                compt_debug <= sboxes_compt;
+                report("IDLE State");
+                ready_busy <= "00";
+                start_processing <= '1';
                 read_value_in := to_integer(unsigned(signal_s_box_in));
+
+            when SUBS =>
+                report("SUBS State");
+                ready_busy <= "01";
                 case sboxes_compt is
                     when 0 =>
                         read_value_out := S0(read_value_in);
@@ -82,18 +120,25 @@ begin
                         converted_read_value_out := std_logic_vector(to_unsigned(read_value_out, converted_read_value_out'length));
                         sboxes_compt := 0;
                     when others =>
-                        ready_busy <= '0';
+                        report("ERROR WHLE SUBING");
+                        read_value_out := S0(read_value_in);
+                        converted_read_value_out := std_logic_vector(to_unsigned(read_value_out, converted_read_value_out'length));
+                        sboxes_compt := sboxes_compt+1;
                 end case;
-                signal_s_box_out <= converted_read_value_out;
-                ready_busy <= '1';
-            elsif (go = '0') then
-                ready_busy <= '0';
-            end if;
-        end if;
+                subs_done <= '1';
 
+            when FINISHED =>
+                s_box_out <= converted_read_value_out;
+                ready_busy <= "11";
+                finished_done <= '1';
+                report("FINISHED State");
+
+            when others =>
+                report "others State";
+
+        end case;    
     end process subsitution;
     
-    s_box_out <= signal_s_box_out;
     signal_s_box_in <= s_box_in;
     
 end Behavioral;

@@ -19,7 +19,7 @@ component S_boxes
         s_box_in : in std_logic_vector(0 to 3);
         s_box_out : out std_logic_vector(0 to 3);
         go :  in std_logic;
-        ready_busy : out std_logic
+        ready_busy : out std_logic_vector(0 to 1)
     );
 end component;
 
@@ -31,7 +31,7 @@ constant clk_period : time := 20 ns;
 signal s_s_box_in : std_logic_vector(0 to 3);
 signal s_s_box_out : std_logic_vector(0 to 3);
 signal s_go :  std_logic;
-signal s_ready_busy : std_logic;
+signal s_ready_busy : std_logic_vector(0 to 1);
 
 begin
 
@@ -47,37 +47,17 @@ clk <= not clk after clk_period/2;
 
 stimuli : process
 begin
-    s_go <= '0';
-    s_s_box_in <= (others => '0');
-    
-    wait for 30 ns;
-
-    s_s_box_in <= "0010"; -- should give us 5
+    s_s_box_in <= "1111"; -- should give us 5
     s_go <= '1';
-    
-    wait for 30 ns;
-    
-    s_go <= '0';
-    
-    wait for 30 ns;
+    wait for 300 ns;
 
-    s_s_box_in <= "1111"; -- should give us 15
+    s_go <= '0';
+    wait for 300 ns;
+
+    s_s_box_in <= "1111"; -- should give us 6
     s_go <= '1';
-
-    wait for 30 ns;
-    
-    s_go <= '0';
-
-    wait for 30 ns;
-
-    s_s_box_in <= "0110"; -- should give us 6
-    s_go <= '1';
-
-    wait for 30 ns;
-    
-    s_go <= '0';
-
-    wait for 30 ns;
+    wait for 300 ns;
+        
 end process;
 
 end Behavioral;
