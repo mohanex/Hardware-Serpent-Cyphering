@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="Minor_SM_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="Minor_SM_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="27219980000fs"></ZoomStartTime>
+      <ZoomEndTime time="27283580001fs"></ZoomEndTime>
+      <Cursor1Time time="29000000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="274"></NameColumnWidth>
+      <ValueColumnWidth column_width="105"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="13" />
+   <wvobject fp_name="/Minor_SM_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/sig_go" type="logic">
+      <obj_property name="ElementShortName">sig_go</obj_property>
+      <obj_property name="ObjectShortName">sig_go</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/sig_ready_busy" type="logic">
+      <obj_property name="ElementShortName">sig_ready_busy</obj_property>
+      <obj_property name="ObjectShortName">sig_ready_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/sig_text_to_compute" type="array">
+      <obj_property name="ElementShortName">sig_text_to_compute[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_text_to_compute[0:127]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/sig_computed_text" type="array">
+      <obj_property name="ElementShortName">sig_computed_text[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_computed_text[0:127]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/sig_user_key_to_calculate" type="array">
+      <obj_property name="ElementShortName">sig_user_key_to_calculate[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_user_key_to_calculate[0:127]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/State" type="other">
+      <obj_property name="ElementShortName">State</obj_property>
+      <obj_property name="ObjectShortName">State</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/KS/sig_Ki_number" type="other">
+      <obj_property name="ElementShortName">sig_Ki_number</obj_property>
+      <obj_property name="ObjectShortName">sig_Ki_number</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/KS/sig_Ki" type="array">
+      <obj_property name="ElementShortName">sig_Ki[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_Ki[0:127]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/SB/signal_s_box_in" type="array">
+      <obj_property name="ElementShortName">signal_s_box_in[0:3]</obj_property>
+      <obj_property name="ObjectShortName">signal_s_box_in[0:3]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/SB/signal_s_box_out" type="array">
+      <obj_property name="ElementShortName">signal_s_box_out[0:3]</obj_property>
+      <obj_property name="ObjectShortName">signal_s_box_out[0:3]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/LT/sig_Bi_input" type="array">
+      <obj_property name="ElementShortName">sig_Bi_input[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_Bi_input[0:127]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Minor_SM_tb/MSM/LT/sig_Bi_output" type="array">
+      <obj_property name="ElementShortName">sig_Bi_output[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_Bi_output[0:127]</obj_property>
+   </wvobject>
+</wave_config>

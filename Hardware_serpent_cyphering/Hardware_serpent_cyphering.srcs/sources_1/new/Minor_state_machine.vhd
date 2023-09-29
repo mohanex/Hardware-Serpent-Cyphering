@@ -97,7 +97,7 @@ signal sig_Bi_input : std_logic_vector(0 to full_bits-1);
 signal sig_Bi_output : std_logic_vector(0 to full_bits-1);
 
 ------- Machine state variable -------------------------
-type t_State is (IDLE, state_SB, state_KS, state_LT, finished, speciaal,generating_subkeys,searching_ki32,state_xoring,wait_for_ki,loop_control,final_xor,waiting_for_Sbox,waiting_for_Linear_Transformation);
+type t_State is (IDLE, state_SB, state_KS, state_LT, final_permutation, finished, ALL_FINISHED, speciaal,generating_subkeys,searching_ki32,state_xoring,wait_for_ki,loop_control,final_xor,waiting_for_Sbox,waiting_for_Linear_Transformation);
 signal State : t_State := IDLE;
 
 signal key_lance : integer :=0;
@@ -156,7 +156,7 @@ begin
                   report "generating_subkeys State";
                   --report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key)));
                   if(sig_ready_busy_key = "11") then 
-                     key_lance <= 0;
+                     sig_go_key <= '0';
                      state <= state_KS;
                   else 
                      state <= generating_subkeys;
@@ -193,17 +193,17 @@ begin
                   state <= state_SB;
 
                when state_SB =>
-               report " SB State";
+               report " SB State and i is at " & integer'image(i) & "Iteration";
                --report "Value of xoring before Sboxe :" & integer'image(to_integer(unsigned(temp1)));
                   input_s := temp1(0 + 4 * j) & temp1(1 + 4 * j) & temp1(2 + 4 * j) & temp1(3 + 4 * j);
                   sig_box_in <= input_s;
-                  sig_go_key <= '1';
+                  sig_go_sboxes <= '1';
                   state <= waiting_for_Sbox;
                   
               when waiting_for_Sbox =>
                   if sig_ready_busy_sboxes = "11" then
                         temp2((0+4*j) to (3+4*j)) := sig_box_out;
-                        sig_go_key <= '0';
+                        sig_go_sboxes <= '0';
                         state <= loop_control;
                         report "Out_of_sbox_value =" & integer'image(to_integer(unsigned(sig_box_out)));
                   else
@@ -265,9 +265,19 @@ begin
 
                when final_xor =>
                   bi := temp2 xor Ki_holder;
-                  computed_text <= bi;
-                  ready_busy <= '1';
-                  state <= IDLE;
+                  state <= ALL_FINISHED;
+
+               when ALL_FINISHED =>
+                  if(go = '0') then
+                     computed_text <= bi;
+                     ready_busy <= '1';
+                     state <= IDLE;
+                  elsif (go = '1') then
+                     state <= ALL_FINISHED;
+                  end if;
+                  
+               when others =>
+                    report"Going to others state";
 
             end case;
          end if;

@@ -36,12 +36,11 @@ type t_array is array (0 to 127) of integer;
 
 begin
     
-    PERMUTATION : process(clk,go)
+    PERMUTATION : process(go)
         variable compt : integer := 0;
         variable temp : integer;
     begin
     
-        if rising_edge(clk) then
             if(go = '1') then
                 ready_busy <= '1';
                 for compt in 0 to 127 loop
@@ -55,7 +54,6 @@ begin
                 ready_busy <= '0';
                 s_permutedtext_out <= (others => '1');
             end if;
-        end if;
         
     end process PERMUTATION;
     permutedtext_out <= s_permutedtext_out;

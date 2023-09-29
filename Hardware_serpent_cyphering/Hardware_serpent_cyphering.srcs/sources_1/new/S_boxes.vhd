@@ -33,7 +33,7 @@ architecture Behavioral of S_boxes is
 
     signal signal_s_box_in : std_logic_vector(0 to 3);
     signal signal_s_box_out : std_logic_vector(0 to 3);
-    type state_type is(IDLE,SUBS,FINISHED);
+    type state_type is(IDLE,SUBS,SBOX_FINISHED);
     signal state : state_type := IDLE;
 
     signal start_processing : std_logic;
@@ -54,11 +54,11 @@ begin
                     end if;
                 when SUBS =>
                     if subs_done = '1' then
-                        state <= FINISHED;
+                        state <= SBOX_FINISHED;
                     end if;
-                when FINISHED =>
+                when SBOX_FINISHED =>
                     if finished_done = '1' and go = '1' then
-                        state <= FINISHED;
+                        state <= SBOX_FINISHED;
                     elsif go = '0' then
                         state <= IDLE;
                     end if;
@@ -127,11 +127,11 @@ begin
                 end case;
                 subs_done <= '1';
 
-            when FINISHED =>
-                s_box_out <= converted_read_value_out;
+            when SBOX_FINISHED =>
+                signal_s_box_out <= converted_read_value_out;
                 ready_busy <= "11";
                 finished_done <= '1';
-                report("FINISHED State");
+                report("SBOX_FINISHED State");
 
             when others =>
                 report "others State";
@@ -140,5 +140,6 @@ begin
     end process subsitution;
     
     signal_s_box_in <= s_box_in;
+    s_box_out <= signal_s_box_out;
     
 end Behavioral;

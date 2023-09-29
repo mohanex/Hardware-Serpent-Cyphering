@@ -52,15 +52,11 @@ begin
     clk <= not clk after clk_period/2;
 
     stimuli : process
-    begin
-        sig_go <= '0';
-
-        wait for 20ns;
-        
+    begin    
         sig_user_key_to_calculate <="00001011110101111000100100011010011101110110000011100000101000110101101011111000101111011010111101000001001010111100101111010011";
         sig_text_to_compute <= "11101011001111001000110000011001011010111000100110110101000111010000101110010011101110010110110011010111101101100001001101111101";
         sig_go <= '1';
-    
-        wait for 300ns;
+        
+        wait for 100ms;
     end process;
 end Behavioral;
