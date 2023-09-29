@@ -29,6 +29,11 @@ architecture Behavioral of Linear_transformation is
     ----signals--------------------------------------
     signal sig_Bi_input : std_logic_vector(0 to full_bits-1);
     signal sig_Bi_output : std_logic_vector(0 to full_bits-1);
+    type state_type is(IDLE,LT,LT_FINISHED);
+    signal state : state_type := IDLE;
+    signal start_processing : std_logic;
+    signal subs_done : std_logic;
+    signal finished_done : std_logic;
     
     ----XORING FUNCTION--------------------------------------
     function Xoring(
@@ -120,7 +125,31 @@ architecture Behavioral of Linear_transformation is
 
 begin
 
-    Linear : process(go) 
+    machine_state_control : process(clk, go)
+    begin
+        if rising_edge(clk) then
+            case state is
+                when IDLE =>
+                    if start_processing = '1' and go = '1' then
+                        state <= LT;
+                    end if;
+                when LT =>
+                    if subs_done = '1' then
+                        state <= LT_FINISHED;
+                    end if;
+                when LT_FINISHED =>
+                    if finished_done = '1' and go = '1' then
+                        state <= LT_FINISHED;
+                    elsif go = '0' then
+                        state <= IDLE;
+                    end if;
+                when others =>
+                    state <= IDLE;
+            end case;
+        end if;
+    end process;
+
+    Linear : process(state) 
         variable X0 : std_logic_vector(0 to div4_bits-1);
         variable X1 : std_logic_vector(0 to div4_bits-1);
         variable X2 : std_logic_vector(0 to div4_bits-1);
@@ -130,11 +159,16 @@ begin
         variable tmp1 : std_logic_vector(0 to div4_bits-1);
         variable tmp2 : std_logic_vector(0 to div4_bits-1);
     begin
-            if(go = '1') then
-                
+        case state is
+            when IDLE =>
+                report("IDLE State");
+                ready_busy <= "00";
+                start_processing <= '1';
                 -------Splitting to 4 quartets--------------
                 Splitting(L1=>Bi_input,quartet1=>X0,quartet2=>X1,quartet3=>X2,quartet4=>X3);
 
+            when LT =>
+                ready_busy <= "01";
                 ------X0 := X0 <<< 13-----------
                 X0 := Rotating(L1=>X0,rotating_amount=>13);
                 ------X2 := X2 <<< 3 --------------
@@ -159,14 +193,18 @@ begin
                 X0 := Rotating(L1=>X0,rotating_amount=>5);
                 ------X2 := X2 <<< 22-----------------
                 X2 := Rotating(L1=>X2,rotating_amount=>22);
-                
-                ------Assemble all 4 quartets-----------
+
+                subs_done <= '1';
+
+            when LT_FINISHED =>
                 sig_Bi_output <= Merging(quartet1=>X0,quartet2=>X1,quartet3=>X2,quartet4=>X3);
                 ready_busy <= "11";
-            elsif (go = '0') then
-                ready_busy <= "00";
-                sig_Bi_output <= (others => '1');
-            end if;
+                finished_done <= '1';
+
+            when others =>
+                report"LT OTHERS";
+        end case;
+        
     end process Linear;
     
     sig_Bi_input <= Bi_input;

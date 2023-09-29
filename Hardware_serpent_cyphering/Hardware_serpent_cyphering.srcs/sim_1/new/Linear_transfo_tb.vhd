@@ -22,7 +22,7 @@ component Linear_transformation is
     Port ( 
         clk : in std_logic;
         go : in std_logic;
-        ready_busy : out std_logic;
+        ready_busy : out std_logic_vector(0 to 1);
         Bi_input : in std_logic_vector(0 to full_bits-1);
         Bi_output : out std_logic_vector(0 to full_bits-1)
     );
@@ -40,7 +40,7 @@ constant clk_period : time := 20 ns;
 signal s_Bi_input : std_logic_vector(0 to const_full_bits-1);
 signal s_Bi_output : std_logic_vector(0 to const_full_bits-1);
 signal s_go :  std_logic;
-signal s_ready_busy : std_logic;
+signal s_ready_busy : std_logic_vector(0 to 1);
 
 begin
     u1 : Linear_transformation 
@@ -70,7 +70,17 @@ begin
         --s_Bi_input <= "01000100010001000100010001000100"; -- should give us 5
         s_go <= '1';
         
-        wait for 3000 ns;
+        wait for 300 ns;
+        
+        s_Bi_input <= "00011011101100100101001010111100101011110011011010011001001111000110011000100100001101000000100100011100111011100000100001011011"; -- should give us 5
+
+
+        wait for 300 ns;
+        s_go <= '0';
+        
+        wait for 300ns;
+        
+        s_go <= '1';
     end process;
     
 end Behavioral;

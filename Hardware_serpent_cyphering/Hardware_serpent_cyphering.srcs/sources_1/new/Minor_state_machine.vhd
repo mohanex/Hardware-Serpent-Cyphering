@@ -260,14 +260,17 @@ begin
                   
                   
                when searching_ki32 =>
+                  report " searching_ki32 State";
                   i := 32;
                   state <= state_KS;
 
                when final_xor =>
+                  report " final_xor State";
                   bi := temp2 xor Ki_holder;
                   state <= ALL_FINISHED;
 
                when ALL_FINISHED =>
+                  report " ALL_FINISHED State";
                   if(go = '0') then
                      computed_text <= bi;
                      ready_busy <= '1';
