@@ -21,7 +21,7 @@ architecture Behavioral of Minor_SM_tb is
         Port ( 
            clk : in std_logic;
            go :  in std_logic;
-           ready_busy : out std_logic;
+           ready_busy : out std_logic_vector(0 to 1);
            text_to_compute : in std_logic_vector(0 to full_bits-1);
            computed_text : out std_logic_vector(0 to full_bits-1);
            user_key_to_calculate : in std_logic_vector(0 to full_bits-1)
@@ -33,7 +33,7 @@ architecture Behavioral of Minor_SM_tb is
     constant clk_period : time := 20 ns; 
 
     signal sig_go : std_logic;
-    signal sig_ready_busy : std_logic;
+    signal sig_ready_busy : std_logic_vector(0 to 1);
     signal sig_text_to_compute : std_logic_vector(0 to full_bits-1);
     signal sig_computed_text : std_logic_vector(0 to full_bits-1);
     signal sig_user_key_to_calculate : std_logic_vector(0 to full_bits-1);

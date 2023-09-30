@@ -17,7 +17,7 @@ entity Minor_state_machine is
    Port ( 
       clk : in std_logic;
       go :  in std_logic;
-      ready_busy : out std_logic;
+      ready_busy : out std_logic_vector(0 to 1);
       text_to_compute : in std_logic_vector(0 to full_bits-1);
       computed_text : out std_logic_vector(0 to full_bits-1);
       user_key_to_calculate : in std_logic_vector(0 to full_bits-1)
@@ -96,9 +96,11 @@ signal sig_ready_busy_key_give : std_logic_vector(0 to 1);
 signal sig_Bi_input : std_logic_vector(0 to full_bits-1);
 signal sig_Bi_output : std_logic_vector(0 to full_bits-1);
 
-------- Machine state variable -------------------------
+------- Machine state variable and signlas-------------------------
 type t_State is (IDLE, state_SB, state_KS, state_LT, final_permutation, finished, ALL_FINISHED, speciaal,generating_subkeys,searching_ki32,state_xoring,wait_for_ki,loop_control,final_xor,waiting_for_Sbox,waiting_for_Linear_Transformation);
 signal State : t_State := IDLE;
+signal Minor_ready_busy : std_logic_vector(0 to 1);
+signal sig_computed_text : std_logic_vector(0 to full_bits-1);
 
 signal key_lance : integer :=0;
 
@@ -148,11 +150,14 @@ begin
                      text_holder := text_to_compute;
                      i := 0;
                      state <= generating_subkeys;
+                     sig_computed_text <= (others => '0');
+                     Minor_ready_busy <= "01";
                   elsif (go = '0') then
-                     ready_busy <= '0';
+                     Minor_ready_busy <= "00";
                   end if;
 
                when generating_subkeys => --waiting for flag then stopping subkey generation
+                  Minor_ready_busy <= "10";
                   report "generating_subkeys State";
                   --report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key)));
                   if(sig_ready_busy_key = "11") then 
@@ -272,11 +277,11 @@ begin
                when ALL_FINISHED =>
                   report " ALL_FINISHED State";
                   if(go = '0') then
-                     computed_text <= bi;
-                     ready_busy <= '1';
                      state <= IDLE;
                   elsif (go = '1') then
                      state <= ALL_FINISHED;
+                     Minor_ready_busy <= "11";
+                     sig_computed_text <= bi;
                   end if;
                   
                when others =>
@@ -285,6 +290,8 @@ begin
             end case;
          end if;
    end process;
-    sig_user_key <= user_key_to_calculate;
+   sig_user_key <= user_key_to_calculate;
+   ready_busy <= Minor_ready_busy;
+   computed_text <= sig_computed_text;
    
 end Behavioral;
