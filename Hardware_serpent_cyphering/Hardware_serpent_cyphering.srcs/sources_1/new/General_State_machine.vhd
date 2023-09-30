@@ -69,31 +69,63 @@ architecture Behavioral of General_State_machine is
     ------- Minor state machine remaining signals ------
     signal sig_text_to_compute : std_logic_vector(0 to full_bits-1);
     signal sig_computed_text : std_logic_vector(0 to full_bits-1);
-    signal sig_user_key_to_calculate : std_logic_vector(0 to full_bits-1)
+    signal sig_user_key_to_calculate : std_logic_vector(0 to full_bits-1);
 
     ------- Initial P remaining signals ---------------
     signal sig_plaintext_in_IP : std_logic_vector(0 to 127);
-    signal sig_permutedtext_out_FP : std_logic_vector(0 to 127);
+    signal sig_permutedtext_out_IP : std_logic_vector(0 to 127);
 
     ------- Final P remaining signals -----------------
-    signal sig_plaintext_in_IP : std_logic_vector(0 to 127);
+    signal sig_plaintext_in_FP : std_logic_vector(0 to 127);
     signal sig_permutedtext_out_FP : std_logic_vector(0 to 127);
 
-    type state_type is(IDLE,IP,MINOR_ST,FP,FINISHED);
+    type state_type is(IDLE,INTERMIDIARE,IP,waiting_IP,waiting_minor_SM,MINOR_SM,FP,FINISHED,waiting_FP);
     signal state : state_type := IDLE;
 
     ------ General State machine Signals -----------
     signal sig_ready_busy : std_logic_vector(0 to 1);
     signal sig_plain_text : std_logic_vector(0 to full_bits-1);
     signal sig_ciphered_text : std_logic_vector(0 to full_bits-1);
-    signal sig_user_key : std_logic_vector(0 to full_bits-1)
+    signal sig_user_key : std_logic_vector(0 to full_bits-1);
+
+    signal debug_text_in : std_logic_vector(0 to 127);
 
     signal start_processing : std_logic;
     signal intermidaire_done : std_logic;
-    signal permute_done : std_logic;
     signal finished_done : std_logic;
-
+    signal waiting_ip_done : std_logic;
+    signal waiting_fp_done : std_logic;
+    signal done_ip : std_logic;
+    signal done_FP : std_logic;
+    signal minor_st_done : std_logic;
+    signal waiting_minor_SM_done : std_logic;
+    
 begin
+    Minor_ST :  Minor_state_machine port map(
+            clk => clk,
+            go => sig_go_Minor_SM,
+            ready_busy => sig_ready_busy_Minor_SM,
+            text_to_compute => sig_text_to_compute,
+            computed_text => sig_computed_text,
+            user_key_to_calculate => sig_user_key_to_calculate
+    );
+
+    Initial_permutation :  Initial_P port map(
+            clk => clk,
+            go => sig_go_IP,
+            ready_busy => sig_ready_busy_IP,
+            plaintext_in => sig_plaintext_in_IP,
+            permutedtext_out => sig_permutedtext_out_IP
+    );
+
+    Final_permutation :  final_P port map(
+            clk => clk,
+            go => sig_go_FP,
+            ready_busy => sig_ready_busy_FP,
+            plaintext_in => sig_plaintext_in_FP,
+            permutedtext_out => sig_permutedtext_out_FP
+    );
+
     machine_state_control : process(clk, go)
     begin
         if rising_edge(clk) then
@@ -105,17 +137,42 @@ begin
                     
                 when INTERMIDIARE =>
                     if intermidaire_done = '1' then
-                        state <= PERMUTE;
+                        state <= IP;
                     end if;
                     
-                when PERMUTE =>
-                    if permute_done = '1' then
-                        state <= FP_FINISHED;
+                when IP =>
+                    if done_ip = '1' then
+                        state <= waiting_IP;
+                    end if;
+
+                when waiting_IP =>
+                    if waiting_ip_done = '1' and sig_ready_busy_IP = "11" then
+                        state <= MINOR_SM;
+                    end if;
+
+                when MINOR_SM =>
+                    if minor_st_done = '1' then
+                        state <= waiting_minor_SM;
+                    end if;
+
+                when waiting_minor_SM =>
+                    if waiting_minor_SM_done = '1' and sig_ready_busy_Minor_SM ="11" then
+                        state <= FP;
+                    end if;
+
+                when FP =>
+                    if done_FP = '1' then
+                        state <= waiting_FP;
+                    end if;
+
+                when waiting_FP =>
+                    if waiting_FP_done = '1' and sig_ready_busy_FP = "11" then
+                        state <= FINISHED;
                     end if;
                     
-                when FP_FINISHED =>
+                when FINISHED =>
                     if finished_done = '1' and go = '1' then
-                        state <= FP_FINISHED;
+                        state <= FINISHED;
                     elsif go = '0' then
                         state <= IDLE;
                     end if;
@@ -127,8 +184,8 @@ begin
     end process;
 
     PERMUTATION : process(state)
-    variable compt : integer := 0;
-    variable temp : integer;
+    variable temp_var : std_logic_vector(0 to 127);
+    variable temp_var2 : std_logic_vector(0 to 127);
     variable B0 : std_logic_vector(0 to 127);
     variable C : std_logic_vector(0 to 127);
     begin
@@ -138,30 +195,47 @@ begin
                 sig_ready_busy <= "00";
                 start_processing <= '1';
                 finished_done <= '0';
-                permute_done <= '0';
-                compt := 0;
-                s_permutedtext_out <= (others => '1');
+                sig_ciphered_text <= (others => '1');
                 
             when INTERMIDIARE =>
-                text_in_holder := s_plaintext_in;
-                debug_text_in <= text_in_holder;
+                B0 := sig_plain_text;
+                debug_text_in <= B0;
                 intermidaire_done <= '1';
 
-            when PERMUTE =>
-                s_ready_busy <= "01";
-                for compt in 0 to 127 loop
-                    report("Compt =")&integer'image(compt);
-                    temp := if_table(compt);
-                    text_out_holder(temp) := text_in_holder(compt);
-                end loop;
-                permute_done <= '1';
+            when IP =>
+                sig_plaintext_in_IP <= B0;
+                sig_go_IP <= '1';
+                done_ip <= '1';
 
-            when FP_FINISHED =>
+            when waiting_IP =>
+                temp_var := sig_permutedtext_out_IP;
+                waiting_ip_done <= '1';
+
+            when MINOR_SM =>
+                sig_text_to_compute <= temp_var;
+                sig_user_key_to_calculate <= sig_user_key;
+                sig_go_Minor_SM <= '1';
+                minor_st_done <= '1';
+
+            when waiting_minor_SM =>
+                temp_var2 := sig_computed_text;
+                waiting_minor_SM_done <= '1';
+
+            when FP =>
+                sig_plaintext_in_FP <= temp_var2;
+                sig_go_FP <= '1';
+                done_FP <= '1';
+
+            when waiting_FP =>
+                C := sig_permutedtext_out_FP;
+                waiting_FP_done <= '1';
+
+            when FINISHED =>
                 start_processing <= '0';
-                s_ready_busy <= "11";
-                s_permutedtext_out <= text_out_holder;
+                sig_ready_busy <= "11";
+                sig_ciphered_text <= C;
                 finished_done <= '1';
-                report("FP_FINISHED State");
+                report("FINISHED State");
 
             when others =>
                 report("OTHERS State");
