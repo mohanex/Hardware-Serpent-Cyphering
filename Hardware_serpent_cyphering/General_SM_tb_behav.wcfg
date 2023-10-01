@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="General_SM_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="General_SM_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="91765693431fs"></ZoomEndTime>
+      <Cursor1Time time="121000000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="274"></NameColumnWidth>
+      <ValueColumnWidth column_width="85"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="13" />
+   <wvobject fp_name="/General_SM_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/sig_go" type="logic">
+      <obj_property name="ElementShortName">sig_go</obj_property>
+      <obj_property name="ObjectShortName">sig_go</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/sig_ready_busy" type="array">
+      <obj_property name="ElementShortName">sig_ready_busy[0:1]</obj_property>
+      <obj_property name="ObjectShortName">sig_ready_busy[0:1]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/sig_plain_text" type="array">
+      <obj_property name="ElementShortName">sig_plain_text[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_plain_text[0:127]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/sig_ciphered_text" type="array">
+      <obj_property name="ElementShortName">sig_ciphered_text[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_ciphered_text[0:127]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/sig_user_key" type="array">
+      <obj_property name="ElementShortName">sig_user_key[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_user_key[0:127]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/GSM/state" type="other">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/GSM/Minor_ST/State" type="other">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">State</obj_property>
+      <obj_property name="ObjectShortName">State</obj_property>
+      <obj_property name="label">State_SM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/GSM/Minor_ST/sig_computed_text" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">sig_computed_text[0:127]</obj_property>
+      <obj_property name="ObjectShortName">sig_computed_text[0:127]</obj_property>
+      <obj_property name="label">MS_output</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/GSM/Initial_permutation/plaintext_in" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">plaintext_in[0:127]</obj_property>
+      <obj_property name="ObjectShortName">plaintext_in[0:127]</obj_property>
+      <obj_property name="label">IP_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/GSM/Initial_permutation/s_permutedtext_out" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">s_permutedtext_out[0:127]</obj_property>
+      <obj_property name="ObjectShortName">s_permutedtext_out[0:127]</obj_property>
+      <obj_property name="label">IP_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/GSM/Final_permutation/plaintext_in" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">plaintext_in[0:127]</obj_property>
+      <obj_property name="ObjectShortName">plaintext_in[0:127]</obj_property>
+      <obj_property name="label">FP_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/GSM/Final_permutation/permutedtext_out" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">permutedtext_out[0:127]</obj_property>
+      <obj_property name="ObjectShortName">permutedtext_out[0:127]</obj_property>
+      <obj_property name="label">FP_OUT</obj_property>
+   </wvobject>
+</wave_config>

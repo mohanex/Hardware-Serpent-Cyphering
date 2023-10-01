@@ -1,7 +1,22 @@
 Vivado Simulator 2019.1
 Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2019.1/bin/unwrapped/win64.o/xelab.exe -wto 1d2ff6f733d34458b58db2d7f0771c19 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot final_p_tb_behav xil_defaultlib.final_p_tb -log elaborate.log 
+Running: C:/Xilinx/Vivado/2019.1/bin/unwrapped/win64.o/xelab.exe -wto 1d2ff6f733d34458b58db2d7f0771c19 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot General_SM_tb_behav xil_defaultlib.General_SM_tb -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Completed static elaboration
-INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling architecture behavioral of entity xil_defaultlib.S_boxes [s_boxes_default]
+Compiling architecture behavioral of entity xil_defaultlib.key_scheduling_SM [\key_scheduling_SM(0,31)\]
+Compiling architecture behavioral of entity xil_defaultlib.Linear_transformation [linear_transformation_default]
+Compiling architecture behavioral of entity xil_defaultlib.Minor_state_machine [minor_state_machine_default]
+Compiling architecture behavioral of entity xil_defaultlib.Initial_P [initial_p_default]
+Compiling architecture behavioral of entity xil_defaultlib.final_P [final_p_default]
+Compiling architecture behavioral of entity xil_defaultlib.General_State_machine [general_state_machine_default]
+Compiling architecture behavioral of entity xil_defaultlib.general_sm_tb
+Built simulation snapshot General_SM_tb_behav

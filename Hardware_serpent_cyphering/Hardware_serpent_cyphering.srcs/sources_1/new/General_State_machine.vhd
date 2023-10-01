@@ -218,11 +218,11 @@ begin
                 minor_st_done <= '1';
 
             when waiting_minor_SM =>
-                temp_var2 := sig_computed_text;
+                sig_plaintext_in_FP <= sig_computed_text;
                 waiting_minor_SM_done <= '1';
 
             when FP =>
-                sig_plaintext_in_FP <= temp_var2;
+                debug_text_in <= sig_plaintext_in_FP;
                 sig_go_FP <= '1';
                 done_FP <= '1';
 

@@ -8,12 +8,12 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity Minor_SM_tb is
-        generic(
-           constant full_bits : integer :=128;
-           constant div4_bits : integer :=32;
-           constant full_key_size : integer :=256;
-           constant four_bits : integer := 4
-        );
+    generic(
+        constant full_bits : integer :=128;
+        constant div4_bits : integer :=32;
+        constant full_key_size : integer :=256;
+        constant four_bits : integer := 4
+    );
 end Minor_SM_tb;
 
 architecture Behavioral of Minor_SM_tb is
@@ -57,6 +57,6 @@ begin
         sig_text_to_compute <= "11101011001111001000110000011001011010111000100110110101000111010000101110010011101110010110110011010111101101100001001101111101";
         sig_go <= '1';
         
-        wait for 100ms;
+    wait for 100ms;
     end process;
 end Behavioral;
