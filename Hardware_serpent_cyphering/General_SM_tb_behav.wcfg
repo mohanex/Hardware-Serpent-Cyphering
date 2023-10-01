@@ -10,15 +10,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="91765693431fs"></ZoomEndTime>
+      <ZoomStartTime time="113365912796fs"></ZoomStartTime>
+      <ZoomEndTime time="113748566292fs"></ZoomEndTime>
       <Cursor1Time time="121000000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="274"></NameColumnWidth>
-      <ValueColumnWidth column_width="85"></ValueColumnWidth>
+      <NameColumnWidth column_width="220"></NameColumnWidth>
+      <ValueColumnWidth column_width="80"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="13" />
+   <WVObjectSize size="14" />
    <wvobject fp_name="/General_SM_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -82,5 +82,9 @@
       <obj_property name="ElementShortName">permutedtext_out[0:127]</obj_property>
       <obj_property name="ObjectShortName">permutedtext_out[0:127]</obj_property>
       <obj_property name="label">FP_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/General_SM_tb/GSM/debug_text_in" type="array">
+      <obj_property name="ElementShortName">debug_text_in[0:127]</obj_property>
+      <obj_property name="ObjectShortName">debug_text_in[0:127]</obj_property>
    </wvobject>
 </wave_config>

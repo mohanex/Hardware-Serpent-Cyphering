@@ -79,7 +79,7 @@ architecture Behavioral of General_State_machine is
     signal sig_plaintext_in_FP : std_logic_vector(0 to 127);
     signal sig_permutedtext_out_FP : std_logic_vector(0 to 127);
 
-    type state_type is(IDLE,INTERMIDIARE,IP,waiting_IP,waiting_minor_SM,MINOR_SM,FP,FINISHED,waiting_FP);
+    type state_type is(IDLE,INTERMIDIARE,IP,waiting_IP,waiting_minor_SM,MINOR_SM,FP,FINISHED,INTERMIDIARE3,waiting_FP,INTERMIDIARE2);
     signal state : state_type := IDLE;
 
     ------ General State machine Signals -----------
@@ -99,6 +99,8 @@ architecture Behavioral of General_State_machine is
     signal done_FP : std_logic;
     signal minor_st_done : std_logic;
     signal waiting_minor_SM_done : std_logic;
+    signal intermidaire2_done : std_logic;
+    signal intermidaire3_done : std_logic;
     
 begin
     Minor_ST :  Minor_state_machine port map(
@@ -157,6 +159,11 @@ begin
 
                 when waiting_minor_SM =>
                     if waiting_minor_SM_done = '1' and sig_ready_busy_Minor_SM ="11" then
+                        state <= INTERMIDIARE2;
+                    end if;
+
+                when INTERMIDIARE2 =>
+                    if intermidaire2_done = '1' then
                         state <= FP;
                     end if;
 
@@ -167,6 +174,11 @@ begin
 
                 when waiting_FP =>
                     if waiting_FP_done = '1' and sig_ready_busy_FP = "11" then
+                        state <= INTERMIDIARE3;
+                    end if;
+
+                when INTERMIDIARE3 =>
+                    if intermidaire3_done = '1' then
                         state <= FINISHED;
                     end if;
                     
@@ -218,17 +230,25 @@ begin
                 minor_st_done <= '1';
 
             when waiting_minor_SM =>
-                sig_plaintext_in_FP <= sig_computed_text;
                 waiting_minor_SM_done <= '1';
 
+            when INTERMIDIARE2 =>
+                temp_var2 := sig_computed_text;
+                debug_text_in <= temp_var2;
+                intermidaire2_done <= '1';
+
             when FP =>
-                debug_text_in <= sig_plaintext_in_FP;
+                sig_plaintext_in_FP <= temp_var2;
                 sig_go_FP <= '1';
                 done_FP <= '1';
 
             when waiting_FP =>
-                C := sig_permutedtext_out_FP;
                 waiting_FP_done <= '1';
+
+            when INTERMIDIARE3 =>
+                C := sig_permutedtext_out_FP;
+                debug_text_in <= C;
+                intermidaire3_done <= '1';
 
             when FINISHED =>
                 start_processing <= '0';
