@@ -1,0 +1,22 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.sim/sim_1/synth/func/xsim/General_SM_tb_func_synth.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Initial_P'
+INFO: [VRFC 10-3107] analyzing entity 'Linear_transformation'
+INFO: [VRFC 10-3107] analyzing entity 'S_boxes'
+INFO: [VRFC 10-3107] analyzing entity 'final_P'
+INFO: [VRFC 10-3107] analyzing entity 'key_scheduling_SM'
+INFO: [VRFC 10-3107] analyzing entity 'Minor_state_machine'
+INFO: [VRFC 10-3107] analyzing entity 'General_State_machine'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/Linear_transfo_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Linear_transfo_tb'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/S_boxes_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'S_boxes_tb'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/initial_p_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'initial_p_tb'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/key_scheduling_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'key_scheduling_tb'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/Minor_SM_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Minor_SM_tb'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/final_p_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'final_p_tb'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/General_SM_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'General_SM_tb'

@@ -1,0 +1,13 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"General_SM_tb_func_synth.vhd" \
+"../../../../../Hardware_serpent_cyphering.srcs/sim_1/new/Linear_transfo_tb.vhd" \
+"../../../../../Hardware_serpent_cyphering.srcs/sim_1/new/S_boxes_tb.vhd" \
+"../../../../../Hardware_serpent_cyphering.srcs/sim_1/new/initial_p_tb.vhd" \
+"../../../../../Hardware_serpent_cyphering.srcs/sim_1/new/key_scheduling_tb.vhd" \
+"../../../../../Hardware_serpent_cyphering.srcs/sim_1/new/Minor_SM_tb.vhd" \
+"../../../../../Hardware_serpent_cyphering.srcs/sim_1/new/final_p_tb.vhd" \
+"../../../../../Hardware_serpent_cyphering.srcs/sim_1/new/General_SM_tb.vhd" \
+
+# Do not sort compile order
+nosort

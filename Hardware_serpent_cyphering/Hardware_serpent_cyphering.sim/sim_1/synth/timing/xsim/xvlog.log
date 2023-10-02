@@ -1,0 +1,9 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.sim/sim_1/synth/timing/xsim/General_SM_tb_time_synth.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module General_State_machine
+INFO: [VRFC 10-311] analyzing module Initial_P
+INFO: [VRFC 10-311] analyzing module Linear_transformation
+INFO: [VRFC 10-311] analyzing module Minor_state_machine
+INFO: [VRFC 10-311] analyzing module S_boxes
+INFO: [VRFC 10-311] analyzing module final_P
+INFO: [VRFC 10-311] analyzing module key_scheduling_SM
+INFO: [VRFC 10-311] analyzing module glbl
