@@ -18,15 +18,15 @@ entity Linear_transformation is
         clk : in std_logic;
         go : in std_logic;
         ready_busy : out std_logic_vector(0 to 1);
-        Bi_input : in std_logic_vector(full_bits-1 downto 0);
-        Bi_output : out std_logic_vector(full_bits-1 downto 0)
+        Bi_input : in std_logic_vector(0 to full_bits-1);
+        Bi_output : out std_logic_vector(0 to full_bits-1)
     );
 end Linear_transformation;
 
 architecture Behavioral of Linear_transformation is
     ----signals--------------------------------------
-    signal sig_Bi_input : std_logic_vector(full_bits-1 downto 0);
-    signal sig_Bi_output : std_logic_vector(full_bits-1 downto 0);
+    signal sig_Bi_input : std_logic_vector(0 to full_bits-1);
+    signal sig_Bi_output : std_logic_vector(0 to full_bits-1);
     type state_type is(IDLE,LT0,LT1,LT2,LT3,LT4,LT5,INTERMEDIATE,SPLITTING,LT6,LT_FINISHED,MERGING_STATE);
     signal state : state_type := IDLE;
     signal start_processing : std_logic;
@@ -41,16 +41,16 @@ architecture Behavioral of Linear_transformation is
     signal LT_done3 : std_logic;
     signal LT_done4 : std_logic;
     signal LT_done5 : std_logic;
-    signal debug_X0 : std_logic_vector(div4_bits-1 downto 0);
-    signal debug_X1 : std_logic_vector(div4_bits-1 downto 0);
-    signal debug_X2 : std_logic_vector(div4_bits-1 downto 0);
-    signal debug_X3 : std_logic_vector(div4_bits-1 downto 0);
+    signal debug_X0 : std_logic_vector(0 to div4_bits-1);
+    signal debug_X1 : std_logic_vector(0 to div4_bits-1);
+    signal debug_X2 : std_logic_vector(0 to div4_bits-1);
+    signal debug_X3 : std_logic_vector(0 to div4_bits-1);
 
     ----XORING FUNCTION--------------------------------------
     function Xoring(
-         L1 : in std_logic_vector(div4_bits-1 downto 0);
-         L2 : in std_logic_vector(div4_bits-1 downto 0);
-         L3 : in std_logic_vector(div4_bits-1 downto 0)
+         L1 : in std_logic_vector(0 to div4_bits-1);
+         L2 : in std_logic_vector(0 to div4_bits-1);
+         L3 : in std_logic_vector(0 to div4_bits-1)
     )
     return std_logic_vector is
     begin
@@ -59,18 +59,16 @@ architecture Behavioral of Linear_transformation is
     
     ----SHIFTING FUNCTION--------------------------------------
     function Shifting(
-        L1 : in std_logic_vector(div4_bits-1 downto 0);
+        L1 : in std_logic_vector(0 to div4_bits-1);
         shift_amount : in integer
     )
     return std_logic_vector is
-        variable tmp1 : std_logic_vector(div4_bits-1 downto 0);
-        constant ZERO : std_logic_vector(shift_amount-1 downto 0) := (others => '0');
+        variable tmp1 : std_logic_vector(0 to div4_bits-1);
+        constant ZERO : std_logic_vector(0 to shift_amount-1) := (others => '0');
     begin
         if shift_amount >= 0 and shift_amount <= 31 then
-            --tmp1(0 to ((div4_bits-shift_amount)-1) ) := L1(shift_amount to div4_bits-1);
-            --tmp1((div4_bits-shift_amount) to div4_bits-1) := ZERO;
-            tmp1(div4_bits-1 downto shift_amount) := L1(div4_bits-shift_amount-1 downto 0);
-            tmp1(shift_amount-1 downto 0) := ZERO;
+            tmp1(0 to ((div4_bits-shift_amount)-1) ) := L1(shift_amount to div4_bits-1);
+            tmp1((div4_bits-shift_amount) to div4_bits-1) := ZERO;
         else  
             tmp1 := (others => '1');
         end if;
@@ -79,20 +77,17 @@ architecture Behavioral of Linear_transformation is
     
     ----ROTATING FUNCTION--------------------------------------
     function Rotating(
-        L1 : in std_logic_vector(div4_bits-1 downto 0);
+        L1 : in std_logic_vector(0 to div4_bits-1);
         rotating_amount : in integer
     )
     return std_logic_vector is
-        variable tmp1 : std_logic_vector(div4_bits-1 downto 0);
-        variable tmp2 : std_logic_vector(rotating_amount-1 downto 0);
+        variable tmp1 : std_logic_vector(0 to div4_bits-1);
+        variable tmp2 : std_logic_vector(0 to rotating_amount-1);
     begin
         if rotating_amount >= 0 and rotating_amount <= 31 then
-            --tmp2 := L1(0 to rotating_amount-1);
-            --tmp1(0 to ((div4_bits-rotating_amount)-1) ) := L1(rotating_amount to div4_bits-1);
-            --tmp1((div4_bits-rotating_amount) to div4_bits-1) := tmp2;
-            tmp2 := L1(rotating_amount-1 downto 0);
-            tmp1(div4_bits-1 downto rotating_amount) := L1(div4_bits-1-rotating_amount downto 0);
-            tmp1 (rotating_amount-1 downto 0) := L1(div4_bits-1 downto div4_bits-rotating_amount);
+            tmp2 := L1(0 to rotating_amount-1);
+            tmp1(0 to ((div4_bits-rotating_amount)-1) ) := L1(rotating_amount to div4_bits-1);
+            tmp1((div4_bits-rotating_amount) to div4_bits-1) := tmp2;
         else 
             tmp1 := (others => '0');
         end if;
@@ -102,38 +97,34 @@ architecture Behavioral of Linear_transformation is
     
     ----SPLITTING PROCEDURE--------------------------------------
     procedure  Splitting2(
-        L1 : in std_logic_vector(full_bits-1 downto 0);
-        variable quartet1 : out std_logic_vector(div4_bits-1 downto 0);
-        variable quartet2 : out std_logic_vector(div4_bits-1 downto 0);
-        variable quartet3 : out std_logic_vector(div4_bits-1 downto 0);
-        variable quartet4 : out std_logic_vector(div4_bits-1 downto 0)
+        L1 : in std_logic_vector(0 to full_bits-1);
+        variable quartet1 : out std_logic_vector(0 to div4_bits-1);
+        variable quartet2 : out std_logic_vector(0 to div4_bits-1);
+        variable quartet3 : out std_logic_vector(0 to div4_bits-1);
+        variable quartet4 : out std_logic_vector(0 to div4_bits-1)
     )
     is
     begin
-        --quartet1 := L1(0 to div4_bits-1);                  -- 00 -> 31
-        --quartet2 := L1(div4_bits to (2*div4_bits)-1);      -- 32 -> 63
-        --quartet3 := L1((2*div4_bits) to (3*div4_bits)-1);  -- 64 -> 95
-        --quartet4 := L1((3*div4_bits) to (4*div4_bits)-1);  -- 95 -> 127
-        quartet1 := L1((4*div4_bits)-1 downto (3*div4_bits));                  -- 127 -> 96
-        quartet2 := L1((3*div4_bits)-1 downto (2*div4_bits));                  -- 95 -> 64
-        quartet3 := L1((2*div4_bits)-1 downto div4_bits);                      -- 63 -> 32
-        quartet4 := L1(div4_bits-1 downto 0);                                  -- 31 -> 00
+        quartet1 := L1(0 to div4_bits-1);                  -- 00 -> 31
+        quartet2 := L1(div4_bits to (2*div4_bits)-1);      -- 32 -> 63
+        quartet3 := L1((2*div4_bits) to (3*div4_bits)-1);  -- 64 -> 95
+        quartet4 := L1((3*div4_bits) to (4*div4_bits)-1);  -- 95 -> 127
     end procedure  Splitting2;
     
     ----MERGING FUCNTION-----------------------------------------
     function  Merging(
-        quartet1 : in std_logic_vector(div4_bits-1 downto 0);
-        quartet2 : in std_logic_vector(div4_bits-1 downto 0);
-        quartet3 : in std_logic_vector(div4_bits-1 downto 0);
-        quartet4 : in std_logic_vector(div4_bits-1 downto 0)
+        quartet1 : in std_logic_vector(0 to div4_bits-1);
+        quartet2 : in std_logic_vector(0 to div4_bits-1);
+        quartet3 : in std_logic_vector(0 to div4_bits-1);
+        quartet4 : in std_logic_vector(0 to div4_bits-1)
     )
     return std_logic_vector is
-        variable tmp1 : std_logic_vector(full_bits-1 downto 0);
+        variable tmp1 : std_logic_vector(0 to full_bits-1);
     begin
-        tmp1((4*div4_bits)-1 downto (3*div4_bits)) := quartet1;
-        tmp1((3*div4_bits)-1 downto (2*div4_bits)) := quartet2;
-        tmp1((2*div4_bits)-1 downto div4_bits) := quartet3;
-        tmp1(div4_bits-1 downto 0) := quartet4;
+        tmp1(0 to div4_bits-1) := quartet1;
+        tmp1(div4_bits to (2*div4_bits)-1) := quartet2;
+        tmp1((2*div4_bits) to (3*div4_bits)-1) := quartet3;
+        tmp1((3*div4_bits) to (4*div4_bits)-1) := quartet4;
         return tmp1;
     end function  Merging;
 
@@ -203,14 +194,14 @@ begin
     end process;
 
     Linear : process(state) 
-        variable X0 : std_logic_vector(div4_bits-1 downto 0);
-        variable X1 : std_logic_vector(div4_bits-1 downto 0);
-        variable X2 : std_logic_vector(div4_bits-1 downto 0);
-        variable X3 : std_logic_vector(div4_bits-1 downto 0);
-        variable tmp_xoring : std_logic_vector(div4_bits-1 downto 0);
-        variable tmp_function : std_logic_vector(div4_bits-1 downto 0);
-        variable tmp1 : std_logic_vector(div4_bits-1 downto 0);
-        variable tmp2 : std_logic_vector(full_bits-1 downto 0);
+        variable X0 : std_logic_vector(0 to div4_bits-1);
+        variable X1 : std_logic_vector(0 to div4_bits-1);
+        variable X2 : std_logic_vector(0 to div4_bits-1);
+        variable X3 : std_logic_vector(0 to div4_bits-1);
+        variable tmp_xoring : std_logic_vector(0 to div4_bits-1);
+        variable tmp_function : std_logic_vector(0 to div4_bits-1);
+        variable tmp1 : std_logic_vector(0 to div4_bits-1);
+        variable tmp2 : std_logic_vector(0 to full_bits-1);
     begin
         case state is
             when IDLE =>
@@ -223,14 +214,10 @@ begin
                 
             when SPLITTING =>
                 report "SPLITTING phase";
-                --x0 := sig_Bi_input(div4_bits-1 downto 0);                  -- 00 -> 31
-                --x1 := sig_Bi_input(div4_bits to (2*div4_bits)-1);      -- 32 -> 63
-                --x2 := sig_Bi_input((2*div4_bits) to (3*div4_bits)-1);  -- 64 -> 95
-                --x3 := sig_Bi_input((3*div4_bits) to (4*div4_bits)-1);  -- 95 -> 127
-                x0 := sig_Bi_input((4*div4_bits)-1 downto (3*div4_bits));                  -- 127 -> 96
-                x1 := sig_Bi_input((3*div4_bits)-1 downto (2*div4_bits));                  -- 95 -> 64
-                x2 := sig_Bi_input((2*div4_bits)-1 downto div4_bits);                      -- 63 -> 32
-                x3 := sig_Bi_input(div4_bits-1 downto 0);
+                x0 := sig_Bi_input(0 to div4_bits-1);                  -- 00 -> 31
+                x1 := sig_Bi_input(div4_bits to (2*div4_bits)-1);      -- 32 -> 63
+                x2 := sig_Bi_input((2*div4_bits) to (3*div4_bits)-1);  -- 64 -> 95
+                x3 := sig_Bi_input((3*div4_bits) to (4*div4_bits)-1);  -- 95 -> 127
                 SPLITTING_done <= '1';
                 
                 

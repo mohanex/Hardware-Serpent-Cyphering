@@ -17,6 +17,7 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
+set_param chipscope.maxJobs 2
 set_msg_config -id {Common 17-41} -limit 10000000
 set_msg_config -id {Synth 8-256} -limit 10000
 set_msg_config -id {Synth 8-638} -limit 10000
@@ -52,12 +53,12 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 
-synth_design -top General_State_machine -part xc7z020clg484-1
+synth_design -top Linear_transformation -part xc7z020clg484-1
 
 
 # disable binary constraint mode for synth run checkpoints
 set_param constraints.enableBinaryConstraints false
-write_checkpoint -force -noxdef General_State_machine.dcp
-create_report "synth_1_synth_report_utilization_0" "report_utilization -file General_State_machine_utilization_synth.rpt -pb General_State_machine_utilization_synth.pb"
+write_checkpoint -force -noxdef Linear_transformation.dcp
+create_report "synth_1_synth_report_utilization_0" "report_utilization -file Linear_transformation_utilization_synth.rpt -pb Linear_transformation_utilization_synth.pb"
 file delete __synthesis_is_running__
 close [open __synthesis_is_complete__ w]

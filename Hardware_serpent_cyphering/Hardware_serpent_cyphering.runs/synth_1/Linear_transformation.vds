@@ -1,13 +1,14 @@
-
-*** Running vivado
-    with args -log Linear_transformation.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Linear_transformation.tcl
-
-
-****** Vivado v2019.1 (64-bit)
-  **** SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
-  **** IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
-    ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
-
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Mon Oct  2 18:55:55 2023
+# Process ID: 25088
+# Current directory: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.runs/synth_1
+# Command line: vivado.exe -log Linear_transformation.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Linear_transformation.tcl
+# Log file: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.runs/synth_1/Linear_transformation.vds
+# Journal file: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
 source Linear_transformation.tcl -notrace
 Command: synth_design -top Linear_transformation -part xc7z020clg484-1
 Starting synth_design

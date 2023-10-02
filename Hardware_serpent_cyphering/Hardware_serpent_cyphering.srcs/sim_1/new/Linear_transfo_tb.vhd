@@ -23,8 +23,8 @@ component Linear_transformation is
         clk : in std_logic;
         go : in std_logic;
         ready_busy : out std_logic_vector(0 to 1);
-        Bi_input : in std_logic_vector(0 to full_bits-1);
-        Bi_output : out std_logic_vector(0 to full_bits-1)
+        Bi_input : in std_logic_vector(full_bits-1 downto 0);
+        Bi_output : out std_logic_vector(full_bits-1 downto 0)
     );
 end component;
 
@@ -37,8 +37,8 @@ signal clk : std_logic := '0' ;
 constant clk_period : time := 20 ns; 
 
 -- componenet signals
-signal s_Bi_input : std_logic_vector(0 to const_full_bits-1);
-signal s_Bi_output : std_logic_vector(0 to const_full_bits-1);
+signal s_Bi_input : std_logic_vector(const_full_bits-1 downto 0);
+signal s_Bi_output : std_logic_vector(const_full_bits-1 downto 0);
 signal s_go :  std_logic;
 signal s_ready_busy : std_logic_vector(0 to 1);
 

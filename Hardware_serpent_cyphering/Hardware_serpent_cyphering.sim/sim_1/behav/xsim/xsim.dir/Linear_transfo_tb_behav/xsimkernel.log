@@ -1,7 +1,4 @@
-Running: xsim.dir/Linear_transfo_tb_behav/xsimk.exe -simmode gui -wdb Linear_transfo_tb_behav.wdb -simrunnum 0 -socket 62350
+Running: xsim.dir/Linear_transfo_tb_behav/xsimk.exe -simmode gui -wdb Linear_transfo_tb_behav.wdb -simrunnum 0 -socket 50342
 Design successfully loaded
 Design Loading Memory Usage: 6736 KB (Peak: 6736 KB)
-Design Loading CPU Usage: 0 ms
-Simulation completed
-Simulation Memory Usage: 7404 KB (Peak: 7404 KB)
-Simulation CPU Usage: 0 ms
+Design Loading CPU Usage: 15 ms

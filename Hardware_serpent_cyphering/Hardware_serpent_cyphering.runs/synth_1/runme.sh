@@ -40,4 +40,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log General_State_machine.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source General_State_machine.tcl
+EAStep vivado -log Linear_transformation.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Linear_transformation.tcl
