@@ -2,3 +2,6 @@ Running: xsim.dir/Linear_transfo_tb_behav/xsimk.exe -simmode gui -wdb Linear_tra
 Design successfully loaded
 Design Loading Memory Usage: 6736 KB (Peak: 6736 KB)
 Design Loading CPU Usage: 15 ms
+Simulation completed
+Simulation Memory Usage: 7408 KB (Peak: 7408 KB)
+Simulation CPU Usage: 15 ms

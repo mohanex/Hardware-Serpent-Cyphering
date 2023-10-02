@@ -1,0 +1,24 @@
+Vivado Simulator 2019.1
+Time resolution is 1 ps
+Note: IDLE State
+Time: 0 ps  Iteration: 0  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
+Note: SPLITTING phase
+Time: 10 ns  Iteration: 1  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
+Note: Bi_input : 1145324612
+Time: 30 ns  Iteration: 1  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
+Note: merging step
+Time: 190 ns  Iteration: 1  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
+Note: Bi_output: -1145325381
+Time: 210 ns  Iteration: 1  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
+Note: IDLE State
+Time: 310 ns  Iteration: 1  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
+Note: SPLITTING phase
+Time: 610 ns  Iteration: 1  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
+Note: Bi_input : 485361755
+Time: 630 ns  Iteration: 1  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
+Note: merging step
+Time: 790 ns  Iteration: 1  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
+Note: Bi_output: -1176907713
+Time: 810 ns  Iteration: 1  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
+Note: IDLE State
+Time: 910 ns  Iteration: 1  Process: /Linear_transfo_tb/u1/Linear  File: C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd
