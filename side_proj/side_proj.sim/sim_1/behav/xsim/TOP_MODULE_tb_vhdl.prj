@@ -1,0 +1,17 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/DEMUX.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/MUX.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/RBitslice.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/TOP_MODULE.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/comparator.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/controlUnit.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/dataPath.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/makeSubkeys.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/roundCounter.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/serpent.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/subkeysRegisterFile.vhd" \
+"../../../../../../../Downloads/serpent.srcs/sources_1/new/TOP_MODULE_tb.vhd" \
+
+# Do not sort compile order
+nosort
