@@ -1,15 +1,16 @@
 Vivado Simulator 2019.1
 Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2019.1/bin/unwrapped/win64.o/xelab.exe -wto 1d2ff6f733d34458b58db2d7f0771c19 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot key_scheduling_tb_behav xil_defaultlib.key_scheduling_tb -log elaborate.log 
+Running: C:/Xilinx/Vivado/2019.1/bin/unwrapped/win64.o/xelab.exe -wto 1d2ff6f733d34458b58db2d7f0771c19 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot initial_p_tb_behav xil_defaultlib.initial_p_tb -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
-WARNING: [VRFC 10-1378] slice direction differs from its index type range [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:164]
-WARNING: [VRFC 10-1378] slice direction differs from its index type range [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:165]
-WARNING: [VRFC 10-1378] slice direction differs from its index type range [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:166]
-WARNING: [VRFC 10-1378] slice direction differs from its index type range [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:167]
-WARNING: [VRFC 10-1378] slice direction differs from its index type range [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:168]
-WARNING: [VRFC 10-1378] slice direction differs from its index type range [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:169]
-WARNING: [VRFC 10-1378] slice direction differs from its index type range [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:170]
-WARNING: [VRFC 10-1378] slice direction differs from its index type range [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:171]
 Completed static elaboration
-INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling architecture behavioral of entity xil_defaultlib.Initial_P [initial_p_default]
+Compiling architecture behavioral of entity xil_defaultlib.initial_p_tb
+Built simulation snapshot initial_p_tb_behav

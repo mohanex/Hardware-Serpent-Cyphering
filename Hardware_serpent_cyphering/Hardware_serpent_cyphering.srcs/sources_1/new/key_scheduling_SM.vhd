@@ -149,7 +149,7 @@ architecture Behavioral of key_scheduling_SM is
     
     ----SPLITTING PROCEDURE--------------------------------------
     procedure  Splitting(
-        L1 : in std_logic_vector(0 to full_key_size-1);
+        L1 : in std_logic_vector(full_key_size-1 downto 0);
         variable var_quartet_1 : out std_logic_vector(div4_bits-1 downto 0);
         variable var_quartet_2 : out std_logic_vector(div4_bits-1 downto 0);
         variable var_quartet_3 : out std_logic_vector(div4_bits-1 downto 0);
@@ -203,7 +203,6 @@ begin
         variable pre_keys : Ki_array;
         variable whichS : integer;
     begin
-    if rising_edge(clk) then
         case state is
         when IDLE =>
             --report "IDLE State";
@@ -246,12 +245,12 @@ begin
             merging_ki : for i in 0 to 32 loop
                 pre_keys(i) := Merging2(quartet_1=>k(4*i),quartet_2=>k(4*i+1),quartet_3=>k(4*i+2),quartet_4=>k(4*i+3));
             end loop;
-            if i = 32 then
-                for j in 0 to 32 loop
-                    pre_keys(j) := app_IP(input_bits=>pre_keys(j));
-                end loop;
-            end if;
-            if j=32 then
+            --if i = 32 then
+            --    for j in 0 to 32 loop
+            --        pre_keys(j) := app_IP(input_bits=>pre_keys(j));
+            --    end loop;
+            --end if;
+            if i=32 then
                 merging_done <='1';
             end if;
         
@@ -262,7 +261,6 @@ begin
         when others =>
             report "seg fault";
         end case;
-    end if;
     end process;
 
 
@@ -279,6 +277,11 @@ begin
 
                 when PREKEY_CALCULATION =>
                     if prekey_calc_done = '1' then
+                        state <= KEY_EXPEND;
+                    end if;
+
+                when KEY_EXPEND =>
+                    if key_expend_done = '1' then
                         state <= ASSEMBLING_KEY;
                     end if;
 
