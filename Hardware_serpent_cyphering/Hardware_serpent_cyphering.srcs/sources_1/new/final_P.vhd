@@ -103,7 +103,7 @@ begin
                 for compt in 0 to 127 loop
                     report("Compt =")&integer'image(compt);
                     temp := if_table(compt);
-                    text_out_holder(temp) := text_in_holder(compt);
+                    text_out_holder(compt) := text_in_holder(temp);
                 end loop;
                 permute_done <= '1';
 

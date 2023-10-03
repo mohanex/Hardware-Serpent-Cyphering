@@ -1,6 +1,5 @@
 # compile vhdl design source files
 vhdl xil_defaultlib  \
-"../../../../Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling.vhd" \
 "../../../../Hardware_serpent_cyphering.srcs/sources_1/new/Initial_P.vhd" \
 "../../../../Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd" \
 "../../../../Hardware_serpent_cyphering.srcs/sources_1/new/final_P.vhd" \
@@ -13,6 +12,8 @@ vhdl xil_defaultlib  \
 "../../../../Hardware_serpent_cyphering.srcs/sim_1/new/initial_p_tb.vhd" \
 "../../../../Hardware_serpent_cyphering.srcs/sim_1/new/key_scheduling_tb.vhd" \
 "../../../../Hardware_serpent_cyphering.srcs/sim_1/new/Minor_SM_tb.vhd" \
+"../../../../Hardware_serpent_cyphering.srcs/sim_1/new/final_p_tb.vhd" \
+"../../../../Hardware_serpent_cyphering.srcs/sim_1/new/General_SM_tb.vhd" \
 
 # Do not sort compile order
 nosort

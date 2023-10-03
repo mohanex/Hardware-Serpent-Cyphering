@@ -19,7 +19,8 @@ component S_boxes
         s_box_in : in std_logic_vector(0 to 3);
         s_box_out : out std_logic_vector(0 to 3);
         go :  in std_logic;
-        ready_busy : out std_logic_vector(0 to 1)
+        ready_busy : out std_logic_vector(0 to 1);
+        sboxe_num : in integer 
     );
 end component;
 
@@ -32,6 +33,7 @@ signal s_s_box_in : std_logic_vector(0 to 3);
 signal s_s_box_out : std_logic_vector(0 to 3);
 signal s_go :  std_logic;
 signal s_ready_busy : std_logic_vector(0 to 1);
+signal s_sboxe_num : integer; 
 
 begin
 
@@ -40,23 +42,26 @@ u1 : S_boxes port map(
     s_box_in => s_s_box_in,
     s_box_out => s_s_box_out,
     go => s_go,
-    ready_busy => s_ready_busy
+    ready_busy => s_ready_busy,
+    sboxe_num => s_sboxe_num
 );
 
 clk <= not clk after clk_period/2;
 
 stimuli : process
 begin
-    s_s_box_in <= "1111"; -- should give us 5
+    s_s_box_in <= "1111"; 
+    s_sboxe_num <= 0;
     s_go <= '1';
-    wait for 300 ns;
+    wait for 30 ns;
 
     s_go <= '0';
-    wait for 300 ns;
+    wait for 30 ns;
 
-    s_s_box_in <= "1111"; -- should give us 6
+    s_s_box_in <= "1010";
+    s_sboxe_num <= 7; 
     s_go <= '1';
-    wait for 300 ns;
+    wait for 30 ns;
         
 end process;
 
