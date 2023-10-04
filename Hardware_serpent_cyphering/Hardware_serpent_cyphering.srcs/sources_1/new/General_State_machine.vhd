@@ -18,20 +18,33 @@ entity General_State_machine is
         clk : in std_logic;
         go :  in std_logic;
         ready_busy : out std_logic_vector(0 to 1);
-        plain_text : in std_logic_vector(0 to full_bits-1);
-        ciphered_text : out std_logic_vector(0 to full_bits-1);
-        user_key : in std_logic_vector(0 to full_bits-1)
+        plain_text : in std_logic_vector(full_bits-1 downto 0);
+        ciphered_text : out std_logic_vector(full_bits-1 downto 0);
+        user_key : in std_logic_vector(full_bits-1 downto 0)
      );
 end General_State_machine;
 
 architecture Behavioral of General_State_machine is
+
+    ----RV  -------------------------------------------------------
+    function RV (input_vector: in std_logic_vector)
+    return std_logic_vector is
+        variable reversed_result: std_logic_vector(input_vector'RANGE);
+        alias reversed_alias: std_logic_vector(input_vector'REVERSE_RANGE) is input_vector;
+    begin
+        for index in reversed_alias'RANGE loop
+            reversed_result(index) := reversed_alias(index);
+        end loop;
+        return reversed_result;
+    end;
+
     component Initial_P is
         port(
             clk : in std_logic;
             go :  in std_logic;
             ready_busy : out std_logic_vector(0 to 1);
-            plaintext_in : in std_logic_vector(0 to 127);
-            permutedtext_out : out std_logic_vector(0 to 127)
+            plaintext_in : in std_logic_vector(0 to full_bits-1);
+            permutedtext_out : out std_logic_vector(0 to full_bits-1)
         ); 
     end component;
 
@@ -40,9 +53,9 @@ architecture Behavioral of General_State_machine is
             clk : in std_logic;
             go :  in std_logic;
             ready_busy : out std_logic_vector(0 to 1);
-            text_to_compute : in std_logic_vector(0 to full_bits-1);
-            computed_text : out std_logic_vector(0 to full_bits-1);
-            user_key_to_calculate : in std_logic_vector(0 to full_bits-1)
+            text_to_compute : in std_logic_vector(full_bits-1 downto 0);
+            computed_text : out std_logic_vector(full_bits-1 downto 0);
+            user_key_to_calculate : in std_logic_vector(full_bits-1 downto 0)
          );
     end component;
 
@@ -51,8 +64,8 @@ architecture Behavioral of General_State_machine is
             clk : in std_logic;
             go :  in std_logic;
             ready_busy : out std_logic_vector(0 to 1);
-            plaintext_in : in std_logic_vector(0 to 127);
-            permutedtext_out : out std_logic_vector(0 to 127)
+            plaintext_in : in std_logic_vector(0 to full_bits-1);
+            permutedtext_out : out std_logic_vector(0 to full_bits-1)
         ); 
     end component;
 
@@ -67,28 +80,28 @@ architecture Behavioral of General_State_machine is
     signal sig_ready_busy_FP : std_logic_vector(0 to 1);
 
     ------- Minor state machine remaining signals ------
-    signal sig_text_to_compute : std_logic_vector(0 to full_bits-1);
-    signal sig_computed_text : std_logic_vector(0 to full_bits-1);
-    signal sig_user_key_to_calculate : std_logic_vector(0 to full_bits-1);
+    signal sig_text_to_compute : std_logic_vector(full_bits-1 downto 0);
+    signal sig_computed_text : std_logic_vector(full_bits-1 downto 0);
+    signal sig_user_key_to_calculate : std_logic_vector(full_bits-1 downto 0);
 
     ------- Initial P remaining signals ---------------
-    signal sig_plaintext_in_IP : std_logic_vector(0 to 127);
-    signal sig_permutedtext_out_IP : std_logic_vector(0 to 127);
+    signal sig_plaintext_in_IP : std_logic_vector(0 to full_bits-1);
+    signal sig_permutedtext_out_IP : std_logic_vector(0 to full_bits-1);
 
     ------- Final P remaining signals -----------------
-    signal sig_plaintext_in_FP : std_logic_vector(0 to 127);
-    signal sig_permutedtext_out_FP : std_logic_vector(0 to 127);
+    signal sig_plaintext_in_FP : std_logic_vector(0 to full_bits-1);
+    signal sig_permutedtext_out_FP : std_logic_vector(0 to full_bits-1);
 
     type state_type is(IDLE,INTERMIDIARE,IP,waiting_IP,waiting_minor_SM,MINOR_SM,FP,FINISHED,INTERMIDIARE3,waiting_FP,INTERMIDIARE2);
     signal state : state_type := IDLE;
 
     ------ General State machine Signals -----------
     signal sig_ready_busy : std_logic_vector(0 to 1);
-    signal sig_plain_text : std_logic_vector(0 to full_bits-1);
-    signal sig_ciphered_text : std_logic_vector(0 to full_bits-1);
-    signal sig_user_key : std_logic_vector(0 to full_bits-1);
+    signal sig_plain_text : std_logic_vector(full_bits-1 downto 0);
+    signal sig_ciphered_text : std_logic_vector(full_bits-1 downto 0);
+    signal sig_user_key : std_logic_vector(full_bits-1 downto 0);
 
-    signal debug_text_in : std_logic_vector(0 to 127);
+    signal debug_text_in : std_logic_vector(full_bits-1 downto 0);
 
     signal start_processing : std_logic;
     signal intermidaire_done : std_logic;
@@ -196,10 +209,10 @@ begin
     end process;
 
     PERMUTATION : process(state)
-    variable temp_var : std_logic_vector(0 to 127);
-    variable temp_var2 : std_logic_vector(0 to 127);
-    variable B0 : std_logic_vector(0 to 127);
-    variable C : std_logic_vector(0 to 127);
+    variable temp_var : std_logic_vector(full_bits-1 downto 0);
+    variable temp_var2 : std_logic_vector(full_bits-1 downto 0);
+    variable B0 : std_logic_vector(full_bits-1 downto 0);
+    variable C : std_logic_vector(full_bits-1 downto 0);
     begin
         case state is
             when IDLE =>
@@ -215,12 +228,12 @@ begin
                 intermidaire_done <= '1';
 
             when IP =>
-                sig_plaintext_in_IP <= B0;
+                sig_plaintext_in_IP <= RV(input_vector=>B0);
                 sig_go_IP <= '1';
                 done_ip <= '1';
 
             when waiting_IP =>
-                temp_var := sig_permutedtext_out_IP;
+                temp_var := RV(input_vector=>sig_permutedtext_out_IP);
                 waiting_ip_done <= '1';
 
             when MINOR_SM =>
@@ -238,7 +251,7 @@ begin
                 intermidaire2_done <= '1';
 
             when FP =>
-                sig_plaintext_in_FP <= temp_var2;
+                sig_plaintext_in_FP <= RV(input_vector=>temp_var2);
                 sig_go_FP <= '1';
                 done_FP <= '1';
 
@@ -246,7 +259,7 @@ begin
                 waiting_FP_done <= '1';
 
             when INTERMIDIARE3 =>
-                C := sig_permutedtext_out_FP;
+                C := RV(input_vector=>sig_permutedtext_out_FP);
                 debug_text_in <= C;
                 intermidaire3_done <= '1';
 

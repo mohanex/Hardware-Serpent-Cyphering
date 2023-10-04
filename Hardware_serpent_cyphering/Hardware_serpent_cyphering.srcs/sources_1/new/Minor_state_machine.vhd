@@ -205,6 +205,7 @@ begin
                --report "Value of xoring before Sboxe :" & integer'image(to_integer(unsigned(temp1)));
                   input_s := temp1(0 + 4 * j) & temp1(1 + 4 * j) & temp1(2 + 4 * j) & temp1(3 + 4 * j);
                   sig_box_in <= input_s;
+                  sig_sboxe_num <= i mod 8;
                   sig_go_sboxes <= '1';
                   state <= waiting_for_Sbox;
                   
