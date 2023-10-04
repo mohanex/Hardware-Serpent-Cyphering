@@ -237,22 +237,14 @@ begin
                 end loop;
             end loop;
         end loop;
-        if i=32 then
-            key_assembled <='1';
-        end if;
+        key_assembled <='1';
+
 
         when MERGING =>
             merging_ki : for i in 0 to 32 loop
                 pre_keys(i) := Merging2(quartet_1=>k(4*i),quartet_2=>k(4*i+1),quartet_3=>k(4*i+2),quartet_4=>k(4*i+3));
             end loop;
-            --if i = 32 then
-            --    for j in 0 to 32 loop
-            --        pre_keys(j) := app_IP(input_bits=>pre_keys(j));
-            --    end loop;
-            --end if;
-            if i=32 then
-                merging_done <='1';
-            end if;
+            merging_done <='1';
         
         when FLAG_IP =>
             sig_pre_keys <= pre_keys;

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="S_boxes_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="S_boxes_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="1000000001fs"></ZoomEndTime>
+      <Cursor1Time time="103933000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="187"></NameColumnWidth>
+      <ValueColumnWidth column_width="324"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/S_boxes_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/S_boxes_tb/s_s_box_in" type="array">
+      <obj_property name="ElementShortName">s_s_box_in[3:0]</obj_property>
+      <obj_property name="ObjectShortName">s_s_box_in[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/S_boxes_tb/s_s_box_out" type="array">
+      <obj_property name="ElementShortName">s_s_box_out[3:0]</obj_property>
+      <obj_property name="ObjectShortName">s_s_box_out[3:0]</obj_property>
+      <obj_property name="Reversed">false</obj_property>
+   </wvobject>
+   <wvobject fp_name="/S_boxes_tb/s_go" type="logic">
+      <obj_property name="ElementShortName">s_go</obj_property>
+      <obj_property name="ObjectShortName">s_go</obj_property>
+   </wvobject>
+   <wvobject fp_name="/S_boxes_tb/s_ready_busy" type="array">
+      <obj_property name="ElementShortName">s_ready_busy[0:1]</obj_property>
+      <obj_property name="ObjectShortName">s_ready_busy[0:1]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/S_boxes_tb/s_sboxe_num" type="other">
+      <obj_property name="ElementShortName">s_sboxe_num</obj_property>
+      <obj_property name="ObjectShortName">s_sboxe_num</obj_property>
+   </wvobject>
+   <wvobject fp_name="/S_boxes_tb/clk_period" type="other">
+      <obj_property name="ElementShortName">clk_period</obj_property>
+      <obj_property name="ObjectShortName">clk_period</obj_property>
+   </wvobject>
+   <wvobject fp_name="/S_boxes_tb/nb4_bits" type="other">
+      <obj_property name="ElementShortName">nb4_bits</obj_property>
+      <obj_property name="ObjectShortName">nb4_bits</obj_property>
+   </wvobject>
+</wave_config>

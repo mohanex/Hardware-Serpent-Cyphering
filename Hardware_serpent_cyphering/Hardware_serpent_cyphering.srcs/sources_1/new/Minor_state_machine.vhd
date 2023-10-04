@@ -18,13 +18,24 @@ entity Minor_state_machine is
       clk : in std_logic;
       go :  in std_logic;
       ready_busy : out std_logic_vector(0 to 1);
-      text_to_compute : in std_logic_vector(0 to full_bits-1);
-      computed_text : out std_logic_vector(0 to full_bits-1);
-      user_key_to_calculate : in std_logic_vector(0 to full_bits-1)
+      text_to_compute : in std_logic_vector(full_bits-1 downto 0);
+      computed_text : out std_logic_vector(full_bits-1 downto 0);
+      user_key_to_calculate : in std_logic_vector(full_bits-1 downto 0)
    );
 end Minor_state_machine;
 
 architecture Behavioral of Minor_state_machine is
+------------ Reverse Function ----------
+function RV (input_vector: in std_logic_vector)
+   return std_logic_vector is
+       variable reversed_result: std_logic_vector(input_vector'RANGE);
+       alias reversed_alias: std_logic_vector(input_vector'REVERSE_RANGE) is input_vector;
+   begin
+       for index in reversed_alias'RANGE loop
+           reversed_result(index) := reversed_alias(index);
+       end loop;
+       return reversed_result;
+   end;
 
 -------- component SBOXES ----------
 component S_boxes is
@@ -33,7 +44,8 @@ component S_boxes is
       s_box_in : in std_logic_vector(0 to 3);
       s_box_out : out std_logic_vector(0 to 3);
       go :  in std_logic;
-      ready_busy : out std_logic_vector(0 to 1)
+      ready_busy : out std_logic_vector(0 to 1);
+      sboxe_num : in integer 
    );
 end component S_boxes;
 
@@ -50,9 +62,9 @@ component key_scheduling_SM is
       clk : in std_logic;
       go : in std_logic;
       Ki_number : in integer; --key number 
-      user_key : in std_logic_vector(0 to full_bits-1);
+      user_key : in std_logic_vector(full_bits-1 downto 0);
       ready_busy : out std_logic_vector(0 to 1);
-      Ki : out std_logic_vector(0 to full_bits-1);
+      Ki : out std_logic_vector(full_bits-1 downto 0);
       ready_busy_key : out std_logic_vector(0 to 1)
   );
 end component key_scheduling_SM;
@@ -64,37 +76,33 @@ component Linear_transformation is
       constant div4_bits : integer :=32
   );
   Port ( 
-      clk : in std_logic;
-      go : in std_logic;
-      ready_busy : out std_logic_vector(0 to 1);
-      Bi_input : in std_logic_vector(0 to full_bits-1);
-      Bi_output : out std_logic_vector(0 to full_bits-1)
+      Bi_input : in std_logic_vector(full_bits-1 downto 0);
+      Bi_output : out std_logic_vector(full_bits-1 downto 0)
   );
 end component Linear_transformation;
 
 -------- go signals--------------
 signal sig_go_sboxes : std_logic;
 signal sig_go_key : std_logic;
-signal sig_go_linear : std_logic;
 
 -------- r/b signals--------------
 signal sig_ready_busy_sboxes : std_logic_vector(0 to 1);
 signal sig_ready_busy_key : std_logic_vector(0 to 1);
-signal sig_ready_busy_linear : std_logic_vector(0 to 1);
 
 ------- s-boxes remaining signals -------
 signal sig_box_in : std_logic_vector(0 to 3);
 signal sig_box_out : std_logic_vector(0 to 3);
+signal sig_sboxe_num : integer; 
 
 ------- key_scheduling remaining signals -------
-signal sig_Ki : std_logic_vector(0 to full_bits-1);
+signal sig_Ki : std_logic_vector(full_bits-1 downto 0);
 signal sig_Ki_number : integer; --key number;
-signal sig_user_key : std_logic_vector(0 to full_bits-1);
+signal sig_user_key : std_logic_vector(full_bits-1 downto 0);
 signal sig_ready_busy_key_give : std_logic_vector(0 to 1);
 
 ------- linear transformation remaining signals ---------
-signal sig_Bi_input : std_logic_vector(0 to full_bits-1);
-signal sig_Bi_output : std_logic_vector(0 to full_bits-1);
+signal sig_Bi_input : std_logic_vector(full_bits-1 downto 0);
+signal sig_Bi_output : std_logic_vector(full_bits-1 downto 0);
 
 ------- Machine state variable and signlas-------------------------
 type t_State is (IDLE, state_SB, state_KS, state_LT, final_permutation, finished, ALL_FINISHED, speciaal,generating_subkeys,searching_ki32,state_xoring,wait_for_ki,loop_control,final_xor,waiting_for_Sbox,waiting_for_Linear_Transformation);
@@ -102,15 +110,14 @@ signal State : t_State := IDLE;
 signal Minor_ready_busy : std_logic_vector(0 to 1);
 signal sig_computed_text : std_logic_vector(0 to full_bits-1);
 
-signal key_lance : integer :=0;
-
 begin
    SB : S_boxes port map(
       clk => clk,
       s_box_in => sig_box_in,
       s_box_out => sig_box_out,
       go => sig_go_sboxes,
-      ready_busy => sig_ready_busy_sboxes
+      ready_busy => sig_ready_busy_sboxes,
+      sboxe_num => sig_sboxe_num
    );
    KS : key_scheduling_SM port map(
       clk => clk,
@@ -122,9 +129,6 @@ begin
       ready_busy_key => sig_ready_busy_key_give
    );
    LT : Linear_transformation port map(
-      clk => clk,
-      go => sig_go_linear,
-      ready_busy => sig_ready_busy_linear,
       Bi_input => sig_Bi_input,
       Bi_output => sig_Bi_output
    );
@@ -145,7 +149,6 @@ begin
                 report "IDLE State";
                 --report "sig_ready_busy_key =" & integer'image(to_integer(unsigned(sig_ready_busy_key)));
                   if(go = '1') then
-                     --key_lance <= 1; --lunch subkeys generating
                      sig_go_key <= '1';
                      text_holder := text_to_compute;
                      i := 0;
@@ -232,17 +235,11 @@ begin
                when state_LT =>
                   report " LT State";
                   sig_Bi_input <= temp2;
-                  sig_go_linear <= '1';
                   state <= waiting_for_Linear_Transformation;
                   
                when waiting_for_Linear_Transformation =>
-                  if sig_ready_busy_linear = "11" then
-                        temp3 := sig_Bi_output;
-                        state <= finished;
-                        sig_go_linear <= '0';
-                  else
-                        state <= waiting_for_Linear_Transformation;
-                  end if;
+                  temp3 := sig_Bi_output;
+                  state <= finished;
                   --end loop;
                   
                when finished =>

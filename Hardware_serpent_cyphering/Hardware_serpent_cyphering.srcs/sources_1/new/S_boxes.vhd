@@ -8,10 +8,13 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity S_boxes is
+    generic(
+        nb4_bits : integer := 3
+    );
     Port ( 
         clk : in std_logic;
-        s_box_in : in std_logic_vector(0 to 3);
-        s_box_out : out std_logic_vector(0 to 3);
+        s_box_in : in std_logic_vector(nb4_bits downto 0);
+        s_box_out : out std_logic_vector(nb4_bits downto 0);
         go :  in std_logic;
         ready_busy : out std_logic_vector(0 to 1);
         --mode : in std_logic;   -----if 1 then will take sboxe_num as sbox number else itll start on 0 finish at 7 and reiterate
@@ -20,6 +23,18 @@ entity S_boxes is
 end S_boxes;
 
 architecture Behavioral of S_boxes is
+
+    ------------- Revervse function ---------------
+    function RV (input_vector: in std_logic_vector)
+        return std_logic_vector is
+            variable reversed_result: std_logic_vector(input_vector'RANGE);
+            alias reversed_alias: std_logic_vector(input_vector'REVERSE_RANGE) is input_vector;
+        begin
+            for index in reversed_alias'RANGE loop
+                reversed_result(index) := reversed_alias(index);
+            end loop;
+            return reversed_result;
+    end;
 
     type t_sboxes is array (0 to 15) of integer;
     signal S0 : t_sboxes :=(3,8,15,1,10,6,5,11,14,13,4,2,7,0,9,12);
@@ -31,8 +46,8 @@ architecture Behavioral of S_boxes is
     signal S6 : t_sboxes :=(7,2,12,5,8,4,6,11,14,9,1,15,13,3,10,0);
     signal S7 : t_sboxes :=(1,13,15,0,14,8,2,11,7,4,12,10,9,3,5,6);
 
-    signal signal_s_box_in : std_logic_vector(0 to 3);
-    signal signal_s_box_out : std_logic_vector(0 to 3);
+    signal signal_s_box_in : std_logic_vector(nb4_bits downto 0);
+    signal signal_s_box_out : std_logic_vector(nb4_bits downto 0);
     type state_type is(IDLE,SUBS,SBOX_FINISHED);
     signal state : state_type := IDLE;
 
@@ -76,7 +91,7 @@ begin
         variable sboxes_compt : integer := 0;
         
         variable read_value_out : integer;
-        variable converted_read_value_out : std_logic_vector(0 to 3);
+        variable converted_read_value_out : std_logic_vector(nb4_bits downto 0);
     begin
         case state is 
             when IDLE =>

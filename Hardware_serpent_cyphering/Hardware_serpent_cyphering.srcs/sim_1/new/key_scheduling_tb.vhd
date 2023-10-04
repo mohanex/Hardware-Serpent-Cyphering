@@ -79,7 +79,7 @@ begin
     wait for 30 ns;
     
     sig_Ki_number <=29;
-    wait for 30 ns;
+    wait for 3000 ns;
 
 end process;
 
