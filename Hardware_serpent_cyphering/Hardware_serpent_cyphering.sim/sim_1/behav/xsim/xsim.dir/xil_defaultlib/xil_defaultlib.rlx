@@ -5,7 +5,7 @@ May 24 2019
 C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/General_SM_tb.vhd,1696097302,vhdl,,,,general_sm_tb,,,,,,,,
 C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/Linear_transfo_tb.vhd,1696373165,vhdl,,,,linear_transformation_tb,,,,,,,,
 C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/Minor_SM_tb.vhd,1696095614,vhdl,,,,minor_sm_tb,,,,,,,,
-C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/S_boxes_tb.vhd,1696380593,vhdl,,,,s_boxes_tb,,,,,,,,
+C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/S_boxes_tb.vhd,1696405202,vhdl,,,,s_boxes_tb,,,,,,,,
 C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/final_p_tb.vhd,1696374760,vhdl,,,,final_p_tb,,,,,,,,
 C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/initial_p_tb.vhd,1696374582,vhdl,,,,initial_p_tb,,,,,,,,
 C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sim_1/new/key_scheduling_tb.vhd,1696377417,vhdl,,,,key_scheduling_tb,,,,,,,,

@@ -56,7 +56,7 @@ stimuli : process
 begin
     s_s_box_in <= "1000"; 
     s_sboxe_num <= 0;
-    s_go <= '1';
+    s_go <= '1';    --cocotb
     wait for 30 ns;
 
     s_go <= '0';
