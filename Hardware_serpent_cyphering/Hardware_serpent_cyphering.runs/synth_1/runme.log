@@ -1,0 +1,838 @@
+
+*** Running vivado
+    with args -log General_State_machine.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source General_State_machine.tcl
+
+
+****** Vivado v2019.1 (64-bit)
+  **** SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+  **** IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+    ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+
+source General_State_machine.tcl -notrace
+Command: synth_design -top General_State_machine -part xc7z020clg484-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 14172 
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:04 . Memory (MB): peak = 564.148 ; gain = 185.684
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'General_State_machine' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/General_State_machine.vhd:27]
+	Parameter full_bits bound to: 128 - type: integer 
+	Parameter div4_bits bound to: 32 - type: integer 
+	Parameter full_key_size bound to: 256 - type: integer 
+	Parameter four_bits bound to: 4 - type: integer 
+INFO: [Synth 8-3491] module 'Minor_state_machine' declared at 'C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:10' bound to instance 'Minor_ST' of component 'Minor_state_machine' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/General_State_machine.vhd:119]
+INFO: [Synth 8-638] synthesizing module 'Minor_state_machine' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:27]
+	Parameter full_bits bound to: 128 - type: integer 
+	Parameter div4_bits bound to: 32 - type: integer 
+	Parameter full_key_size bound to: 256 - type: integer 
+	Parameter four_bits bound to: 4 - type: integer 
+INFO: [Synth 8-3491] module 'S_boxes' declared at 'C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:10' bound to instance 'SB' of component 'S_boxes' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:114]
+INFO: [Synth 8-638] synthesizing module 'S_boxes' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:25]
+	Parameter nb4_bits bound to: 3 - type: integer 
+WARNING: [Synth 8-614] signal 'number_in' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:90]
+WARNING: [Synth 8-614] signal 'read_value_in' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:90]
+INFO: [Synth 8-256] done synthesizing module 'S_boxes' (1#1) [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:25]
+	Parameter full_bits bound to: 128 - type: integer 
+	Parameter div4_bits bound to: 32 - type: integer 
+	Parameter full_key_size bound to: 256 - type: integer 
+	Parameter theta bound to: 32'b10011110001101110111100110111001 
+	Parameter four_bits bound to: 4 - type: integer 
+INFO: [Synth 8-3491] module 'key_scheduling_SM' declared at 'C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:10' bound to instance 'KS' of component 'key_scheduling_SM' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:122]
+INFO: [Synth 8-638] synthesizing module 'key_scheduling_SM' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:30]
+	Parameter full_bits bound to: 128 - type: integer 
+	Parameter div4_bits bound to: 32 - type: integer 
+	Parameter full_key_size bound to: 256 - type: integer 
+	Parameter theta bound to: -1640531527 - type: integer 
+	Parameter four_bits bound to: 4 - type: integer 
+WARNING: [Synth 8-614] signal 'sig_expanded_Key' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:195]
+INFO: [Synth 8-256] done synthesizing module 'key_scheduling_SM' (2#1) [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:30]
+	Parameter full_bits bound to: 128 - type: integer 
+	Parameter div4_bits bound to: 32 - type: integer 
+INFO: [Synth 8-3491] module 'Linear_transformation' declared at 'C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd:12' bound to instance 'LT' of component 'Linear_transformation' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:131]
+INFO: [Synth 8-638] synthesizing module 'Linear_transformation' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd:23]
+	Parameter full_bits bound to: 128 - type: integer 
+	Parameter div4_bits bound to: 32 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'Linear_transformation' (3#1) [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Linear_transformation.vhd:23]
+WARNING: [Synth 8-6014] Unused sequential element input_s_reg was removed.  [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:206]
+INFO: [Synth 8-256] done synthesizing module 'Minor_state_machine' (4#1) [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:27]
+INFO: [Synth 8-3491] module 'Initial_P' declared at 'C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Initial_P.vhd:10' bound to instance 'Initial_permutation' of component 'Initial_P' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/General_State_machine.vhd:128]
+INFO: [Synth 8-638] synthesizing module 'Initial_P' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Initial_P.vhd:20]
+INFO: [Synth 8-226] default block is never used [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Initial_P.vhd:52]
+INFO: [Synth 8-226] default block is never used [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Initial_P.vhd:86]
+WARNING: [Synth 8-614] signal 's_plaintext_in' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Initial_P.vhd:80]
+WARNING: [Synth 8-614] signal 'ip_table' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Initial_P.vhd:80]
+INFO: [Synth 8-256] done synthesizing module 'Initial_P' (5#1) [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Initial_P.vhd:20]
+INFO: [Synth 8-3491] module 'final_P' declared at 'C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/final_P.vhd:10' bound to instance 'Final_permutation' of component 'final_P' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/General_State_machine.vhd:136]
+INFO: [Synth 8-638] synthesizing module 'final_P' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/final_P.vhd:20]
+INFO: [Synth 8-226] default block is never used [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/final_P.vhd:52]
+INFO: [Synth 8-226] default block is never used [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/final_P.vhd:86]
+WARNING: [Synth 8-614] signal 's_plaintext_in' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/final_P.vhd:80]
+WARNING: [Synth 8-614] signal 'if_table' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/final_P.vhd:80]
+INFO: [Synth 8-256] done synthesizing module 'final_P' (6#1) [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/final_P.vhd:20]
+WARNING: [Synth 8-614] signal 'sig_plain_text' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/General_State_machine.vhd:211]
+WARNING: [Synth 8-614] signal 'sig_permutedtext_out_IP' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/General_State_machine.vhd:211]
+WARNING: [Synth 8-614] signal 'sig_user_key' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/General_State_machine.vhd:211]
+WARNING: [Synth 8-614] signal 'sig_computed_text' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/General_State_machine.vhd:211]
+WARNING: [Synth 8-614] signal 'sig_permutedtext_out_FP' is read in the process but is not in the sensitivity list [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/General_State_machine.vhd:211]
+INFO: [Synth 8-256] done synthesizing module 'General_State_machine' (7#1) [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/General_State_machine.vhd:27]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:13 ; elapsed = 00:00:26 . Memory (MB): peak = 854.707 ; gain = 476.242
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:15 ; elapsed = 00:00:28 . Memory (MB): peak = 854.707 ; gain = 476.242
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5580] Multithreading enabled for synth_design using a maximum of 2 processes.
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg484-1
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'key_scheduling_SM'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'Initial_P'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'final_P'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'General_State_machine'
+INFO: [Synth 8-5544] ROM "sig_ready_busy" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "B0" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sig_plaintext_in_IP" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "temp_var" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sig_text_to_compute" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "waiting_minor_SM_done" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "temp_var2" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sig_plaintext_in_FP" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "waiting_fp_done" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "C" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+WARNING: [Synth 8-327] inferring latch for variable 'signal_s_box_out_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:150]
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                             0001 |                               00
+                    subs |                             0010 |                               01
+           sbox_finished |                             0100 |                               10
+                  iSTATE |                             1000 |                               11
+*
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'S_boxes'
+WARNING: [Synth 8-327] inferring latch for variable 'ready_busy_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:101]
+WARNING: [Synth 8-327] inferring latch for variable 'converted_read_value_out_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:111]
+WARNING: [Synth 8-327] inferring latch for variable 'start_processing_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:69]
+WARNING: [Synth 8-327] inferring latch for variable 'subs_done_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:73]
+WARNING: [Synth 8-327] inferring latch for variable 'finished_done_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/S_boxes.vhd:77]
+WARNING: [Synth 8-327] inferring latch for variable 'flag_ip_done_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:251]
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                          0000001 |                              000
+      prekey_calculation |                          0000010 |                              001
+              key_expend |                          0000100 |                              010
+          assembling_key |                          0001000 |                              011
+                 merging |                          0010000 |                              101
+                 flag_ip |                          0100000 |                              100
+                  iSTATE |                          1000000 |                              111
+*
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'key_scheduling_SM'
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[0]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[1]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[2]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[3]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[4]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[5]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[6]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[7]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[8]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[9]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[10]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[11]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[12]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[13]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[14]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[15]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[16]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[17]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[18]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[19]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[20]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[21]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[22]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[23]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[24]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[25]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[26]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[27]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[28]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[29]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[30]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[31]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'sig_pre_keys_reg[32]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:250]
+WARNING: [Synth 8-327] inferring latch for variable 'start_processing_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:209]
+WARNING: [Synth 8-327] inferring latch for variable 'prekey_calc_done_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:215]
+WARNING: [Synth 8-327] inferring latch for variable 'key_expend_done_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:222]
+WARNING: [Synth 8-327] inferring latch for variable 'key_assembled_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:240]
+WARNING: [Synth 8-327] inferring latch for variable 'merging_done_reg' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:247]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[0]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[1]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[2]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[3]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[4]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[5]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[6]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[7]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[8]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[9]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[10]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[11]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[12]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[13]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[14]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[15]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[16]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[17]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[18]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[19]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[20]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[21]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[22]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[23]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[24]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[25]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[26]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[27]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[28]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[29]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[30]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[31]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'pre_keys_reg[32]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:245]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[3]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[2]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[1]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[0]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[7]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[6]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[5]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[4]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[11]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[10]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[9]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[8]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[15]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[14]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[13]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[12]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[19]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[18]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[17]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[16]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[23]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+WARNING: [Synth 8-327] inferring latch for variable 'k_reg[22]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/key_scheduling_SM.vhd:235]
+INFO: [Common 17-14] Message 'Synth 8-327' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                               00 |                               00
+            intermidiare |                               01 |                               11
+                 permute |                               10 |                               01
+             ip_finished |                               11 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'Initial_P'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                               00 |                               00
+            intermidiare |                               01 |                               11
+                 permute |                               10 |                               01
+             fp_finished |                               11 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'final_P'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                             0000 |                             0000
+            intermidiare |                             0001 |                             0001
+                      ip |                             0010 |                             0010
+              waiting_ip |                             0011 |                             0011
+                minor_sm |                             0100 |                             0101
+        waiting_minor_sm |                             0101 |                             0100
+           intermidiare2 |                             0110 |                             1010
+                      fp |                             0111 |                             0110
+              waiting_fp |                             1000 |                             1001
+           intermidiare3 |                             1001 |                             1000
+                finished |                             1010 |                             0111
+                  iSTATE |                             1011 |                             1111
+*
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'General_State_machine'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:27 ; elapsed = 00:00:52 . Memory (MB): peak = 1064.770 ; gain = 686.305
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++------+---------------------------+------------+----------+
+|      |RTL Partition              |Replication |Instances |
++------+---------------------------+------------+----------+
+|1     |key_scheduling_SM__GB0     |           1|     23683|
+|2     |key_scheduling_SM__GB1     |           1|     16265|
+|3     |key_scheduling_SM__GB2     |           1|     12608|
+|4     |key_scheduling_SM__GB3     |           1|      8288|
+|5     |key_scheduling_SM__GB4     |           1|     14400|
+|6     |key_scheduling_SM__GB5     |           1|     19360|
+|7     |key_scheduling_SM__GB6     |           1|     23264|
+|8     |key_scheduling_SM__GB7     |           1|     30976|
+|9     |key_scheduling_SM__GB8     |           1|      7712|
+|10    |key_scheduling_SM__GB9     |           1|     30592|
+|11    |key_scheduling_SM__GB10    |           1|      8160|
+|12    |key_scheduling_SM__GB11    |           1|     30720|
+|13    |key_scheduling_SM__GB12    |           1|     15008|
+|14    |key_scheduling_SM__GB13    |           1|     13557|
+|15    |key_scheduling_SM__GB14    |           1|     33120|
+|16    |key_scheduling_SM__GB15    |           1|     15840|
+|17    |key_scheduling_SM__GB16    |           1|     15584|
+|18    |key_scheduling_SM__GB17    |           1|     15488|
+|19    |key_scheduling_SM__GB18    |           1|     15488|
+|20    |key_scheduling_SM__GB19    |           1|     32908|
+|21    |key_scheduling_SM__GB20    |           1|     15488|
+|22    |key_scheduling_SM__GB21    |           1|     17536|
+|23    |key_scheduling_SM__GB22    |           1|     15488|
+|24    |key_scheduling_SM__GB23    |           1|     15488|
+|25    |key_scheduling_SM__GB24    |           1|     34780|
+|26    |key_scheduling_SM__GB25    |           1|     15488|
+|27    |key_scheduling_SM__GB26    |           1|     15488|
+|28    |key_scheduling_SM__GB27    |           1|     15488|
+|29    |key_scheduling_SM__GB28    |           1|     15488|
+|30    |Minor_state_machine__GC0   |           1|      9363|
+|31    |General_State_machine__GC0 |           1|      2523|
++------+---------------------------+------------+----------+
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 2     
++---XORs : 
+	   2 Input    128 Bit         XORs := 2     
+	   5 Input     32 Bit         XORs := 132   
+	   3 Input     32 Bit         XORs := 4     
++---Registers : 
+	              128 Bit    Registers := 9     
+	               32 Bit    Registers := 7     
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 2     
+	                2 Bit    Registers := 3     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	  16 Input    128 Bit        Muxes := 3     
+	   2 Input    128 Bit        Muxes := 1     
+	   4 Input    128 Bit        Muxes := 2     
+	  12 Input    128 Bit        Muxes := 1     
+	  17 Input     32 Bit        Muxes := 8     
+	  16 Input     32 Bit        Muxes := 2     
+	   7 Input      7 Bit        Muxes := 1     
+	   2 Input      7 Bit        Muxes := 2     
+	   4 Input      4 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 8     
+	   3 Input      4 Bit        Muxes := 1     
+	  12 Input      4 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 7     
+	   4 Input      2 Bit        Muxes := 3     
+	  15 Input      2 Bit        Muxes := 1     
+	   7 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 7     
+	   4 Input      1 Bit        Muxes := 16    
+	  16 Input      1 Bit        Muxes := 15    
+	   3 Input      1 Bit        Muxes := 1     
+	  15 Input      1 Bit        Muxes := 1     
+	  17 Input      1 Bit        Muxes := 1     
+	  12 Input      1 Bit        Muxes := 12    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module General_State_machine 
+Detailed RTL Component Info : 
++---Muxes : 
+	  12 Input    128 Bit        Muxes := 1     
+	  12 Input      4 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 1     
+	  12 Input      1 Bit        Muxes := 12    
+Module key_scheduling_SM 
+Detailed RTL Component Info : 
++---XORs : 
+	   5 Input     32 Bit         XORs := 132   
++---Registers : 
+	              128 Bit    Registers := 1     
+	                2 Bit    Registers := 2     
++---Muxes : 
+	   7 Input      7 Bit        Muxes := 1     
+	   2 Input      7 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 1     
+	   7 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module S_boxes 
+Detailed RTL Component Info : 
++---Muxes : 
+	  17 Input     32 Bit        Muxes := 8     
+	   4 Input      4 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 3     
+	   4 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 2     
+Module Linear_transformation 
+Detailed RTL Component Info : 
++---XORs : 
+	   3 Input     32 Bit         XORs := 4     
+Module Minor_state_machine 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 2     
++---XORs : 
+	   2 Input    128 Bit         XORs := 2     
++---Registers : 
+	              128 Bit    Registers := 8     
+	               32 Bit    Registers := 7     
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 2     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	  16 Input    128 Bit        Muxes := 3     
+	   2 Input    128 Bit        Muxes := 1     
+	  16 Input     32 Bit        Muxes := 2     
+	   2 Input      4 Bit        Muxes := 3     
+	   3 Input      4 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	  15 Input      2 Bit        Muxes := 1     
+	  16 Input      1 Bit        Muxes := 15    
+	   3 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 2     
+	  15 Input      1 Bit        Muxes := 1     
+	  17 Input      1 Bit        Muxes := 1     
+Module Initial_P 
+Detailed RTL Component Info : 
++---Muxes : 
+	   4 Input    128 Bit        Muxes := 1     
+	   4 Input      2 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 7     
+Module final_P 
+Detailed RTL Component Info : 
++---Muxes : 
+	   4 Input    128 Bit        Muxes := 1     
+	   4 Input      2 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 7     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-4471] merging register 'j_reg[31:0]' into 'j_reg[31:0]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:200]
+INFO: [Synth 8-4471] merging register 'j_reg[31:0]' into 'j_reg[31:0]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:200]
+INFO: [Synth 8-4471] merging register 'j_reg[31:0]' into 'j_reg[31:0]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:200]
+INFO: [Synth 8-4471] merging register 'j_reg[31:0]' into 'j_reg[31:0]' [C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.srcs/sources_1/new/Minor_state_machine.vhd:200]
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (SB/finished_done_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (SB/start_processing_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (SB/subs_done_reg)
+WARNING: [Synth 8-3332] Sequential element (FSM_onehot_state_reg[3]) is unused and will be removed from module S_boxes.
+WARNING: [Synth 8-3332] Sequential element (start_processing_reg) is unused and will be removed from module S_boxes.
+WARNING: [Synth 8-3332] Sequential element (subs_done_reg) is unused and will be removed from module S_boxes.
+WARNING: [Synth 8-3332] Sequential element (finished_done_reg) is unused and will be removed from module S_boxes.
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (\Final_permutation/intermidaire_done_reg )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (\Initial_permutation/intermidaire_done_reg )
+INFO: [Synth 8-3886] merging instance 'i_0/finished_done_reg' (LD) to 'i_0/sig_ready_busy_reg[0]'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (intermidaire3_done_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (waiting_fp_done_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (sig_go_FP_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (intermidaire2_done_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (waiting_minor_SM_done_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (waiting_ip_done_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (sig_go_IP_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (intermidaire_done_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (sig_go_Minor_SM_reg)
+INFO: [Synth 8-3886] merging instance 'i_0/sig_ready_busy_reg[1]' (LD) to 'i_0/sig_ready_busy_reg[0]'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (merging_done_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (flag_ip_done_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (key_assembled_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (key_expend_done_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (start_processing_reg)
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (prekey_calc_done_reg)
+INFO: [Synth 8-3886] merging instance 'sig_ready_busy_reg[1]' (FDS) to 'sig_ready_busy_reg[0]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\sig_ready_busy_key_reg[0] )
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][26]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][26]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][5]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][5]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][16]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][27]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][27]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][6]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][6]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][17]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][16]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][27]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][27]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][6]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][6]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][17]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][17]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][28]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][28]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][7]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][7]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][18]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][17]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][28]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][28]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][7]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][7]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][18]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][18]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][29]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][29]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][8]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][8]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][19]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][18]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][29]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][29]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][8]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][8]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][19]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][19]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][30]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][30]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][9]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][9]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][20]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][19]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][30]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][30]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][9]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][9]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][20]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][20]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][25]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][4]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][15]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][15]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][31]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][10]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][10]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][21]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][20]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][31]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][31]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][10]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][10]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][21]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][21]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][12]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][23]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][2]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][2]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][13]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][13]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][24]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][24]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][3]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][3]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][14]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][14]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][14]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][25]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][25]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][4]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][4]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][15]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][15]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][26]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][26]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][5]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][5]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][16]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-1][16]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][4]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-3][25]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-2][14]' (LD) to 'w_reg[-2][0]'
+INFO: [Synth 8-3886] merging instance 'w_reg[-4][0]' (LD) to 'w_reg[-2][0]'
+INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\w_reg[-1][22] )
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:25:45 ; elapsed = 00:39:37 . Memory (MB): peak = 1064.770 ; gain = 686.305
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++------+---------------------------+------------+----------+
+|      |RTL Partition              |Replication |Instances |
++------+---------------------------+------------+----------+
+|1     |key_scheduling_SM__GB0     |           1|      2122|
+|2     |key_scheduling_SM__GB1     |           1|      9747|
+|3     |key_scheduling_SM__GB2     |           1|       648|
+|4     |key_scheduling_SM__GB3     |           1|       485|
+|5     |key_scheduling_SM__GB4     |           1|       633|
+|6     |key_scheduling_SM__GB5     |           1|      1040|
+|7     |key_scheduling_SM__GB6     |           1|      1280|
+|8     |key_scheduling_SM__GB7     |           1|      1664|
+|9     |key_scheduling_SM__GB8     |           1|       384|
+|10    |key_scheduling_SM__GB9     |           1|      1738|
+|11    |key_scheduling_SM__GB10    |           1|       374|
+|12    |key_scheduling_SM__GB11    |           1|      1772|
+|13    |key_scheduling_SM__GB12    |           1|       810|
+|14    |key_scheduling_SM__GB13    |           1|     12826|
+|15    |key_scheduling_SM__GB14    |           1|      3520|
+|16    |key_scheduling_SM__GB15    |           1|      1184|
+|17    |key_scheduling_SM__GB16    |           1|       928|
+|18    |key_scheduling_SM__GB17    |           1|       832|
+|19    |key_scheduling_SM__GB18    |           1|       800|
+|20    |key_scheduling_SM__GB19    |           1|      4840|
+|21    |key_scheduling_SM__GB20    |           1|       800|
+|22    |key_scheduling_SM__GB21    |           1|      1048|
+|23    |key_scheduling_SM__GB22    |           1|       832|
+|24    |key_scheduling_SM__GB23    |           1|       832|
+|25    |key_scheduling_SM__GB24    |           1|      8328|
+|26    |key_scheduling_SM__GB25    |           1|       832|
+|27    |key_scheduling_SM__GB26    |           1|       832|
+|28    |key_scheduling_SM__GB27    |           1|       768|
+|29    |key_scheduling_SM__GB28    |           1|       800|
+|30    |Minor_state_machine__GC0   |           1|      3490|
+|31    |General_State_machine__GC0 |           1|      2431|
++------+---------------------------+------------+----------+
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:25:45 ; elapsed = 00:39:38 . Memory (MB): peak = 1064.770 ; gain = 686.305
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++------+---------------------------+------------+----------+
+|      |RTL Partition              |Replication |Instances |
++------+---------------------------+------------+----------+
+|1     |key_scheduling_SM__GB0     |           1|      2122|
+|2     |key_scheduling_SM__GB1     |           1|      9747|
+|3     |key_scheduling_SM__GB2     |           1|       648|
+|4     |key_scheduling_SM__GB3     |           1|       485|
+|5     |key_scheduling_SM__GB4     |           1|       633|
+|6     |key_scheduling_SM__GB5     |           1|      1040|
+|7     |key_scheduling_SM__GB6     |           1|      1280|
+|8     |key_scheduling_SM__GB7     |           1|      1664|
+|9     |key_scheduling_SM__GB8     |           1|       384|
+|10    |key_scheduling_SM__GB9     |           1|      1738|
+|11    |key_scheduling_SM__GB10    |           1|       374|
+|12    |key_scheduling_SM__GB11    |           1|      1772|
+|13    |key_scheduling_SM__GB12    |           1|       810|
+|14    |key_scheduling_SM__GB13    |           1|     12827|
+|15    |key_scheduling_SM__GB14    |           1|      3520|
+|16    |key_scheduling_SM__GB15    |           1|      1184|
+|17    |key_scheduling_SM__GB16    |           1|       928|
+|18    |key_scheduling_SM__GB17    |           1|       832|
+|19    |key_scheduling_SM__GB18    |           1|       800|
+|20    |key_scheduling_SM__GB19    |           1|      4840|
+|21    |key_scheduling_SM__GB20    |           1|       800|
+|22    |key_scheduling_SM__GB21    |           1|      1048|
+|23    |key_scheduling_SM__GB22    |           1|       832|
+|24    |key_scheduling_SM__GB23    |           1|       832|
+|25    |key_scheduling_SM__GB24    |           1|      8328|
+|26    |key_scheduling_SM__GB25    |           1|       832|
+|27    |key_scheduling_SM__GB26    |           1|       832|
+|28    |key_scheduling_SM__GB27    |           1|       768|
+|29    |key_scheduling_SM__GB28    |           1|       800|
+|30    |Minor_state_machine__GC0   |           1|      3486|
+|31    |General_State_machine__GC0 |           1|      2431|
++------+---------------------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:25:50 ; elapsed = 00:39:45 . Memory (MB): peak = 1083.820 ; gain = 705.355
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++------+---------------------------+------------+----------+
+|      |RTL Partition              |Replication |Instances |
++------+---------------------------+------------+----------+
+|1     |key_scheduling_SM__GB0     |           1|      1148|
+|2     |key_scheduling_SM__GB1     |           1|      5997|
+|3     |key_scheduling_SM__GB2     |           1|       232|
+|4     |key_scheduling_SM__GB3     |           1|       196|
+|5     |key_scheduling_SM__GB4     |           1|       120|
+|6     |key_scheduling_SM__GB5     |           1|       320|
+|7     |key_scheduling_SM__GB6     |           1|       416|
+|8     |key_scheduling_SM__GB7     |           1|       512|
+|9     |key_scheduling_SM__GB8     |           1|        96|
+|10    |key_scheduling_SM__GB9     |           1|       604|
+|11    |key_scheduling_SM__GB10    |           1|        68|
+|12    |key_scheduling_SM__GB11    |           1|       732|
+|13    |key_scheduling_SM__GB12    |           1|       252|
+|14    |key_scheduling_SM__GB13    |           1|     10580|
+|15    |key_scheduling_SM__GB14    |           1|      1888|
+|16    |key_scheduling_SM__GB15    |           1|       608|
+|17    |key_scheduling_SM__GB16    |           1|       352|
+|18    |key_scheduling_SM__GB17    |           1|       256|
+|19    |key_scheduling_SM__GB18    |           1|       256|
+|20    |key_scheduling_SM__GB19    |           1|      2992|
+|21    |key_scheduling_SM__GB20    |           1|       256|
+|22    |key_scheduling_SM__GB21    |           1|       400|
+|23    |key_scheduling_SM__GB22    |           1|       256|
+|24    |key_scheduling_SM__GB23    |           1|       256|
+|25    |key_scheduling_SM__GB24    |           1|      2958|
+|26    |key_scheduling_SM__GB25    |           1|       256|
+|27    |key_scheduling_SM__GB26    |           1|       256|
+|28    |key_scheduling_SM__GB27    |           1|       256|
+|29    |key_scheduling_SM__GB28    |           1|       256|
+|30    |Minor_state_machine__GC0   |           1|      1945|
+|31    |General_State_machine__GC0 |           1|      2355|
++------+---------------------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:25:53 ; elapsed = 00:39:51 . Memory (MB): peak = 1083.820 ; gain = 705.355
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:25:54 ; elapsed = 00:39:51 . Memory (MB): peak = 1083.820 ; gain = 705.355
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:25:54 ; elapsed = 00:39:52 . Memory (MB): peak = 1083.820 ; gain = 705.355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:25:54 ; elapsed = 00:39:52 . Memory (MB): peak = 1083.820 ; gain = 705.355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:25:55 ; elapsed = 00:39:53 . Memory (MB): peak = 1083.820 ; gain = 705.355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:25:55 ; elapsed = 00:39:53 . Memory (MB): peak = 1083.820 ; gain = 705.355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |    12|
+|2     |CARRY4 |    24|
+|3     |LUT1   |   749|
+|4     |LUT2   |  1423|
+|5     |LUT3   |   574|
+|6     |LUT4   |  6403|
+|7     |LUT5   |  1684|
+|8     |LUT6   |  5184|
+|9     |MUXF7  |   532|
+|10    |MUXF8  |   256|
+|11    |FDRE   |  1165|
+|12    |FDSE   |   133|
+|13    |LD     | 18965|
+|14    |IBUF   |   258|
+|15    |OBUF   |   130|
++------+-------+------+
+
+Report Instance Areas: 
++------+----------------------+--------------------+------+
+|      |Instance              |Module              |Cells |
++------+----------------------+--------------------+------+
+|1     |top                   |                    | 37492|
+|2     |  Final_permutation   |final_P             |   528|
+|3     |  Initial_permutation |Initial_P           |   527|
+|4     |  Minor_ST            |Minor_state_machine | 34738|
+|5     |    KS                |key_scheduling_SM   | 32782|
+|6     |    SB                |S_boxes             |   129|
++------+----------------------+--------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:25:55 ; elapsed = 00:39:53 . Memory (MB): peak = 1083.820 ; gain = 705.355
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 404 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:25:55 ; elapsed = 00:39:55 . Memory (MB): peak = 1083.820 ; gain = 705.355
+Synthesis Optimization Complete : Time (s): cpu = 00:25:55 ; elapsed = 00:39:55 . Memory (MB): peak = 1083.820 ; gain = 705.355
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 19777 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 2 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'General_State_machine' is not ideal for floorplanning, since the cellview 'key_scheduling_SM' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 2 inverter(s) to 2 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.016 . Memory (MB): peak = 1083.820 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 18965 instances were transformed.
+  LD => LDCE: 18963 instances
+  LD => LDCE (inverted pins: G): 2 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+191 Infos, 118 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:26:04 ; elapsed = 00:40:11 . Memory (MB): peak = 1083.820 ; gain = 730.230
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 1083.820 ; gain = 0.000
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint 'C:/Users/admin/Desktop/Hardware-Serpent-Cyphering/Hardware_serpent_cyphering/Hardware_serpent_cyphering.runs/synth_1/General_State_machine.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1083.820 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_utilization -file General_State_machine_utilization_synth.rpt -pb General_State_machine_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sat Oct 14 10:48:11 2023...
